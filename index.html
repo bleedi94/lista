@@ -294,3 +294,838 @@ text
     })();
 </script>
 </body> </html>
+Mit GPT-5.2 vorbereitet
+PROMPT – „Work Order Information Summary“ (HTML, 1 Datei)
+
+Du bist mein Assistent zur Erstellung einer einzelnen HTML-Datei namens „Work Order Information Summary“ im exakt gleichen Look & Feel wie mein Referenz-HTML.
+
+OUTPUT (strikt)
+
+Gib ausschließlich das komplette HTML-Dokument aus (kein Markdown, keine Erklärungen, kein Zusatztext).
+
+Das HTML muss vollständig sein: <html>, <head>, <style>, <body>.
+
+Sprache: <html lang="de">.
+
+STYLE (strikt 1:1 übernehmen)
+
+Verwende den folgenden CSS-Block unverändert (nicht kürzen, nicht ergänzen, keine Farben/Abstände ändern, keine Regeln entfernen):
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Work Order Information Summary</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html {
+-webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen [web:46] */
+}
+
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+background-color: #f5f5f5;
+padding: 20px;
+color: #111;
+}
+
+.container {
+max-width: 1400px;
+margin: 0 auto;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+overflow: hidden;
+}
+
+.header {
+background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+color: white;
+padding: 40px 20px;
+text-align: center;
+}
+
+.header h1 {
+font-size: 28px;
+margin-bottom: 10px;
+font-weight: 600;
+}
+
+.header p {
+font-size: 14px;
+opacity: 0.9;
+margin-bottom: 20px;
+}
+
+.powered-by {
+font-size: 12px;
+opacity: 0.7;
+margin-top: 15px;
+}
+
+.table-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
+overscroll-behavior-x: contain;
+background: white;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 13px;
+min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
+}
+
+thead {
+background-color: #2c3e50;
+color: white;
+}
+
+/* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein [web:40] */
+@supports (position: sticky) {
+thead {
+position: sticky;
+top: 0;
+z-index: 5;
+}
+}
+
+th {
+padding: 15px;
+text-align: left;
+font-weight: 600;
+border-right: 1px solid #34495e;
+white-space: nowrap;
+}
+
+th:last-child {
+border-right: none;
+}
+
+td {
+padding: 12px 15px;
+border-bottom: 1px solid #e0e0e0;
+vertical-align: top;
+}
+
+tbody tr {
+transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+
+tbody tr:nth-child(even):hover {
+background-color: #f0f0f0;
+}
+
+/* Column-specific styling */
+td:nth-child(1),
+th:nth-child(1) {
+font-weight: 600;
+color: #2c3e50;
+}
+
+td:nth-child(4),
+th:nth-child(4) {
+color: #555;
+font-size: 12px;
+}
+
+td:nth-child(6),
+th:nth-child(6) {
+color: #555;
+font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+body { padding: 12px; }
+.container { border-radius: 10px; }
+
+.header { padding: 22px 14px; }
+.header h1 { font-size: 20px; line-height: 1.2; }
+.header p { font-size: 13px; margin-bottom: 12px; }
+.powered-by { font-size: 11px; }
+
+table { font-size: 12px; }
+th, td { padding: 10px 12px; }
+}
+
+@media (max-width: 420px) {
+body { padding: 10px; }
+.header h1 { font-size: 18px; }
+
+table { font-size: 11px; }
+th, td { padding: 9px 10px; }
+}
+</style>
+
+
+HEADER
+
+Titel: „Work Order Information Summary“
+
+Unterzeile (wenn im Input vorhanden): „Techniker: {Technikername} | Erstellt: {Datum}“
+
+Wenn Techniker/Datum nicht im Input stehen: nichts raten; Unterzeile weglassen oder neutral ohne erfundene Werte.
+
+TABELLE
+Spalten (Reihenfolge exakt):
+
+WO#
+
+Callnummer
+
+Firma (Ansprechpartner)
+
+Telefon
+
+Ansprechpartner Stadt (Adresse)
+
+Gerät
+
+Problem/Arbeit
+
+SN
+
+DATENEXTRAKTION (pro Work Order)
+
+WO#: Work Order Number (z.B. 17680320).
+
+Callnummer: Customer Call ID / CUST. CALL.
+
+Telefon (Hauptnummer): TEL.1 (oder „Telephone“ aus Customer Info).
+
+Zweitnummer: ALT.TEL.1 oder falls als [TELE 2] ... geführt.
+
+Adresse: ADDR1 + ZIP CODE + CITY, formatiert als:
+Spalte 5 zweizeilig:
+Zeile 1: {CITY}
+Zeile 2: {ADDR1}, {ZIP} {CITY}
+
+Gerät: kurzer Systemtyp/Model aus SYSTEM TYPE/Model Description (kurz wie im Referenz-HTML).
+
+Problem/Arbeit: Englisch, kurze klare Symptom/Work-Beschreibung.
+
+SN: Serial Number aus SER. NUM.
+
+REGELN (strikt)
+A) Telefonspalte
+
+Immer zuerst Hauptnummer (TEL.1) ausgeben.
+
+Prüfen, ob Zweitnummer vorhanden (ALT.TEL.1 oder [TELE 2]).
+
+Zweitnummer nur hinzufügen, wenn eindeutig anders als Hauptnummer.
+
+Zweitnummer NICHT übernehmen, wenn leer, „N/A“, nur „+49“, oder offensichtlich unvollständig.
+
+Format bei gültiger Zweitnummer: Hauptnummer / Zweitnummer.
+
+B) Firma (Ansprechpartner)
+
+Format: Ansprechpartner | Firmenname
+
+Ansprechpartner:
+
+primär aus „Contact Person“ / CALLER1 / benannter Person.
+
+wenn dort kein echter Name steht (z.B. „Support Team“/leer), versuche Name aus Email abzuleiten (vorname.nachname@firma.de → „Vorname Nachname“, normalisierte Groß-/Kleinschreibung).
+
+wenn kein Name ableitbar: „Support Team“ nutzen oder Ansprechpartner weglassen (aber nicht raten).
+
+Firmenname: aus COMPANY/„Office“/Customer Info (eindeutigste Bezeichnung).
+
+Wenn Ansprechpartner fehlt: nur Firmenname ohne führendes „|“.
+
+C) Interaktive Checkbox (Pflicht)
+
+In Spalte „Firma (Ansprechpartner)“ muss pro Zeile links eine Checkbox sein:
+<input type="checkbox" id="called-{WO#}" aria-label="Kunde angerufen: {WO#}">
+und ein passendes <label for="called-{WO#}">...</label>
+
+Checkbox muss klickbar sein, ohne Textauswahl zu zerstören (Text bleibt kopierbar).
+
+D) Notizfeld (Pflicht)
+
+Unter dem Firmennamen in derselben Zelle (Spalte 3) ein Eingabefeld für Notizen:
+
+<input type="text" id="note-{WO#}" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+Notiz muss pro WO separat gespeichert und beim Laden wiederhergestellt werden.
+
+E) Speichern der Zustände (Pflicht)
+
+Checkbox-Status und Notizen müssen via localStorage gespeichert werden und nach Reload/Schließen wiederhergestellt werden.
+
+Verwende eindeutige Storage-Keys mit Prefix, das die Liste eindeutig macht (z.B. „56640:02-02-2026 19:13:“ oder vergleichbar).
+
+F) Click-to-Copy (Pflicht)
+
+Wenn ich irgendwo auf Zahlen oder Namen klicke (z.B. WO#, Callnummer, Telefonnummer, Name/Firma, Stadt/Adresse, Gerät, SN), soll der angeklickte Text automatisch in die Zwischenablage kopiert werden.
+
+Es darf NICHT das Tippen in Notizfeldern stören (Klicks/Selection in <input> dürfen nicht kopieren).
+
+Checkbox-Klicks dürfen nicht kaputtgehen.
+
+Nutze navigator.clipboard.writeText, mit Fallback, falls nicht verfügbar.
+
+QUALITÄTSCHECKS
+
+Keine doppelten Telefonnummern in einer Zelle.
+
+Keine Platzhalter wie „N/A“ oder „+49“ als Zweitnummer ausgeben.
+
+Jede Work Order = genau eine Tabellenzeile.
+
+Keine Work Order doppelt.
+
+FILTER
+
+Entferne/ignoriere diese Work Order vollständig (keine Zeile dafür): XXXXX
+
+INPUT-FORMAT
+Ich liefere dir den Text aus 1+ PDFs in Blöcken:
+=== WO START ===
+[Textblock zur Work Order inkl. SYSTEM TYPE, SER. NUM, CUST. CALL, COMPANY, ADDR1, ZIP CODE, CITY, CALLER1, TEL.1, ALT.TEL.1, EMAILs, NARRATIVE, ggf. [TELE 2]]
+=== WO END ===
+
+AUFGABE JETZT
+
+Analysiere alle gelieferten WO-Blöcke.
+
+Erzeuge daraus das fertige HTML-Dokument mit dem oben definierten Style und der Tabelle.
+
+Gib ausschließlich das komplette HTML-Dokument aus.
+
+Eng_WOList_ext_V3.pdf
+<!DOCTYPE html> <html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
+text
+    html {
+        -webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen  */
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+        color: #111;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .header p {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 20px;
+    }
+
+    .powered-by {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-top: 15px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
+        overscroll-behavior-x: contain;
+        background: white;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
+    }
+
+    thead {
+        background-color: #2c3e50;
+        color: white;
+    }
+
+    /* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein  */
+    @supports (position: sticky) {
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+    }
+
+    th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        border-right: 1px solid #34495e;
+        white-space: nowrap;
+    }
+
+    th:last-child {
+        border-right: none;
+    }
+
+    td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+        vertical-align: top;
+    }
+
+    tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tbody tr:nth-child(even):hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Column-specific styling */
+    td:nth-child(1),
+    th:nth-child(1) {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    td:nth-child(4),
+    th:nth-child(4) {
+        color: #555;
+        font-size: 12px;
+    }
+
+    td:nth-child(6),
+    th:nth-child(6) {
+        color: #555;
+        font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        body { padding: 12px; }
+        .container { border-radius: 10px; }
+
+        .header { padding: 22px 14px; }
+        .header h1 { font-size: 20px; line-height: 1.2; }
+        .header p { font-size: 13px; margin-bottom: 12px; }
+        .powered-by { font-size: 11px; }
+
+        table { font-size: 12px; }
+        th, td { padding: 10px 12px; }
+    }
+
+    @media (max-width: 420px) {
+        body { padding: 10px; }
+        .header h1 { font-size: 18px; }
+
+        table { font-size: 11px; }
+        th, td { padding: 9px 10px; }
+    }
+</style>
+</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 04-02-2026 19:13</p> </div>
+text
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>WO#</th>
+                    <th>Callnummer</th>
+                    <th>Firma (Ansprechpartner)</th>
+                    <th>Telefon</th>
+                    <th>Ansprechpartner Stadt (Adresse)</th>
+                    <th>Gerät</th>
+                    <th>Problem/Arbeit</th>
+                    <th>SN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 17680320 muss komplett ignoriert werden (Filter) -->
+
+                <tr>
+                    <td class="copyable">17689642</td>
+                    <td class="copyable">4021229307</td>
+                    <td>
+                        <input type="checkbox" id="called-17689642" aria-label="Kunde angerufen: 17689642">
+                        <label for="called-17689642" class="copyable">Daniel Panne | Datagroup Enterprise Services GmbH</label><br>
+                        <input type="text" id="note-17689642" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+491622756349</td>
+                    <td class="copyable">Düsseldorf<br>Parsevalstr. 9b ,6. OG, DE40468 Düsseldorf</td>
+                    <td class="copyable">NB TP T16 G4</td>
+                    <td class="copyable">Intermittent no boot; freezes on Lenovo splash screen, later boots after waiting.</td>
+                    <td class="copyable">PF5NVDLC</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17692075</td>
+                    <td class="copyable">4021262338</td>
+                    <td>
+                        <input type="checkbox" id="called-17692075" aria-label="Kunde angerufen: 17692075">
+                        <label for="called-17692075" class="copyable">Kai Di Nucci</label><br>
+                        <input type="text" id="note-17692075" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+4915118564696</td>
+                    <td class="copyable">Düsseldorf<br>Forststraße 16, DE40597 Düsseldorf</td>
+                    <td class="copyable">NB TP T14 G5</td>
+                    <td class="copyable">Display flickering; updates only help temporarily.</td>
+                    <td class="copyable">PF5CTFSV</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17693128</td>
+                    <td class="copyable">4021278972</td>
+                    <td>
+                        <input type="checkbox" id="called-17693128" aria-label="Kunde angerufen: 17693128">
+                        <label for="called-17693128" class="copyable">Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA</label><br>
+                        <input type="text" id="note-17693128" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+491728985736</td>
+                    <td class="copyable">Düsseldorf<br>Henkelstraße 67, DE40589 Düsseldorf</td>
+                    <td class="copyable">NB TP X13 Yoga G3</td>
+                    <td class="copyable">Touch screen not working; waiting to start warranty exception (WE) process.</td>
+                    <td class="copyable">PW04C1XB</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17693451</td>
+                    <td class="copyable">4021281634</td>
+                    <td>
+                        <input type="checkbox" id="called-17693451" aria-label="Kunde angerufen: 17693451">
+                        <label for="called-17693451" class="copyable">Stadtverwaltung Langenfeld Rathaus | Stadtverwaltung Langenfeld Rathaus</label><br>
+                        <input type="text" id="note-17693451" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+4921737943311</td>
+                    <td class="copyable">Langenfeld Rheinland<br>Konrad Adenauer Platz 1 1 OG 113, DE40764 Langenfeld Rheinland</td>
+                    <td class="copyable">NB TP L13 Yoga G2</td>
+                    <td class="copyable">Post-mainboard swap: GoldenKey EEPROM write failed and keyboard not working; needs new parts.</td>
+                    <td class="copyable">PW01T5B5</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17693491</td>
+                    <td class="copyable">4021282022</td>
+                    <td>
+                        <input type="checkbox" id="called-17693491" aria-label="Kunde angerufen: 17693491">
+                        <label for="called-17693491" class="copyable">Unisys Deutschland GmbH | Unisys Deutschland GmbH</label><br>
+                        <input type="text" id="note-17693491" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+491622559152</td>
+                    <td class="copyable">Düsseldorf<br>Henkelstraße 67 E06 / 3. OG / R., DE40589 Düsseldorf</td>
+                    <td class="copyable">NB TP X13 Yoga G4</td>
+                    <td class="copyable">No power / not charging; LEDs stay off; hard reset did not help.</td>
+                    <td class="copyable">PF4XN0LC</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17693610</td>
+                    <td class="copyable">06464881603</td>
+                    <td>
+                        <input type="checkbox" id="called-17693610" aria-label="Kunde angerufen: 17693610">
+                        <label for="called-17693610" class="copyable">Maksim Frajs | RHENUS PORT LOGISTICS RHEIN-RUHR GMBH</label><br>
+                        <input type="text" id="note-17693610" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">492038009459 / 491708856811</td>
+                    <td class="copyable">Duisburg<br>August-Hirsch-Str. 3, DE47119 Duisburg</td>
+                    <td class="copyable">Latitude 5440</td>
+                    <td class="copyable">No power; USB-C was not charging, battery now empty; replace motherboard.</td>
+                    <td class="copyable">CWHLY04</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694550</td>
+                    <td class="copyable">06464904235</td>
+                    <td>
+                        <input type="checkbox" id="called-17694550" aria-label="Kunde angerufen: 17694550">
+                        <label for="called-17694550" class="copyable">Benno Wuttke | GUSTAV KLAUKE GMBH</label><br>
+                        <input type="text" id="note-17694550" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">491755734315</td>
+                    <td class="copyable">Langenfeld (Rheinland)<br>Katzbergstr. 1, DE40764 Langenfeld (Rheinland)</td>
+                    <td class="copyable">Latitude 5440</td>
+                    <td class="copyable">No power; replace mainboard.</td>
+                    <td class="copyable">9X2HY04</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694611</td>
+                    <td class="copyable">4021297984</td>
+                    <td>
+                        <input type="checkbox" id="called-17694611" aria-label="Kunde angerufen: 17694611">
+                        <label for="called-17694611" class="copyable">Novitas BKK | Novitas BKK</label><br>
+                        <input type="text" id="note-17694611" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+492035458644</td>
+                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
+                    <td class="copyable">NB TP E15 AMD G4</td>
+                    <td class="copyable">USB-C port intermittent connection (loose contact) on Igel OS 12; planar replacement.</td>
+                    <td class="copyable">PF4532RF</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694643</td>
+                    <td class="copyable">4021298041</td>
+                    <td>
+                        <input type="checkbox" id="called-17694643" aria-label="Kunde angerufen: 17694643">
+                        <label for="called-17694643" class="copyable">Greenovis Group | Greenovis Group</label><br>
+                        <input type="text" id="note-17694643" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+4915120852171</td>
+                    <td class="copyable">Langenfeld (Rheinland)<br>Katzbergstraße 3a Etage 2, DE40764 Langenfeld (Rheinland)</td>
+                    <td class="copyable">NB TP E14 AMD G6</td>
+                    <td class="copyable">2100 error: SSD not discovered; replace SSD first, then mainboard if needed.</td>
+                    <td class="copyable">PF5HX7KB</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694684</td>
+                    <td class="copyable">4021298383</td>
+                    <td>
+                        <input type="checkbox" id="called-17694684" aria-label="Kunde angerufen: 17694684">
+                        <label for="called-17694684" class="copyable">Novitas BKK | Novitas BKK</label><br>
+                        <input type="text" id="note-17694684" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+492035458644</td>
+                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
+                    <td class="copyable">NB TP E15 AMD G4</td>
+                    <td class="copyable">USB-C port loose connection on Igel OS 12; planned planar replacement.</td>
+                    <td class="copyable">PF44Z73Q</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694703</td>
+                    <td class="copyable">4021298088</td>
+                    <td>
+                        <input type="checkbox" id="called-17694703" aria-label="Kunde angerufen: 17694703">
+                        <label for="called-17694703" class="copyable">Novitas BKK | Novitas BKK</label><br>
+                        <input type="text" id="note-17694703" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+492035458644</td>
+                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
+                    <td class="copyable">NB TP E15 AMD G4</td>
+                    <td class="copyable">USB-C defective (loose port) on Igel OS 12; replace planar.</td>
+                    <td class="copyable">PF4508V6</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694707</td>
+                    <td class="copyable">4021298589</td>
+                    <td>
+                        <input type="checkbox" id="called-17694707" aria-label="Kunde angerufen: 17694707">
+                        <label for="called-17694707" class="copyable">Novitas BKK | Novitas BKK</label><br>
+                        <input type="text" id="note-17694707" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+492035458644</td>
+                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
+                    <td class="copyable">NB TP E15 AMD G4</td>
+                    <td class="copyable">USB-C defective on Igel OS 12; replace planar.</td>
+                    <td class="copyable">PF456CZJ</td>
+                </tr>
+
+                <tr>
+                    <td class="copyable">17694777</td>
+                    <td class="copyable">4021299137</td>
+                    <td>
+                        <input type="checkbox" id="called-17694777" aria-label="Kunde angerufen: 17694777">
+                        <label for="called-17694777" class="copyable">Novitas BKK | Novitas BKK</label><br>
+                        <input type="text" id="note-17694777" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
+                    </td>
+                    <td class="copyable">+49492035458644 / +492035458644</td>
+                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
+                    <td class="copyable">NB TP E15 AMD G4</td>
+                    <td class="copyable">Auto power off/noises on startup even on AC; using Igel OS 12; replace parts.</td>
+                    <td class="copyable">PF45C1AS</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    (function () {
+        "use strict";
+
+        // Prefix muss die Liste eindeutig machen (Beispiel aus Input: 56640 + Timestamp)
+        var STORAGE_PREFIX = "56640:04-02-2026 19:13:";
+
+        function isValidSecondPhone(p) {
+            if (!p) return false;
+            var s = String(p).trim();
+            if (!s) return false;
+            if (/^n\/a$/i.test(s)) return false;
+            if (s === "+49") return false;
+            var digits = s.replace(/[^\d]/g, "");
+            if (digits.length < 5) return false;
+            return true;
+        }
+
+        function normalizePhoneForCompare(p) {
+            if (!p) return "";
+            return String(p).replace(/[^\d+]/g, "").trim();
+        }
+
+        function setupPersistenceForWO(wo) {
+            var cb = document.getElementById("called-" + wo);
+            var note = document.getElementById("note-" + wo);
+            if (!cb || !note) return;
+
+            var cbKey = STORAGE_PREFIX + "called:" + wo;
+            var noteKey = STORAGE_PREFIX + "note:" + wo;
+
+            // Restore
+            var storedCb = localStorage.getItem(cbKey);
+            if (storedCb !== null) cb.checked = (storedCb === "true");
+
+            var storedNote = localStorage.getItem(noteKey);
+            if (storedNote !== null) note.value = storedNote;
+
+            // Save
+            cb.addEventListener("change", function () {
+                localStorage.setItem(cbKey, String(cb.checked));
+            });
+
+            note.addEventListener("input", function () {
+                localStorage.setItem(noteKey, note.value);
+            });
+        }
+
+        function fallbackCopyText(text) {
+            var ta = document.createElement("textarea");
+            ta.value = text;
+            ta.setAttribute("readonly", "");
+            ta.style.position = "fixed";
+            ta.style.top = "-9999px";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try {
+                document.execCommand("copy");
+            } catch (e) {
+                // ignore
+            } finally {
+                document.body.removeChild(ta);
+            }
+        }
+
+        function copyToClipboard(text) {
+            var t = (text == null) ? "" : String(text);
+            if (!t.trim()) return;
+
+            if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                navigator.clipboard.writeText(t).catch(function () {
+                    fallbackCopyText(t);
+                });
+            } else {
+                fallbackCopyText(t);
+            }
+        }
+
+        function isBlockedTarget(target) {
+            if (!target) return false;
+            var tag = (target.tagName || "").toUpperCase();
+            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON" || tag === "LABEL") return true;
+            if (target.isContentEditable) return true;
+            return false;
+        }
+
+        // Click-to-copy in Tabelle (ohne Inputs/Checkbox/Label zu stören)
+        document.addEventListener("click", function (e) {
+            var target = e.target;
+            if (!target) return;
+
+            // Nur innerhalb unserer Tabelle
+            var table = target.closest && target.closest("table");
+            if (!table) return;
+
+            // Inputs/Labels nie kopieren
+            if (isBlockedTarget(target)) return;
+
+            // Wenn Text selektiert wurde: nicht kopieren (damit man markieren kann)
+            var sel = window.getSelection && window.getSelection();
+            if (sel && String(sel).trim().length > 0) return;
+
+            // Text aus dem nächsten sinnvollen Element holen
+            var node = target;
+            if (node.closest) {
+                var c = node.closest(".copyable");
+                if (c) node = c;
+            }
+
+            var txt = (node.innerText || node.textContent || "").trim();
+            copyToClipboard(txt);
+        }, { passive: true });
+
+        // Persistenz initialisieren
+        [
+            "17689642","17692075","17693128","17693451","17693491",
+            "17693610","17694550","17694611","17694643","17694684",
+            "17694703","17694707","17694777"
+        ].forEach(setupPersistenceForWO);
+
+        // Telefon-Qualitätscheck (defensiv): sicherstellen, dass keine "nur +49" / "N/A" als Zweitnummer angezeigt wird
+        // (Im statischen HTML bereits berücksichtigt; diese Logik bleibt als Schutz, falls Inhalte später editiert werden.)
+        (function sanitizePhoneCells() {
+            var cells = document.querySelectorAll("tbody td:nth-child(4)");
+            cells.forEach(function (td) {
+                var raw = (td.textContent || "").trim();
+                if (!raw) return;
+
+                if (raw.indexOf("/") >= 0) {
+                    var parts = raw.split("/").map(function (p) { return p.trim(); }).filter(Boolean);
+                    if (parts.length >= 2) {
+                        var main = parts;
+                        var second = parts.slice(1).join(" / ");
+                        if (!isValidSecondPhone(second)) {
+                            td.textContent = main;
+                            return;
+                        }
+                        if (normalizePhoneForCompare(main) === normalizePhoneForCompare(second)) {
+                            td.textContent = main;
+                            return;
+                        }
+                    }
+                }
+            });
+        })();
+    })();
+</script>
+</body> </html>
