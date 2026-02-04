@@ -148,49 +148,7 @@ text
         th, td { padding: 9px 10px; }
     }
 </style>
-
-<style>
-    /* Zusatz-Styles nur funktional, ohne Look&Feel (keine Farben/Abstände ändern) */
-    .cell-flex {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .called-wrap {
-        flex: 0 0 auto;
-        padding-top: 2px;
-    }
-    .company-wrap {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-    .company-label {
-        cursor: pointer;
-        user-select: text; /* Text bleibt kopierbar */
-    }
-    .note-input {
-        width: 100%;
-        margin-top: 6px;
-        padding: 8px 10px;
-        border: 1px solid #d6d6d6;
-        border-radius: 6px;
-        font-size: 12px;
-        outline: none;
-        background: #fff;
-        color: #111;
-    }
-    .note-input:focus {
-        border-color: #bdbdbd;
-    }
-    .click-copy {
-        cursor: pointer;
-        user-select: text;
-    }
-    .addr {
-        white-space: normal;
-    }
-</style>
-</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 03-02-2026 19:13</p> <div class="powered-by">Workorder List 56640</div> </div>
+</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> </div>
 text
     <div class="table-wrapper">
         <table>
@@ -206,272 +164,8 @@ text
                     <th>SN</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- 17680320 ausgeschlossen -->
-                <tr>
-                    <td class="click-copy" data-copy="17686289">17686289</td>
-                    <td class="click-copy" data-copy="4021190410">4021190410</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17686289" aria-label="Kunde angerufen: 17686289">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17686289" data-copy="Jordan Schiefer | BDO AG">Jordan Schiefer | BDO AG</label>
-                                <input class="note-input" type="text" id="note-17686289" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 177 5461750">+49 177 5461750</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Georg-Glock-Straße 8, 40474 Düsseldorf">Georg-Glock-Straße 8, 40474 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad T15 G2">ThinkPad T15 G2</td>
-                    <td class="click-copy" data-copy="Cursor moves by itself (check if caused by touch display; then replace ordered parts)">Cursor moves by itself (check if caused by touch display; then replace ordered parts)</td>
-                    <td class="click-copy" data-copy="PF3XGJWZ">PF3XGJWZ</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17689331">17689331</td>
-                    <td class="click-copy" data-copy="4021226820">4021226820</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17689331" aria-label="Kunde angerufen: 17689331">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17689331" data-copy="Bechtle | IKB Deutsche Industriebank AG">Bechtle | IKB Deutsche Industriebank AG</label>
-                                <input class="note-input" type="text" id="note-17689331" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 175 1145136">+49 175 1145136</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Hansaallee 299 Raum -1338, 40474 Düsseldorf">Hansaallee 299 Raum -1338, 40474 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad X1 2-in-1 G9">ThinkPad X1 2-in-1 G9</td>
-                    <td class="click-copy" data-copy="Touchpad not working (enabled in BIOS); replace planar, touchpad and cable">Touchpad not working (enabled in BIOS); replace planar, touchpad and cable</td>
-                    <td class="click-copy" data-copy="PF5FA5J2">PF5FA5J2</td>
-                </tr>
-
-                <!-- 17689642 ausgeschlossen -->
-                <tr>
-                    <td class="click-copy" data-copy="17691876">17691876</td>
-                    <td class="click-copy" data-copy="4021261716">4021261716</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17691876" aria-label="Kunde angerufen: 17691876">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17691876" data-copy="nautiCLUB holding &amp; nautiCLUB bootsschule | nautiCLUB holding &amp; nautiCLUB bootsschule">nautiCLUB holding &amp; nautiCLUB bootsschule | nautiCLUB holding &amp; nautiCLUB bootsschule</label>
-                                <input class="note-input" type="text" id="note-17691876" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 172 9737995">+49 172 9737995</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Ringelsweide 28 1 EG / Hinterhof, 40223 Düsseldorf">Ringelsweide 28 1 EG / Hinterhof, 40223 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad X1 2-in-1 G9">ThinkPad X1 2-in-1 G9</td>
-                    <td class="click-copy" data-copy="SSD/drive partially detected; Windows partition missing, no boot (replace SSD first; if not fixed, replace mainboard)">SSD/drive partially detected; Windows partition missing, no boot (replace SSD first; if not fixed, replace mainboard)</td>
-                    <td class="click-copy" data-copy="PF5EGZJ0">PF5EGZJ0</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17692075">17692075</td>
-                    <td class="click-copy" data-copy="4021262338">4021262338</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17692075" aria-label="Kunde angerufen: 17692075">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17692075" data-copy="Kai Di Nucci">Kai Di Nucci</label>
-                                <input class="note-input" type="text" id="note-17692075" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 151 18564696">+49 151 18564696</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Forststraße 16, 40597 Düsseldorf">Forststraße 16, 40597 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad T14 G5">ThinkPad T14 G5</td>
-                    <td class="click-copy" data-copy="Display flickering; temporary improvement after hard reset; replace LCD parts">Display flickering; temporary improvement after hard reset; replace LCD parts</td>
-                    <td class="click-copy" data-copy="PF5CTFSV">PF5CTFSV</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17692467">17692467</td>
-                    <td class="click-copy" data-copy="4021266743">4021266743</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17692467" aria-label="Kunde angerufen: 17692467">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17692467" data-copy="Greenovis Group | Greenovis Group">Greenovis Group | Greenovis Group</label>
-                                <input class="note-input" type="text" id="note-17692467" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 151 20852171">+49 151 20852171</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Langenfeld (Rheinland)">Langenfeld (Rheinland)</div>
-                        <div class="click-copy" data-copy="Katzbergstraße 3a Etage 2, 40764 Langenfeld (Rheinland)">Katzbergstraße 3a Etage 2, 40764 Langenfeld (Rheinland)</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad E14 AMD G6">ThinkPad E14 AMD G6</td>
-                    <td class="click-copy" data-copy="No power / no POST (troubleshoot first; then replace planar if still no power)">No power / no POST (troubleshoot first; then replace planar if still no power)</td>
-                    <td class="click-copy" data-copy="PF5HX7KB">PF5HX7KB</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17692905">17692905</td>
-                    <td class="click-copy" data-copy="4021276148">4021276148</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17692905" aria-label="Kunde angerufen: 17692905">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17692905" data-copy="Statkraft Germany GmbH | Statkraft Germany GmbH">Statkraft Germany GmbH | Statkraft Germany GmbH</label>
-                                <input class="note-input" type="text" id="note-17692905" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 151 27539781">+49 151 27539781</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Derendorfer Allee 2a IT Office, 40476 Düsseldorf">Derendorfer Allee 2a IT Office, 40476 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad T14s G4">ThinkPad T14s G4</td>
-                    <td class="click-copy" data-copy="Screen misalignment after repair (realign display; parts as backup)">Screen misalignment after repair (realign display; parts as backup)</td>
-                    <td class="click-copy" data-copy="GM0FXDB1">GM0FXDB1</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17692995">17692995</td>
-                    <td class="click-copy" data-copy="4021277365">4021277365</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17692995" aria-label="Kunde angerufen: 17692995">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17692995" data-copy="KomMITT - Ratingen GmbH | KomMITT - Ratingen GmbH">KomMITT - Ratingen GmbH | KomMITT - Ratingen GmbH</label>
-                                <input class="note-input" type="text" id="note-17692995" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 2102 48280731 / +49 2102 48280455">+49 2102 48280731 / +49 2102 48280455</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Ratingen">Ratingen</div>
-                        <div class="click-copy" data-copy="Kaiserswerther Str. 85, 40878 Ratingen">Kaiserswerther Str. 85, 40878 Ratingen</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad L14 AMD G5">ThinkPad L14 AMD G5</td>
-                    <td class="click-copy" data-copy="Keyboard not working (external keyboard OK; not working in BIOS); replace keyboard and planar">Keyboard not working (external keyboard OK; not working in BIOS); replace keyboard and planar</td>
-                    <td class="click-copy" data-copy="PW0GANWD">PW0GANWD</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17693206">17693206</td>
-                    <td class="click-copy" data-copy="4021279498">4021279498</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17693206" aria-label="Kunde angerufen: 17693206">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17693206" data-copy="Van der Ven Dental | Van der Ven Dental">Van der Ven Dental | Van der Ven Dental</label>
-                                <input class="note-input" type="text" id="note-17693206" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 2102 1338375">+49 2102 1338375</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Ratingen">Ratingen</div>
-                        <div class="click-copy" data-copy="An den Dieken 65, 40885 Ratingen">An den Dieken 65, 40885 Ratingen</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad T15g G2">ThinkPad T15g G2</td>
-                    <td class="click-copy" data-copy="No power / no boot after software update (troubleshoot first; then replace SSD/planar as needed)">No power / no boot after software update (troubleshoot first; then replace SSD/planar as needed)</td>
-                    <td class="click-copy" data-copy="PF42ETVD">PF42ETVD</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17693610">17693610</td>
-                    <td class="click-copy" data-copy="06464881603">06464881603</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17693610" aria-label="Kunde angerufen: 17693610">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17693610" data-copy="Maksim Frajs | RHENUS PORT LOGISTICS RHEIN-RUHR GMBH">Maksim Frajs | RHENUS PORT LOGISTICS RHEIN-RUHR GMBH</label>
-                                <input class="note-input" type="text" id="note-17693610" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 203 8009459 / +49 170 8856811">+49 203 8009459 / +49 170 8856811</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Duisburg">Duisburg</div>
-                        <div class="click-copy" data-copy="August-Hirsch-Str. 3, 47119 Duisburg">August-Hirsch-Str. 3, 47119 Duisburg</div>
-                    </td>
-                    <td class="click-copy" data-copy="Dell Latitude 5440">Dell Latitude 5440</td>
-                    <td class="click-copy" data-copy="No power; USB-C was not charging, battery now empty (replace motherboard)">No power; USB-C was not charging, battery now empty (replace motherboard)</td>
-                    <td class="click-copy" data-copy="CWHLY04">CWHLY04</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17693668">17693668</td>
-                    <td class="click-copy" data-copy="4021283750">4021283750</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17693668" aria-label="Kunde angerufen: 17693668">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17693668" data-copy="Schenker AG | Schenker AG">Schenker AG | Schenker AG</label>
-                                <input class="note-input" type="text" id="note-17693668" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 176 56534411">+49 176 56534411</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Düsseldorf">Düsseldorf</div>
-                        <div class="click-copy" data-copy="Annastraße 51, 40477 Düsseldorf">Annastraße 51, 40477 Düsseldorf</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkPad T14 G3">ThinkPad T14 G3</td>
-                    <td class="click-copy" data-copy="Internal display not working; external monitor works (replace LCD/planar/cables/bezel as ordered)">Internal display not working; external monitor works (replace LCD/planar/cables/bezel as ordered)</td>
-                    <td class="click-copy" data-copy="PF4CZGVQ">PF4CZGVQ</td>
-                </tr>
-
-                <tr>
-                    <td class="click-copy" data-copy="17693673">17693673</td>
-                    <td class="click-copy" data-copy="4021283768">4021283768</td>
-                    <td>
-                        <div class="cell-flex">
-                            <div class="called-wrap">
-                                <input type="checkbox" id="called-17693673" aria-label="Kunde angerufen: 17693673">
-                            </div>
-                            <div class="company-wrap">
-                                <label class="company-label click-copy" for="called-17693673" data-copy="Gina Schlimm | Sinell all IT">Gina Schlimm | Sinell all IT</label>
-                                <input class="note-input" type="text" id="note-17693673" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)">
-                            </div>
-                        </div>
-                    </td>
-                    <td class="click-copy" data-copy="+49 2173 959641">+49 2173 959641</td>
-                    <td class="addr">
-                        <div class="click-copy" data-copy="Monheim am Rhein">Monheim am Rhein</div>
-                        <div class="click-copy" data-copy="Niederstraße 45, 40789 Monheim am Rhein">Niederstraße 45, 40789 Monheim am Rhein</div>
-                    </td>
-                    <td class="click-copy" data-copy="ThinkCentre M70a Gen 6">ThinkCentre M70a Gen 6</td>
-                    <td class="click-copy" data-copy="Fan issue (replace needed parts; run diagnostics after repair)">Fan issue (replace needed parts; run diagnostics after repair)</td>
-                    <td class="click-copy" data-copy="GM14SRH6">GM14SRH6</td>
-                </tr>
+            <tbody id="wo-body">
+                <!-- Keine Zeilen: Es wurden keine WO-Blöcke im bereitgestellten Input übergeben. -->
             </tbody>
         </table>
     </div>
@@ -479,131 +173,124 @@ text
 
 <script>
     (function () {
-        const STORAGE_PREFIX = "56640:03-02-2026 19:13:";
+        "use strict";
 
-        const rows = [
-            "17686289",
-            "17689331",
-            "17691876",
-            "17692075",
-            "17692467",
-            "17692905",
-            "17692995",
-            "17693206",
-            "17693610",
-            "17693668",
-            "17693673"
-        ];
+        // Eindeutiger Prefix (Liste/Generierung) – muss die Liste eindeutig machen
+        var STORAGE_PREFIX = "WOIS:2026-02-04 20:37:";
 
-        function keyFor(type, wo) {
-            return STORAGE_PREFIX + type + ":" + wo;
+        function isValidSecondPhone(p) {
+            if (!p) return false;
+            var s = String(p).trim();
+            if (!s) return false;
+            if (/^n\/a$/i.test(s)) return false;
+            if (s === "+49") return false;
+            // offensichtlich unvollständig: sehr kurz nach Entfernen nicht-Ziffern
+            var digits = s.replace(/[^\d]/g, "");
+            if (digits.length < 5) return false;
+            return true;
         }
 
-        function safeSetItem(k, v) {
-            try { localStorage.setItem(k, v); } catch (e) {}
+        function normalizePhoneForCompare(p) {
+            if (!p) return "";
+            return String(p).replace(/[^\d+]/g, "").trim();
         }
 
-        function safeGetItem(k) {
-            try { return localStorage.getItem(k); } catch (e) { return null; }
-        }
+        function setupPersistenceForRow(wo) {
+            var cb = document.getElementById("called-" + wo);
+            var note = document.getElementById("note-" + wo);
+            if (!cb || !note) return;
 
-        function restoreState() {
-            rows.forEach(wo => {
-                const cb = document.getElementById("called-" + wo);
-                const note = document.getElementById("note-" + wo);
+            var cbKey = STORAGE_PREFIX + "called:" + wo;
+            var noteKey = STORAGE_PREFIX + "note:" + wo;
 
-                if (cb) {
-                    const v = safeGetItem(keyFor("called", wo));
-                    cb.checked = (v === "1");
-                }
+            // Restore
+            var storedCb = localStorage.getItem(cbKey);
+            if (storedCb !== null) cb.checked = (storedCb === "true");
 
-                if (note) {
-                    const v = safeGetItem(keyFor("note", wo));
-                    if (v !== null) note.value = v;
-                }
+            var storedNote = localStorage.getItem(noteKey);
+            if (storedNote !== null) note.value = storedNote;
+
+            // Save
+            cb.addEventListener("change", function () {
+                localStorage.setItem(cbKey, String(cb.checked));
+            });
+
+            note.addEventListener("input", function () {
+                localStorage.setItem(noteKey, note.value);
             });
         }
 
-        function bindStateSaving() {
-            rows.forEach(wo => {
-                const cb = document.getElementById("called-" + wo);
-                const note = document.getElementById("note-" + wo);
-
-                if (cb) {
-                    cb.addEventListener("change", function () {
-                        safeSetItem(keyFor("called", wo), cb.checked ? "1" : "0");
-                    });
-                }
-
-                if (note) {
-                    note.addEventListener("input", function () {
-                        safeSetItem(keyFor("note", wo), note.value);
-                    });
-                }
-            });
-        }
-
-        async function copyText(text) {
-            const t = (text || "").toString().trim();
-            if (!t) return;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                try {
-                    await navigator.clipboard.writeText(t);
-                    return;
-                } catch (e) {}
-            }
+        function fallbackCopyText(text) {
+            var ta = document.createElement("textarea");
+            ta.value = text;
+            ta.setAttribute("readonly", "");
+            ta.style.position = "fixed";
+            ta.style.top = "-9999px";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
 
             try {
-                const ta = document.createElement("textarea");
-                ta.value = t;
-                ta.setAttribute("readonly", "");
-                ta.style.position = "fixed";
-                ta.style.top = "-1000px";
-                ta.style.left = "-1000px";
-                document.body.appendChild(ta);
-                ta.select();
-                ta.setSelectionRange(0, ta.value.length);
                 document.execCommand("copy");
+            } catch (e) {
+                // swallow
+            } finally {
                 document.body.removeChild(ta);
-            } catch (e) {}
+            }
         }
 
-        function isInsideInput(el) {
-            if (!el) return false;
-            const tag = (el.tagName || "").toLowerCase();
-            if (tag === "input" || tag === "textarea" || tag === "select") return true;
-            return !!el.closest("input, textarea, select");
+        function copyToClipboard(text) {
+            var t = (text == null) ? "" : String(text);
+            if (!t.trim()) return;
+
+            if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+                navigator.clipboard.writeText(t).catch(function () {
+                    fallbackCopyText(t);
+                });
+            } else {
+                fallbackCopyText(t);
+            }
         }
 
-        function isCheckbox(el) {
-            if (!el) return false;
-            const tag = (el.tagName || "").toLowerCase();
-            if (tag === "input" && (el.type || "").toLowerCase() === "checkbox") return true;
-            return !!el.closest('input[type="checkbox"]');
+        function shouldIgnoreClickTarget(target) {
+            if (!target) return false;
+            var tag = (target.tagName || "").toUpperCase();
+            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON" || tag === "LABEL") return true;
+            if (target.isContentEditable) return true;
+            return false;
         }
 
-        function bindClickToCopy() {
-            document.addEventListener("click", function (e) {
-                const target = e.target;
+        // Click-to-copy: überall in der Tabelle, außer Inputs/Labels/Buttons
+        document.addEventListener("click", function (e) {
+            var t = e.target;
+            if (shouldIgnoreClickTarget(t)) return;
 
-                if (isInsideInput(target)) return;
-                if (isCheckbox(target)) return;
+            // Nur innerhalb der Tabelle kopieren
+            var inTable = t.closest && t.closest("table");
+            if (!inTable) return;
 
-                const copyEl = target.closest("[data-copy], .click-copy");
-                if (!copyEl) return;
+            // Nicht Checkbox-Klick kaputtmachen: Label/Checkbox sind oben ausgeschlossen
+            var text = "";
+            if (t && typeof t.innerText === "string") {
+                text = t.innerText.trim();
+            } else if (t && typeof t.textContent === "string") {
+                text = t.textContent.trim();
+            }
+            copyToClipboard(text);
+        }, { passive: true });
 
-                const dataCopy = copyEl.getAttribute("data-copy");
-                const text = dataCopy && dataCopy.trim() ? dataCopy : (copyEl.innerText || "");
-                if (!text.trim()) return;
-
-                copyText(text);
-            }, { passive: true });
+        // Beispiel/Platzhalter: Falls später dynamisch Zeilen hinzugefügt werden,
+        // kann man hier pro WO die Persistenz aktivieren.
+        function initExistingRows() {
+            var inputs = document.querySelectorAll('input[type="checkbox"][id^="called-"]');
+            inputs.forEach(function (cb) {
+                var wo = cb.id.replace(/^called-/, "");
+                setupPersistenceForRow(wo);
+            });
         }
 
-        restoreState();
-        bindStateSaving();
-        bindClickToCopy();
+        initExistingRows();
     })();
 </script>
 </body> </html>
