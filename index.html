@@ -1,504 +1,151 @@
 <!DOCTYPE html> <html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
-text
-    html {
-        -webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen  */
-    }
+html {
+-webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen */
+}
 
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        background-color: #f5f5f5;
-        padding: 20px;
-        color: #111;
-    }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+background-color: #f5f5f5;
+padding: 20px;
+color: #111;
+}
 
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
+.container {
+max-width: 1400px;
+margin: 0 auto;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+overflow: hidden;
+}
 
-    .header {
-        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-    }
+.header {
+background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+color: white;
+padding: 40px 20px;
+text-align: center;
+}
 
-    .header h1 {
-        font-size: 28px;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+.header h1 {
+font-size: 28px;
+margin-bottom: 10px;
+font-weight: 600;
+}
 
-    .header p {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 20px;
-    }
+.header p {
+font-size: 14px;
+opacity: 0.9;
+margin-bottom: 20px;
+}
 
-    .powered-by {
-        font-size: 12px;
-        opacity: 0.7;
-        margin-top: 15px;
-    }
+.powered-by {
+font-size: 12px;
+opacity: 0.7;
+margin-top: 15px;
+}
 
-    .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
-        overscroll-behavior-x: contain;
-        background: white;
-    }
+.table-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
+overscroll-behavior-x: contain;
+background: white;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-        min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
-    }
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 13px;
+min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
+}
 
-    thead {
-        background-color: #2c3e50;
-        color: white;
-    }
+thead {
+background-color: #2c3e50;
+color: white;
+}
 
-    /* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein  */
-    @supports (position: sticky) {
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-    }
+/* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein */
+@supports (position: sticky) {
+thead {
+position: sticky;
+top: 0;
+z-index: 5;
+}
+}
 
-    th {
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        border-right: 1px solid #34495e;
-        white-space: nowrap;
-    }
+th {
+padding: 15px;
+text-align: left;
+font-weight: 600;
+border-right: 1px solid #34495e;
+white-space: nowrap;
+}
 
-    th:last-child {
-        border-right: none;
-    }
+th:last-child {
+border-right: none;
+}
 
-    td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #e0e0e0;
-        vertical-align: top;
-    }
+td {
+padding: 12px 15px;
+border-bottom: 1px solid #e0e0e0;
+vertical-align: top;
+}
 
-    tbody tr {
-        transition: background-color 0.2s ease;
-    }
+tbody tr {
+transition: background-color 0.2s ease;
+}
 
-    tbody tr:hover {
-        background-color: #f9f9f9;
-    }
+tbody tr:hover {
+background-color: #f9f9f9;
+}
 
-    tbody tr:nth-child(even) {
-        background-color: #f5f5f5;
-    }
+tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
 
-    tbody tr:nth-child(even):hover {
-        background-color: #f0f0f0;
-    }
+tbody tr:nth-child(even):hover {
+background-color: #f0f0f0;
+}
 
-    /* Column-specific styling */
-    td:nth-child(1),
-    th:nth-child(1) {
-        font-weight: 600;
-        color: #2c3e50;
-    }
+/* Column-specific styling */
+td:nth-child(1),
+th:nth-child(1) {
+font-weight: 600;
+color: #2c3e50;
+}
 
-    td:nth-child(4),
-    th:nth-child(4) {
-        color: #555;
-        font-size: 12px;
-    }
+td:nth-child(4),
+th:nth-child(4) {
+color: #555;
+font-size: 12px;
+}
 
-    td:nth-child(6),
-    th:nth-child(6) {
-        color: #555;
-        font-size: 12px;
-    }
+td:nth-child(6),
+th:nth-child(6) {
+color: #555;
+font-size: 12px;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        body { padding: 12px; }
-        .container { border-radius: 10px; }
+/* Responsive */
+@media (max-width: 768px) {
+body { padding: 12px; }
+.container { border-radius: 10px; }
 
-        .header { padding: 22px 14px; }
-        .header h1 { font-size: 20px; line-height: 1.2; }
-        .header p { font-size: 13px; margin-bottom: 12px; }
-        .powered-by { font-size: 11px; }
+.header { padding: 22px 14px; }
+.header h1 { font-size: 20px; line-height: 1.2; }
+.header p { font-size: 13px; margin-bottom: 12px; }
+.powered-by { font-size: 11px; }
 
-        table { font-size: 12px; }
-        th, td { padding: 10px 12px; }
-    }
+table { font-size: 12px; }
+th, td { padding: 10px 12px; }
+}
 
-    @media (max-width: 420px) {
-        body { padding: 10px; }
-        .header h1 { font-size: 18px; }
+@media (max-width: 420px) {
+body { padding: 10px; }
+.header h1 { font-size: 18px; }
 
-        table { font-size: 11px; }
-        th, td { padding: 9px 10px; }
-    }
+table { font-size: 11px; }
+th, td { padding: 9px 10px; }
+}
 </style>
-</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 04-02-2026 19:13</p> </div>
-text
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>WO#</th>
-                    <th>Callnummer</th>
-                    <th>Firma (Ansprechpartner)</th>
-                    <th>Telefon</th>
-                    <th>Ansprechpartner Stadt (Adresse)</th>
-                    <th>Gerät</th>
-                    <th>Problem/Arbeit</th>
-                    <th>SN</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="copyable">17689642</td>
-                    <td class="copyable">4021229307</td>
-                    <td>
-                        <input type="checkbox" id="called-17689642" aria-label="Kunde angerufen: 17689642">
-                        <label for="called-17689642" class="copyable">Daniel Panne | Datagroup Enterprise Services GmbH</label><br>
-                        <input type="text" id="note-17689642" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+491622756349</td>
-                    <td class="copyable">Düsseldorf<br>Parsevalstr. 9b ,6. OG, DE40468 Düsseldorf</td>
-                    <td class="copyable">NB TP T16 G4</td>
-                    <td class="copyable">Intermittent no boot; freezes on Lenovo splash screen, later boots after waiting.</td>
-                    <td class="copyable">PF5NVDLC</td>
-                </tr>
 
-                <tr>
-                    <td class="copyable">17692075</td>
-                    <td class="copyable">4021262338</td>
-                    <td>
-                        <input type="checkbox" id="called-17692075" aria-label="Kunde angerufen: 17692075">
-                        <label for="called-17692075" class="copyable">Kai Di Nucci</label><br>
-                        <input type="text" id="note-17692075" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+4915118564696</td>
-                    <td class="copyable">Düsseldorf<br>Forststraße 16, DE40597 Düsseldorf</td>
-                    <td class="copyable">NB TP T14 G5</td>
-                    <td class="copyable">Display flickering; updates only help temporarily.</td>
-                    <td class="copyable">PF5CTFSV</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17693128</td>
-                    <td class="copyable">4021278972</td>
-                    <td>
-                        <input type="checkbox" id="called-17693128" aria-label="Kunde angerufen: 17693128">
-                        <label for="called-17693128" class="copyable">Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA</label><br>
-                        <input type="text" id="note-17693128" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+491728985736</td>
-                    <td class="copyable">Düsseldorf<br>Henkelstraße 67, DE40589 Düsseldorf</td>
-                    <td class="copyable">NB TP X13 Yoga G3</td>
-                    <td class="copyable">Touch screen not working; waiting to start warranty exception (WE) process.</td>
-                    <td class="copyable">PW04C1XB</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17693451</td>
-                    <td class="copyable">4021281634</td>
-                    <td>
-                        <input type="checkbox" id="called-17693451" aria-label="Kunde angerufen: 17693451">
-                        <label for="called-17693451" class="copyable">Stadtverwaltung Langenfeld Rathaus | Stadtverwaltung Langenfeld Rathaus</label><br>
-                        <input type="text" id="note-17693451" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+4921737943311</td>
-                    <td class="copyable">Langenfeld Rheinland<br>Konrad Adenauer Platz 1 1 OG 113, DE40764 Langenfeld Rheinland</td>
-                    <td class="copyable">NB TP L13 Yoga G2</td>
-                    <td class="copyable">Post-mainboard swap: GoldenKey EEPROM write failed and keyboard not working; needs new parts.</td>
-                    <td class="copyable">PW01T5B5</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17693491</td>
-                    <td class="copyable">4021282022</td>
-                    <td>
-                        <input type="checkbox" id="called-17693491" aria-label="Kunde angerufen: 17693491">
-                        <label for="called-17693491" class="copyable">Unisys Deutschland GmbH | Unisys Deutschland GmbH</label><br>
-                        <input type="text" id="note-17693491" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+491622559152</td>
-                    <td class="copyable">Düsseldorf<br>Henkelstraße 67 E06 / 3. OG / R., DE40589 Düsseldorf</td>
-                    <td class="copyable">NB TP X13 Yoga G4</td>
-                    <td class="copyable">No power / not charging; LEDs stay off; hard reset did not help.</td>
-                    <td class="copyable">PF4XN0LC</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17693610</td>
-                    <td class="copyable">06464881603</td>
-                    <td>
-                        <input type="checkbox" id="called-17693610" aria-label="Kunde angerufen: 17693610">
-                        <label for="called-17693610" class="copyable">Maksim Frajs | RHENUS PORT LOGISTICS RHEIN-RUHR GMBH</label><br>
-                        <input type="text" id="note-17693610" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">492038009459 / 491708856811</td>
-                    <td class="copyable">Duisburg<br>August-Hirsch-Str. 3, DE47119 Duisburg</td>
-                    <td class="copyable">Latitude 5440</td>
-                    <td class="copyable">No power; USB-C was not charging, battery now empty; replace motherboard.</td>
-                    <td class="copyable">CWHLY04</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694550</td>
-                    <td class="copyable">06464904235</td>
-                    <td>
-                        <input type="checkbox" id="called-17694550" aria-label="Kunde angerufen: 17694550">
-                        <label for="called-17694550" class="copyable">Benno Wuttke | GUSTAV KLAUKE GMBH</label><br>
-                        <input type="text" id="note-17694550" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">491755734315</td>
-                    <td class="copyable">Langenfeld (Rheinland)<br>Katzbergstr. 1, DE40764 Langenfeld (Rheinland)</td>
-                    <td class="copyable">Latitude 5440</td>
-                    <td class="copyable">No power; replace mainboard.</td>
-                    <td class="copyable">9X2HY04</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694611</td>
-                    <td class="copyable">4021297984</td>
-                    <td>
-                        <input type="checkbox" id="called-17694611" aria-label="Kunde angerufen: 17694611">
-                        <label for="called-17694611" class="copyable">Novitas BKK | Novitas BKK</label><br>
-                        <input type="text" id="note-17694611" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+492035458644</td>
-                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
-                    <td class="copyable">NB TP E15 AMD G4</td>
-                    <td class="copyable">USB-C port intermittent connection (loose contact) on Igel OS 12; planar replacement.</td>
-                    <td class="copyable">PF4532RF</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694643</td>
-                    <td class="copyable">4021298041</td>
-                    <td>
-                        <input type="checkbox" id="called-17694643" aria-label="Kunde angerufen: 17694643">
-                        <label for="called-17694643" class="copyable">Greenovis Group | Greenovis Group</label><br>
-                        <input type="text" id="note-17694643" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+4915120852171</td>
-                    <td class="copyable">Langenfeld (Rheinland)<br>Katzbergstraße 3a Etage 2, DE40764 Langenfeld (Rheinland)</td>
-                    <td class="copyable">NB TP E14 AMD G6</td>
-                    <td class="copyable">2100 error: SSD not discovered; replace SSD first, then mainboard if needed.</td>
-                    <td class="copyable">PF5HX7KB</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694684</td>
-                    <td class="copyable">4021298383</td>
-                    <td>
-                        <input type="checkbox" id="called-17694684" aria-label="Kunde angerufen: 17694684">
-                        <label for="called-17694684" class="copyable">Novitas BKK | Novitas BKK</label><br>
-                        <input type="text" id="note-17694684" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+492035458644</td>
-                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
-                    <td class="copyable">NB TP E15 AMD G4</td>
-                    <td class="copyable">USB-C port loose connection on Igel OS 12; planned planar replacement.</td>
-                    <td class="copyable">PF44Z73Q</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694703</td>
-                    <td class="copyable">4021298088</td>
-                    <td>
-                        <input type="checkbox" id="called-17694703" aria-label="Kunde angerufen: 17694703">
-                        <label for="called-17694703" class="copyable">Novitas BKK | Novitas BKK</label><br>
-                        <input type="text" id="note-17694703" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+492035458644</td>
-                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
-                    <td class="copyable">NB TP E15 AMD G4</td>
-                    <td class="copyable">USB-C defective (loose port) on Igel OS 12; replace planar.</td>
-                    <td class="copyable">PF4508V6</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694707</td>
-                    <td class="copyable">4021298589</td>
-                    <td>
-                        <input type="checkbox" id="called-17694707" aria-label="Kunde angerufen: 17694707">
-                        <label for="called-17694707" class="copyable">Novitas BKK | Novitas BKK</label><br>
-                        <input type="text" id="note-17694707" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+492035458644</td>
-                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
-                    <td class="copyable">NB TP E15 AMD G4</td>
-                    <td class="copyable">USB-C defective on Igel OS 12; replace planar.</td>
-                    <td class="copyable">PF456CZJ</td>
-                </tr>
-
-                <tr>
-                    <td class="copyable">17694777</td>
-                    <td class="copyable">4021299137</td>
-                    <td>
-                        <input type="checkbox" id="called-17694777" aria-label="Kunde angerufen: 17694777">
-                        <label for="called-17694777" class="copyable">Novitas BKK | Novitas BKK</label><br>
-                        <input type="text" id="note-17694777" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                    </td>
-                    <td class="copyable">+49492035458644 / +492035458644</td>
-                    <td class="copyable">Duisburg<br>Zum Portsmouthpl. 24, DE47051 Duisburg</td>
-                    <td class="copyable">NB TP E15 AMD G4</td>
-                    <td class="copyable">Auto power off/noises on startup even on AC; using Igel OS 12; replace parts.</td>
-                    <td class="copyable">PF45C1AS</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    (function () {
-        "use strict";
-
-        var STORAGE_PREFIX = "56640:04-02-2026 19:13:";
-
-        function isValidSecondPhone(p) {
-            if (!p) return false;
-            var s = String(p).trim();
-            if (!s) return false;
-            if (/^n\/a$/i.test(s)) return false;
-            if (s === "+49") return false;
-            var digits = s.replace(/[^\d]/g, "");
-            if (digits.length < 5) return false;
-            return true;
-        }
-
-        function normalizePhoneForCompare(p) {
-            if (!p) return "";
-            return String(p).replace(/[^\d+]/g, "").trim();
-        }
-
-        function setupPersistenceForWO(wo) {
-            var cb = document.getElementById("called-" + wo);
-            var note = document.getElementById("note-" + wo);
-            if (!cb || !note) return;
-
-            var cbKey = STORAGE_PREFIX + "called:" + wo;
-            var noteKey = STORAGE_PREFIX + "note:" + wo;
-
-            var storedCb = localStorage.getItem(cbKey);
-            if (storedCb !== null) cb.checked = (storedCb === "true");
-
-            var storedNote = localStorage.getItem(noteKey);
-            if (storedNote !== null) note.value = storedNote;
-
-            cb.addEventListener("change", function () {
-                localStorage.setItem(cbKey, String(cb.checked));
-            });
-
-            note.addEventListener("input", function () {
-                localStorage.setItem(noteKey, note.value);
-            });
-        }
-
-        function fallbackCopyText(text) {
-            var ta = document.createElement("textarea");
-            ta.value = text;
-            ta.setAttribute("readonly", "");
-            ta.style.position = "fixed";
-            ta.style.top = "-9999px";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            try {
-                document.execCommand("copy");
-            } catch (e) {
-            } finally {
-                document.body.removeChild(ta);
-            }
-        }
-
-        function copyToClipboard(text) {
-            var t = (text == null) ? "" : String(text);
-            if (!t.trim()) return;
-
-            if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-                navigator.clipboard.writeText(t).catch(function () {
-                    fallbackCopyText(t);
-                });
-            } else {
-                fallbackCopyText(t);
-            }
-        }
-
-        function isBlockedTarget(target) {
-            if (!target) return false;
-            var tag = (target.tagName || "").toUpperCase();
-            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || tag === "BUTTON" || tag === "LABEL") return true;
-            if (target.isContentEditable) return true;
-            return false;
-        }
-
-        document.addEventListener("click", function (e) {
-            var target = e.target;
-            if (!target) return;
-
-            var table = target.closest && target.closest("table");
-            if (!table) return;
-
-            if (isBlockedTarget(target)) return;
-
-            var sel = window.getSelection && window.getSelection();
-            if (sel && String(sel).trim().length > 0) return;
-
-            var node = target;
-            if (node.closest) {
-                var c = node.closest(".copyable");
-                if (c) node = c;
-            }
-
-            var txt = (node.innerText || node.textContent || "").trim();
-            copyToClipboard(txt);
-        }, { passive: true });
-
-        [
-            "17689642","17692075","17693128","17693451","17693491",
-            "17693610","17694550","17694611","17694643","17694684",
-            "17694703","17694707","17694777"
-        ].forEach(setupPersistenceForWO);
-
-        (function sanitizePhoneCells() {
-            var cells = document.querySelectorAll("tbody td:nth-child(4)");
-            cells.forEach(function (td) {
-                var raw = (td.textContent || "").trim();
-                if (!raw) return;
-
-                if (raw.indexOf("/") >= 0) {
-                    var parts = raw.split("/").map(function (p) { return p.trim(); }).filter(Boolean);
-                    if (parts.length >= 2) {
-                        var main = parts;
-                        var second = parts.slice(1).join(" / ");
-                        if (!isValidSecondPhone(second)) {
-                            td.textContent = main;
-                            return;
-                        }
-                        if (normalizePhoneForCompare(main) === normalizePhoneForCompare(second)) {
-                            td.textContent = main;
-                            return;
-                        }
-                    }
-                }
-            });
-        })();
-    })();
-</script>
-</body> </html>
+</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 05-02-2026 19:13</p> <div class="powered-by">Work Order Dashboard</div> </div> <div class="table-wrapper"> <table> <thead> <tr> <th>WO#</th> <th>Callnummer</th> <th>Firma (Ansprechpartner)</th> <th>Telefon</th> <th>Ansprechpartner Stadt (Adresse)</th> <th>Gerät</th> <th>Problem/Arbeit</th> <th>SN</th> </tr> </thead> <tbody> <tr> <td><span data-copy="17680320">17680320</span></td> <td><span data-copy="4021118785">4021118785</span></td> <td> <input type="checkbox" id="called-17680320" aria-label="Kunde angerufen: 17680320"> <label for="called-17680320"><span data-copy="Protego24 ITS GmbH | Protego ITS">Protego24 ITS GmbH | Protego ITS</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17680320" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+4915168080422">+4915168080422</span></td> <td> <span data-copy="Langenfeld (Rheinland)">Langenfeld (Rheinland)</span><br> <span data-copy="Herzogstraße 8, DE40764 Langenfeld (Rheinland)">Herzogstraße 8, DE40764 Langenfeld (Rheinland)</span> </td> <td><span data-copy="NB TP X1 2-in-1 G10">NB TP X1 2-in-1 G10</span></td> <td><span data-copy="No charging (not charging via power adapter; Lenovo Vantage indicates charging issues).">No charging (not charging via power adapter; Lenovo Vantage indicates charging issues).</span></td> <td><span data-copy="PF5LXXD2">PF5LXXD2</span></td> </tr> <tr> <td><span data-copy="17691866">17691866</span></td> <td><span data-copy="4021261622">4021261622</span></td> <td> <input type="checkbox" id="called-17691866" aria-label="Kunde angerufen: 17691866"> <label for="called-17691866"><span data-copy="Sina Rafezi">Sina Rafezi</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17691866" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+491772779639">+491772779639</span></td> <td> <span data-copy="Ratingen">Ratingen</span><br> <span data-copy="Kaiserswerther Str. 43 ,43/2/2, DE40878 Ratingen">Kaiserswerther Str. 43 ,43/2/2, DE40878 Ratingen</span> </td> <td><span data-copy="NB WS P14s G3">NB WS P14s G3</span></td> <td><span data-copy="USB-C/Thunderbolt port near hinge not charging; second port works.">USB-C/Thunderbolt port near hinge not charging; second port works.</span></td> <td><span data-copy="PF48F368">PF48F368</span></td> </tr> <tr> <td><span data-copy="17693451">17693451</span></td> <td><span data-copy="4021281634">4021281634</span></td> <td> <input type="checkbox" id="called-17693451" aria-label="Kunde angerufen: 17693451"> <label for="called-17693451"><span data-copy="Stadtverwaltung Langenfeld Rathaus | Stadtverwaltung Langenfeld Rathaus">Stadtverwaltung Langenfeld Rathaus | Stadtverwaltung Langenfeld Rathaus</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17693451" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+4921737943311">+4921737943311</span></td> <td> <span data-copy="Langenfeld Rheinland">Langenfeld Rheinland</span><br> <span data-copy="Konrad Adenauer Platz 1 1 OG 113, DE40764 Langenfeld Rheinland">Konrad Adenauer Platz 1 1 OG 113, DE40764 Langenfeld Rheinland</span> </td> <td><span data-copy="NB TP L13 Yoga G2">NB TP L13 Yoga G2</span></td> <td><span data-copy="GoldenKey config failed after mainboard replacement; keyboard not working (EEPROM write failed).">GoldenKey config failed after mainboard replacement; keyboard not working (EEPROM write failed).</span></td> <td><span data-copy="PW01T5B5">PW01T5B5</span></td> </tr> <tr> <td><span data-copy="17693964">17693964</span></td> <td><span data-copy="4021286174">4021286174</span></td> <td> <input type="checkbox" id="called-17693964" aria-label="Kunde angerufen: 17693964"> <label for="called-17693964"><span data-copy="Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA">Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17693964" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+491728985736">+491728985736</span></td> <td> <span data-copy="Düsseldorf">Düsseldorf</span><br> <span data-copy="Henkelstraße 67, DE40589 Düsseldorf">Henkelstraße 67, DE40589 Düsseldorf</span> </td> <td><span data-copy="NB TP T14 G3">NB TP T14 G3</span></td> <td><span data-copy="USB-C port defective/loose contact; hard reset and other tests did not help.">USB-C port defective/loose contact; hard reset and other tests did not help.</span></td> <td><span data-copy="PF43FQ3P">PF43FQ3P</span></td> </tr> <tr> <td><span data-copy="17694005">17694005</span></td> <td><span data-copy="4021286603">4021286603</span></td> <td> <input type="checkbox" id="called-17694005" aria-label="Kunde angerufen: 17694005"> <label for="called-17694005"><span data-copy="ADMIRAL-Entertainment GmbH | ADMIRAL-Entertainment GmbH">ADMIRAL-Entertainment GmbH | ADMIRAL-Entertainment GmbH</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17694005" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+491709234630">+491709234630</span></td> <td> <span data-copy="Duisburg">Duisburg</span><br> <span data-copy="Königstraße 67-69, DE47051 Duisburg">Königstraße 67-69, DE47051 Duisburg</span> </td> <td><span data-copy="Desktop TC M70q Gen 5">Desktop TC M70q Gen 5</span></td> <td><span data-copy="No boot / no response during startup (reported: Alt-P does nothing).">No boot / no response during startup (reported: Alt-P does nothing).</span></td> <td><span data-copy="GM0R5WRC">GM0R5WRC</span></td> </tr> <tr> <td><span data-copy="17694444">17694444</span></td> <td><span data-copy="06464902768">06464902768</span></td> <td> <input type="checkbox" id="called-17694444" aria-label="Kunde angerufen: 17694444"> <label for="called-17694444"><span data-copy="Florian Thiess | ALDI International Services SE &amp; Co. oHG">Florian Thiess | ALDI International Services SE &amp; Co. oHG</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17694444" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="4920820724691Extn4691">4920820724691Extn4691</span></td> <td> <span data-copy="Muelheim an der Ruhr">Muelheim an der Ruhr</span><br> <span data-copy="Mintarder Str. 36-40, DE45481 Muelheim an der Ruhr">Mintarder Str. 36-40, DE45481 Muelheim an der Ruhr</span> </td> <td><span data-copy="Latitude 5450">Latitude 5450</span></td> <td><span data-copy="Ethernet not working; next step: replace motherboard.">Ethernet not working; next step: replace motherboard.</span></td> <td><span data-copy="7734W44">7734W44</span></td> </tr> <tr> <td><span data-copy="17694825">17694825</span></td> <td><span data-copy="4021299557">4021299557</span></td> <td> <input type="checkbox" id="called-17694825" aria-label="Kunde angerufen: 17694825"> <label for="called-17694825"><span data-copy="Polizei NRW | Polizei NRW">Polizei NRW | Polizei NRW</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17694825" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+4915204196073">+4915204196073</span></td> <td> <span data-copy="Duisburg">Duisburg</span><br> <span data-copy="Schifferstraße 10, DE47059 Duisburg">Schifferstraße 10, DE47059 Duisburg</span> </td> <td><span data-copy="NB TP L16 G2">NB TP L16 G2</span></td> <td><span data-copy="USB-C limited connectivity to docking station after firmware update.">USB-C limited connectivity to docking station after firmware update.</span></td> <td><span data-copy="PW0M3AKS">PW0M3AKS</span></td> </tr> <tr> <td><span data-copy="17694992">17694992</span></td> <td><span data-copy="4021301113">4021301113</span></td> <td> <input type="checkbox" id="called-17694992" aria-label="Kunde angerufen: 17694992"> <label for="called-17694992"><span data-copy="Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA">Henkel AG &amp; Co. KGaA | Henkel AG &amp; Co. KGaA</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17694992" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+491728985736">+491728985736</span></td> <td> <span data-copy="Düsseldorf">Düsseldorf</span><br> <span data-copy="Henkelstraße 67, DE40589 Düsseldorf">Henkelstraße 67, DE40589 Düsseldorf</span> </td> <td><span data-copy="NB TP T14 G3">NB TP T14 G3</span></td> <td><span data-copy="No post persists even after mainboard replacement; original USB-C loose contact issue.">No post persists even after mainboard replacement; original USB-C loose contact issue.</span></td> <td><span data-copy="PF43HJVD">PF43HJVD</span></td> </tr> <tr> <td><span data-copy="17696475">17696475</span></td> <td><span data-copy="06464936174">06464936174</span></td> <td> <input type="checkbox" id="called-17696475" aria-label="Kunde angerufen: 17696475"> <label for="called-17696475"><span data-copy="Dominik Zimmermann | HEICO HOLDING GMBH">Dominik Zimmermann | HEICO HOLDING GMBH</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17696475" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="015123530354">015123530354</span></td> <td> <span data-copy="Ratingen">Ratingen</span><br> <span data-copy="Formerstr. 53, DE40878 Ratingen">Formerstr. 53, DE40878 Ratingen</span> </td> <td><span data-copy="Latitude 3550">Latitude 3550</span></td> <td><span data-copy="Camera and microphone not working; after repair: LCD colour issues (replace LCD and bezel).">Camera and microphone not working; after repair: LCD colour issues (replace LCD and bezel).</span></td> <td><span data-copy="9W4DH24">9W4DH24</span></td> </tr> <tr> <td><span data-copy="17696480">17696480</span></td> <td><span data-copy="4021320641">4021320641</span></td> <td> <input type="checkbox" id="called-17696480" aria-label="Kunde angerufen: 17696480"> <label for="called-17696480"><span data-copy="DKV Euro Service GmbH &amp; Co. KG | DKV Euro Service GmbH &amp; Co. KG">DKV Euro Service GmbH &amp; Co. KG | DKV Euro Service GmbH &amp; Co. KG</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17696480" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+4921025518630">+4921025518630</span></td> <td> <span data-copy="Ratingen">Ratingen</span><br> <span data-copy="Balcke-Dürr-Allee 3, DE40882 Ratingen">Balcke-Dürr-Allee 3, DE40882 Ratingen</span> </td> <td><span data-copy="NB TP T14 G5">NB TP T14 G5</span></td> <td><span data-copy="Left USB port intermittent; connection drops when wiggled.">Left USB port intermittent; connection drops when wiggled.</span></td> <td><span data-copy="PF585DP6">PF585DP6</span></td> </tr> <tr> <td><span data-copy="17696641">17696641</span></td> <td><span data-copy="4021321689">4021321689</span></td> <td> <input type="checkbox" id="called-17696641" aria-label="Kunde angerufen: 17696641"> <label for="called-17696641"><span data-copy="Frau Kielneatz | Cimdata Bildungsakademie GmbH">Frau Kielneatz | Cimdata Bildungsakademie GmbH</span></label> <div style="margin-top: 8px;"> <input type="text" id="note-17696641" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </div> </td> <td><span data-copy="+4920328087232 / +4930850726380">+4920328087232 / +4930850726380</span></td> <td> <span data-copy="Duisburg">Duisburg</span><br> <span data-copy="Neudorfer Str. 41-45,, DE47057 Duisburg">Neudorfer Str. 41-45,, DE47057 Duisburg</span> </td> <td><span data-copy="NBLN TB 16 G7">NBLN TB 16 G7</span></td> <td><span data-copy="Speakers distorted/muffled sound persists (replace speakers and test).">Speakers distorted/muffled sound persists (replace speakers and test).</span></td> <td><span data-copy="PW0HEA6B">PW0HEA6B</span></td> </tr> </tbody> </table> </div> </div> <script> (function() { const STORAGE_PREFIX = "56640:05-02-2026 19:13:"; function isEditableElement(el) { if (!el) return false; const tag = (el.tagName || '').toLowerCase(); return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable === true; } function normalizeTextForCopy(text) { return String(text || '').replace(/\s+\n/g, '\n').replace(/\n\s+/g, '\n').replace(/[ \t]{2,}/g, ' ').trim(); } function fallbackCopyText(text) { const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.left = '-1000px'; document.body.appendChild(ta); ta.focus(); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } finally { document.body.removeChild(ta); } return ok; } async function copyTextToClipboard(text) { const t = normalizeTextForCopy(text); if (!t) return; if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') { try { await navigator.clipboard.writeText(t); return; } catch (e) { } } fallbackCopyText(t); } function keyCalled(wo) { return STORAGE_PREFIX + "called:" + wo; } function keyNote(wo) { return STORAGE_PREFIX + "note:" + wo; } function restoreRow(wo) { const cb = document.getElementById("called-" + wo); const note = document.getElementById("note-" + wo); if (cb) { const v = localStorage.getItem(keyCalled(wo)); if (v === "true") cb.checked = true; if (v === "false") cb.checked = false; } if (note) { const v = localStorage.getItem(keyNote(wo)); if (v !== null) note.value = v; } } function persistRow(wo) { const cb = document.getElementById("called-" + wo); const note = document.getElementById("note-" + wo); if (cb) localStorage.setItem(keyCalled(wo), String(cb.checked)); if (note) localStorage.setItem(keyNote(wo), String(note.value || "")); } function wireRow(wo) { const cb = document.getElementById("called-" + wo); const note = document.getElementById("note-" + wo); if (cb) cb.addEventListener('change', function() { persistRow(wo); }); if (note) note.addEventListener('input', function() { persistRow(wo); }); restoreRow(wo); } document.addEventListener('click', function(e) { const target = e.target; if (!target) return; if (isEditableElement(target)) return; if (target.tagName && target.tagName.toLowerCase() === 'label') return; if (target.closest && target.closest('label')) return; const node = (target.closest && target.closest('[data-copy]')) ? target.closest('[data-copy]') : null; if (!node) return; if (target.tagName && target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') return; const text = node.getAttribute('data-copy') || node.textContent || ''; copyTextToClipboard(text); }); [ "17680320", "17691866", "17693451", "17693964", "17694005", "17694444", "17694825", "17694992", "17696475", "17696480", "17696641" ].forEach(wireRow); })(); </script> </body> </html>
