@@ -1,318 +1,314 @@
-<!DOCTYPE html> <html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
-text
-    html {
-        -webkit-text-size-adjust: 100%;
-    }
+<!DOCTYPE html> <html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } text html { -webkit-text-size-adjust: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+    color: #111;
+}
 
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        background-color: #f5f5f5;
-        padding: 20px;
-        color: #111;
-    }
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
 
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
+.header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
 
-    .header {
-        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-    }
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
 
-    .header h1 {
-        font-size: 28px;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+.header p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
 
-    .header p {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 20px;
-    }
+.powered-by {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 15px;
+}
 
-    .powered-by {
-        font-size: 12px;
-        opacity: 0.7;
-        margin-top: 15px;
-    }
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    background: white;
+}
 
-    .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-x: contain;
-        background: white;
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 980px;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-        min-width: 980px;
-    }
+thead {
+    background-color: #2c3e50;
+    color: white;
+}
 
+@supports (position: sticky) {
     thead {
-        background-color: #2c3e50;
-        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 5;
     }
+}
 
-    @supports (position: sticky) {
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-    }
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    border-right: 1px solid #34495e;
+    white-space: nowrap;
+}
 
-    th {
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        border-right: 1px solid #34495e;
-        white-space: nowrap;
-    }
+th:last-child {
+    border-right: none;
+}
 
-    th:last-child {
-        border-right: none;
-    }
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+}
 
-    td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #e0e0e0;
-        vertical-align: top;
-    }
+tbody tr {
+    transition: background-color 0.2s ease;
+}
 
-    tbody tr {
-        transition: background-color 0.2s ease;
-    }
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
 
-    tbody tr:hover {
-        background-color: #f9f9f9;
-    }
+tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
 
-    tbody tr:nth-child(even) {
-        background-color: #f5f5f5;
-    }
+tbody tr:nth-child(even):hover {
+    background-color: #f0f0f0;
+}
 
-    tbody tr:nth-child(even):hover {
-        background-color: #f0f0f0;
-    }
+td:nth-child(1),
+th:nth-child(1) {
+    font-weight: 600;
+    color: #2c3e50;
+}
 
-    td:nth-child(1),
-    th:nth-child(1) {
-        font-weight: 600;
-        color: #2c3e50;
-    }
+td:nth-child(4),
+th:nth-child(4) {
+    color: #555;
+    font-size: 12px;
+}
 
-    td:nth-child(4),
-    th:nth-child(4) {
-        color: #555;
-        font-size: 12px;
-    }
+td:nth-child(6),
+th:nth-child(6) {
+    color: #555;
+    font-size: 12px;
+}
 
-    td:nth-child(6),
-    th:nth-child(6) {
-        color: #555;
-        font-size: 12px;
-    }
+@media (max-width: 768px) {
+    body { padding: 12px; }
+    .container { border-radius: 10px; }
 
-    @media (max-width: 768px) {
-        body { padding: 12px; }
-        .container { border-radius: 10px; }
+    .header { padding: 22px 14px; }
+    .header h1 { font-size: 20px; line-height: 1.2; }
+    .header p { font-size: 13px; margin-bottom: 12px; }
+    .powered-by { font-size: 11px; }
 
-        .header { padding: 22px 14px; }
-        .header h1 { font-size: 20px; line-height: 1.2; }
-        .header p { font-size: 13px; margin-bottom: 12px; }
-        .powered-by { font-size: 11px; }
+    table { font-size: 12px; }
+    th, td { padding: 10px 12px; }
+}
 
-        table { font-size: 12px; }
-        th, td { padding: 10px 12px; }
-    }
+@media (max-width: 420px) {
+    body { padding: 10px; }
+    .header h1 { font-size: 18px; }
 
-    @media (max-width: 420px) {
-        body { padding: 10px; }
-        .header h1 { font-size: 18px; }
-
-        table { font-size: 11px; }
-        th, td { padding: 9px 10px; }
-    }
-</style>
-</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 03-03-2026 19:13</p> <div class="powered-by">Generated Work Order Overview</div> </div> <div class="table-wrapper"> <table> <thead> <tr> <th>WO#</th> <th>Callnummer</th> <th>Firma (Ansprechpartner)</th> <th>Telefon</th> <th>Ansprechpartner Stadt (Adresse)</th> <th>Gerät</th> <th>Problem/Arbeit</th> <th>SN</th> <th>Aktion</th> </tr> </thead> <tbody> <tr> <td class="copyable" data-wo="17719782">17719782</td> <td class="copyable">06465364469</td> <td> <input type="checkbox" id="called-17719782" aria-label="Kunde angerufen: 17719782"> <label for="called-17719782" class="copyable">Mehmet Efe | De Lage Landen Leasing GmbH</label><br> <input type="text" id="note-17719782" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">491704883105 / 491721048756</td> <td class="copyable"> Duesseldorf<br> Theo-Champion-Str. 1, 40549 Duesseldorf </td> <td class="copyable">Latitude 7440</td> <td class="copyable">FAN error - fan not responding, replace motherboard</td> <td class="copyable">DQPXB24</td> <td> <button type="button" class="wo-delete-btn" data-wo="17719782" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17720188">17720188</td> <td class="copyable">06465369131</td> <td> <input type="checkbox" id="called-17720188" aria-label="Kunde angerufen: 17720188"> <label for="called-17720188" class="copyable">Kian Langner | LOESCHE GmbH</label><br> <input type="text" id="note-17720188" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">492115353118</td> <td class="copyable"> Düsseldorf<br> Hansaallee 243, 40549 Düsseldorf </td> <td class="copyable">Latitude 7420</td> <td class="copyable">Fan noise, ball bearing damage, replace heatsink/fan</td> <td class="copyable">18K45M3</td> <td> <button type="button" class="wo-delete-btn" data-wo="17720188" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17720417">17720417</td> <td class="copyable">06465371434</td> <td> <input type="checkbox" id="called-17720417" aria-label="Kunde angerufen: 17720417"> <label for="called-17720417" class="copyable">Olaf Kahmann | De Lage Landen Leasing GmbH</label><br> <input type="text" id="note-17720417" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">491721048756 / 491704883105</td> <td class="copyable"> Duesseldorf<br> Theo-Champion-Str. 1, 40549 Duesseldorf </td> <td class="copyable">Latitude 7440</td> <td class="copyable">Fan not working, replace heatsink assembly</td> <td class="copyable">65VXB24</td> <td> <button type="button" class="wo-delete-btn" data-wo="17720417" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17721097">17721097</td> <td class="copyable">06465389600</td> <td> <input type="checkbox" id="called-17721097" aria-label="Kunde angerufen: 17721097"> <label for="called-17721097" class="copyable">Leona Bischof | Deutsche Glasfaser NGA GmbH</label><br> <input type="text" id="note-17721097" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4921178872000 / 4915257951257</td> <td class="copyable"> Düsseldorf<br> Klaus-Bungert-Str. 8, 40468 Düsseldorf </td> <td class="copyable">Precision 3581</td> <td class="copyable">Some keys not working, replace keyboard</td> <td class="copyable">H9SKJS3</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721097" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17721616">17721616</td> <td class="copyable">06465395052</td> <td> <input type="checkbox" id="called-17721616" aria-label="Kunde angerufen: 17721616"> <label for="called-17721616" class="copyable">Cordula Rützel | Gewerkschaft Nahrung-Genuss- Gaststätten</label><br> <input type="text" id="note-17721616" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">49211506695122 / 492115066950</td> <td class="copyable"> Düsseldorf<br> Willstätterstr. 13, 40549 Düsseldorf </td> <td class="copyable">Dell Pro 14 Plus PB142504LA</td> <td class="copyable">No post, power reset and check BIOS, onsite support</td> <td class="copyable">1MN7JG4</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721616" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17721678">17721678</td> <td class="copyable">4021643102</td> <td> <input type="checkbox" id="called-17721678" aria-label="Kunde angerufen: 17721678"> <label for="called-17721678" class="copyable">DKV Euro Service GmbH &amp; Co. KG</label><br> <input type="text" id="note-17721678" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4921025518630</td> <td class="copyable"> Ratingen<br> Balcke-Dürr-Allee 3, 40882 Ratingen </td> <td class="copyable">NB TP T14 G5 ULT5 32G 512G 11P</td> <td class="copyable">A-cover and display defective, hinge and screws missing, replace hinge and screws</td> <td class="copyable">PF5Q0S9L</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721678" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17721787">17721787</td> <td class="copyable">4021644015</td> <td> <input type="checkbox" id="called-17721787" aria-label="Kunde angerufen: 17721787"> <label for="called-17721787" class="copyable">Hitachi Europe GmbH | Hitachi Europe GmbH - Industrial Compon</label><br> <input type="text" id="note-17721787" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+492115283668</td> <td class="copyable"> Düsseldorf<br> Niederkasseler Lohweg 191, 40547 Düsseldorf </td> <td class="copyable">NB TP T14 G4 I5 16G 512G 11D</td> <td class="copyable">USB-C charging port defective, replace planar board</td> <td class="copyable">PF4QSGSM</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721787" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> <tr> <td class="copyable" data-wo="17721943">17721943</td> <td class="copyable">06465398540</td> <td> <input type="checkbox" id="called-17721943" aria-label="Kunde angerufen: 17721943"> <label for="called-17721943" class="copyable">Louisa Kassner | Insight Technology Solutions GmbH</label><br> <input type="text" id="note-17721943" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4921025510998</td> <td class="copyable"> Ratingen<br> Am Schimmersfeld 5-7, 40880 Ratingen </td> <td class="copyable">Latitude 5450</td> <td class="copyable">Display broken, replace LCD, paid service</td> <td class="copyable">5PP8V44</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721943" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;"> X </button> </td> </tr> </tbody> </table> </div> </div> <script> (function() { const STORAGE_PREFIX = 'WOList:56640:11-02-2026 19:13:'; const workOrders = [ '17719782', '17720188', '17720417', '17721097', '17721616', '17721678', '17721787', '17721943' ];
+    table { font-size: 11px; }
+    th, td { padding: 9px 10px; }
+}
+</style> </head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> </div> <div class="table-wrapper"> <table> <thead> <tr> <th>WO#</th> <th>Callnummer</th> <th>Firma (Ansprechpartner)</th> <th>Telefon</th> <th>Ansprechpartner Stadt (Adresse)</th> <th>Gerät</th> <th>Problem/Arbeit</th> <th>SN</th> <th>Aktion</th> </tr> </thead> <tbody> <tr> <td class="copyable" data-wo="17719782">17719782</td> <td class="copyable">06465364469</td> <td> <input type="checkbox" id="called-17719782" aria-label="Kunde angerufen: 17719782"> <label for="called-17719782" class="copyable">Mehmet Efe | De Lage Landen Leasing GmbH</label> <br> <input type="text" id="note-17719782" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">491704883105 / 491721048756</td> <td class="copyable"> Duesseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Theo-Champion-Str.+1,+40549+Duesseldorf" target="_blank" rel="noopener noreferrer">Theo-Champion-Str. 1, 40549 Duesseldorf</a> </td> <td class="copyable">Latitude 7440</td> <td class="copyable">FAN error - fan not responding, replace motherboard</td> <td class="copyable">DQPXB24</td> <td> <button type="button" class="wo-delete-btn" data-wo="17719782" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17720188">17720188</td> <td class="copyable">06465369131</td> <td> <input type="checkbox" id="called-17720188" aria-label="Kunde angerufen: 17720188"> <label for="called-17720188" class="copyable">Kian Langner | LOESCHE GmbH</label> <br> <input type="text" id="note-17720188" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">492115353118</td> <td class="copyable"> Düsseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Hansaallee+243,+40549+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Hansaallee 243, 40549 Düsseldorf</a> </td> <td class="copyable">Latitude 7420</td> <td class="copyable">Fan noise, ball bearing damage, replace heatsink/fan</td> <td class="copyable">18K45M3</td> <td> <button type="button" class="wo-delete-btn" data-wo="17720188" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17720417">17720417</td> <td class="copyable">06465371434</td> <td> <input type="checkbox" id="called-17720417" aria-label="Kunde angerufen: 17720417"> <label for="called-17720417" class="copyable">Olaf Kahmann | De Lage Landen Leasing GmbH</label> <br> <input type="text" id="note-17720417" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">491721048756 / 491704883105</td> <td class="copyable"> Duesseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Theo-Champion-Str.+1,+40549+Duesseldorf" target="_blank" rel="noopener noreferrer">Theo-Champion-Str. 1, 40549 Duesseldorf</a> </td> <td class="copyable">Latitude 7440</td> <td class="copyable">Fan not working, replace heatsink assembly</td> <td class="copyable">65VXB24</td> <td> <button type="button" class="wo-delete-btn" data-wo="17720417" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17721097">17721097</td> <td class="copyable">06465389600</td> <td> <input type="checkbox" id="called-17721097" aria-label="Kunde angerufen: 17721097"> <label for="called-17721097" class="copyable">Leona Bischof | Deutsche Glasfaser NGA GmbH</label> <br> <input type="text" id="note-17721097" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4921178872000 / 4915257951257</td> <td class="copyable"> Düsseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Klaus-Bungert-Str.+8,+40468+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Klaus-Bungert-Str. 8, 40468 Düsseldorf</a> </td> <td class="copyable">Precision 3581</td> <td class="copyable">Some keys not working, replace keyboard</td> <td class="copyable">H9SKJS3</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721097" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17721616">17721616</td> <td class="copyable">06465395052</td> <td> <input type="checkbox" id="called-17721616" aria-label="Kunde angerufen: 17721616"> <label for="called-17721616" class="copyable">Cordula Rützel | Gewerkschaft Nahrung-Genuss- Gaststätten</label> <br> <input type="text" id="note-17721616" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">49211506695122 / 492115066950</td> <td class="copyable"> Düsseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Willst%C3%A4tterstr.+13,+40549+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Willstätterstr. 13, 40549 Düsseldorf</a> </td> <td class="copyable">Dell Pro 14 Plus PB1425</td> <td class="copyable">No POST, battery disconnect and check BIOS, onsite support</td> <td class="copyable">1MN7JG4</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721616" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17721678">17721678</td> <td class="copyable">4021643102</td> <td> <input type="checkbox" id="called-17721678" aria-label="Kunde angerufen: 17721678"> <label for="called-17721678" class="copyable">DKV Euro Service GmbH &amp; Co. KG</label> <br> <input type="text" id="note-17721678" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4921025518630</td> <td class="copyable"> Ratingen<br> <a href="https://www.google.com/maps/search/?api=1&query=Balcke-D%C3%BCrr-Allee+3,+40882+Ratingen" target="_blank" rel="noopener noreferrer">Balcke-Dürr-Allee 3, 40882 Ratingen</a> </td> <td class="copyable">ThinkPad T14 G5</td> <td class="copyable">A-cover and display defective, hinge and screws missing, replace hinge and screws</td> <td class="copyable">PF5Q0S9L</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721678" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17721787">17721787</td> <td class="copyable">4021644015</td> <td> <input type="checkbox" id="called-17721787" aria-label="Kunde angerufen: 17721787"> <label for="called-17721787" class="copyable">Hitachi Europe GmbH | Hitachi Europe GmbH - Industrial Components</label> <br> <input type="text" id="note-17721787" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+492115283668</td> <td class="copyable"> Düsseldorf<br> <a href="https://www.google.com/maps/search/?api=1&query=Niederkasseler+Lohweg+191,+40547+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Niederkasseler Lohweg 191, 40547 Düsseldorf</a> </td> <td class="copyable">ThinkPad T14 G4</td> <td class="copyable">USB-C charging port defective, replace planar board</td> <td class="copyable">PF4QSGSM</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721787" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> <tr> <td class="copyable" data-wo="17721943">17721943</td> <td class="copyable">06465398540</td> <td> <input type="checkbox" id="called-17721943" aria-label="Kunde angerufen: 17721943"> <label for="called-17721943" class="copyable">Louisa Kassner | Insight Technology Solutions GmbH</label> <br> <input type="text" id="note-17721943" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4921025510998</td> <td class="copyable"> Ratingen<br> <a href="https://www.google.com/maps/search/?api=1&query=Am+Schimmersfeld+5-7,+40880+Ratingen" target="_blank" rel="noopener noreferrer">Am Schimmersfeld 5-7, 40880 Ratingen</a> </td> <td class="copyable">Latitude 5450</td> <td class="copyable">Display broken, replace LCD, paid service</td> <td class="copyable">5PP8V44</td> <td> <button type="button" class="wo-delete-btn" data-wo="17721943" style="border:none;background:#e74c3c;color:#fff;border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;">X</button> </td> </tr> </tbody> </table> </div> </div> <script> (function() { const STORAGE_PREFIX = 'WOList:56640:11-02-2026 19:13:'; const workOrders = [ '17719782', '17720188', '17720417', '17721097', '17721616', '17721678', '17721787', '17721943' ];
 
 function storageKey(type, wo) {
-        return STORAGE_PREFIX + type + ':' + wo;
-    }
+    return STORAGE_PREFIX + type + ':' + wo;
+}
 
-    function loadState() {
-        workOrders.forEach(wo => {
-            const row = document.querySelector('td.copyable[data-wo="' + wo + '"]')?.closest('tr');
-            const hidden = localStorage.getItem(storageKey('hidden', wo));
-            if (hidden === 'true' && row && row.parentNode) {
-                row.parentNode.removeChild(row);
-                return;
-            }
-
-            const cb = document.getElementById('called-' + wo);
-            if (cb) {
-                const stored = localStorage.getItem(storageKey('called', wo));
-                if (stored === 'true') {
-                    cb.checked = true;
-                } else if (stored === 'false') {
-                    cb.checked = false;
-                }
-                cb.addEventListener('change', function() {
-                    try {
-                        localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
-                    } catch (e) {}
-                });
-            }
-
-            const note = document.getElementById('note-' + wo);
-            if (note) {
-                const storedNote = localStorage.getItem(storageKey('note', wo));
-                if (storedNote !== null) {
-                    note.value = storedNote;
-                }
-                note.addEventListener('input', function() {
-                    try {
-                        localStorage.setItem(storageKey('note', wo), note.value);
-                    } catch (e) {}
-                });
-            }
-        });
-    }
-
-    function setupClickToCopy() {
-        function copyText(text) {
-            if (!text) return;
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).catch(function() {
-                    fallbackCopy(text);
-                });
-            } else {
-                fallbackCopy(text);
-            }
+function loadState() {
+    workOrders.forEach(wo => {
+        const row = document.querySelector('td.copyable[data-wo="' + wo + '"]')?.closest('tr');
+        const hidden = localStorage.getItem(storageKey('hidden', wo));
+        if (hidden === 'true' && row && row.parentNode) {
+            row.parentNode.removeChild(row);
+            return;
         }
 
-        function fallbackCopy(text) {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.left = '-9999px';
-            ta.style.top = '0';
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            try {
-                document.execCommand('copy');
-            } catch (e) {}
-            document.body.removeChild(ta);
-        }
-
-        document.addEventListener('click', function(e) {
-            const target = e.target;
-
-            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-                return;
+        const cb = document.getElementById('called-' + wo);
+        if (cb) {
+            const stored = localStorage.getItem(storageKey('called', wo));
+            if (stored === 'true') {
+                cb.checked = true;
+            } else if (stored === 'false') {
+                cb.checked = false;
             }
-
-            if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
-                return;
-            }
-
-            if (target.closest('input[type="text"]')) {
-                return;
-            }
-
-            if (target.tagName === 'INPUT' && target.type === 'checkbox') {
-                return;
-            }
-
-            if (target.classList.contains('copyable')) {
-                const text = target.innerText || target.textContent;
-                copyText(text.trim());
-            }
-        });
-    }
-
-    function hideRowPermanently(row, wo) {
-        try {
-            localStorage.setItem(storageKey('hidden', wo), 'true');
-            localStorage.removeItem(storageKey('called', wo));
-            localStorage.removeItem(storageKey('note', wo));
-        } catch (err) {}
-
-        row.style.transition = 'opacity 0.2s ease, height 0.2s ease';
-        row.style.opacity = '0';
-        row.style.height = '0';
-        row.style.padding = '0';
-        setTimeout(() => {
-            if (row.parentNode) {
-                row.parentNode.removeChild(row);
-            }
-        }, 220);
-    }
-
-    function setupSwipeToDelete() {
-        const rows = document.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            let startX = 0;
-            let startY = 0;
-            let swiped = false;
-            const woCell = row.querySelector('td.copyable[data-wo]');
-            const wo = woCell ? woCell.getAttribute('data-wo') : null;
-
-            if (!wo) return;
-
-            row.addEventListener('touchstart', function (e) {
-                const t = e.changedTouches;
-                startX = t.clientX;
-                startY = t.clientY;
-                swiped = false;
-            }, {passive: true});
-
-            row.addEventListener('touchend', function (e) {
-                if (swiped) return;
-                const t = e.changedTouches;
-                const dx = t.clientX - startX;
-                const dy = t.clientY - startY;
-
-                if (Math.abs(dx) > 80 && Math.abs(dy) < 40) {
-                    swiped = true;
-                    hideRowPermanently(row, wo);
-                }
+            cb.addEventListener('change', function() {
+                try {
+                    localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
+                } catch (e) {}
             });
-        });
-    }
+        }
 
-    function setupDeleteButtons() {
-        document.addEventListener('click', function(e) {
-            const btn = e.target.closest('.wo-delete-btn');
-            if (!btn) return;
-
-            const wo = btn.getAttribute('data-wo');
-            if (!wo) return;
-
-            const row = btn.closest('tr');
-            if (!row) return;
-
-            hideRowPermanently(row, wo);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        loadState();
-        setupClickToCopy();
-        setupSwipeToDelete();
-        setupDeleteButtons();
+        const note = document.getElementById('note-' + wo);
+        if (note) {
+            const storedNote = localStorage.getItem(storageKey('note', wo));
+            if (storedNote !== null) {
+                note.value = storedNote;
+            }
+            note.addEventListener('input', function() {
+                try {
+                    localStorage.setItem(storageKey('note', wo), note.value);
+                } catch (e) {}
+            });
+        }
     });
+}
+
+function setupClickToCopy() {
+    function copyText(text) {
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).catch(function() {
+                fallbackCopy(text);
+            });
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+            document.execCommand('copy');
+        } catch (e) {}
+        document.body.removeChild(ta);
+    }
+
+    document.addEventListener('click', function(e) {
+        const target = e.target;
+
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+            return;
+        }
+
+        if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
+            return;
+        }
+
+        if (target.closest('input[type="text"]')) {
+            return;
+        }
+
+        if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+            return;
+        }
+
+        if (target.classList.contains('copyable')) {
+            const text = target.innerText || target.textContent;
+            copyText(text.trim());
+        }
+    });
+}
+
+function hideRowPermanently(row, wo) {
+    try {
+        localStorage.setItem(storageKey('hidden', wo), 'true');
+        localStorage.removeItem(storageKey('called', wo));
+        localStorage.removeItem(storageKey('note', wo));
+    } catch (err) {}
+
+    row.style.transition = 'opacity 0.2s ease, height 0.2s ease';
+    row.style.opacity = '0';
+    row.style.height = '0';
+    row.style.padding = '0';
+    setTimeout(() => {
+        if (row.parentNode) {
+            row.parentNode.removeChild(row);
+        }
+    }, 220);
+}
+
+function setupSwipeToDelete() {
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+        let startX = 0;
+        let startY = 0;
+        let swiped = false;
+        const woCell = row.querySelector('td.copyable[data-wo]');
+        const wo = woCell ? woCell.getAttribute('data-wo') : null;
+
+        if (!wo) return;
+
+        row.addEventListener('touchstart', function (e) {
+            const t = e.changedTouches;
+            startX = t.clientX;
+            startY = t.clientY;
+            swiped = false;
+        }, {passive: true});
+
+        row.addEventListener('touchend', function (e) {
+            if (swiped) return;
+            const t = e.changedTouches;
+            const dx = t.clientX - startX;
+            const dy = t.clientY - startY;
+
+            if (Math.abs(dx) > 80 && Math.abs(dy) < 40) {
+                swiped = true;
+                hideRowPermanently(row, wo);
+            }
+        });
+    });
+}
+
+function setupDeleteButtons() {
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.wo-delete-btn');
+        if (!btn) return;
+
+        const wo = btn.getAttribute('data-wo');
+        if (!wo) return;
+
+        const row = btn.closest('tr');
+        if (!row) return;
+
+        hideRowPermanently(row, wo);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadState();
+    setupClickToCopy();
+    setupSwipeToDelete();
+    setupDeleteButtons();
+});
 })();
-</script> </body> </html>
+</script>
+
+</body> </html>
