@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
     html {
-        -webkit-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen  */
     }
 
     body {
@@ -46,7 +46,7 @@
 
     .table-wrapper {
         overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        -webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
         overscroll-behavior-x: contain;
         background: white;
     }
@@ -55,7 +55,7 @@
         width: 100%;
         border-collapse: collapse;
         font-size: 13px;
-        min-width: 980px;
+        min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
     }
 
     thead {
@@ -63,6 +63,7 @@
         color: white;
     }
 
+    /* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein  */
     @supports (position: sticky) {
         thead {
             position: sticky;
@@ -105,6 +106,7 @@
         background-color: #f0f0f0;
     }
 
+    /* Column-specific styling */
     td:nth-child(1),
     th:nth-child(1) {
         font-weight: 600;
@@ -123,6 +125,7 @@
         font-size: 12px;
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
         body { padding: 12px; }
         .container { border-radius: 10px; }
@@ -144,4 +147,99 @@
         th, td { padding: 9px 10px; }
     }
 </style>
-</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 10-03-2026 19:13</p> <div class="powered-by">Generated Work Order Overview</div> </div> <div class="table-wrapper"> <table> <thead> <tr> <th>WO#</th> <th>Callnummer</th> <th>Firma (Ansprechpartner)</th> <th>Telefon</th> <th>Ansprechpartner Stadt (Adresse)</th> <th>Gerät</th> <th>Problem/Arbeit</th> <th>SN</th> </tr> </thead> <tbody> <tr> <td class="copyable">17725725</td> <td class="copyable">4021691492</td> <td> <input type="checkbox" id="called-17725725" aria-label="Kunde angerufen: 17725725"> <label for="called-17725725" class="copyable">Galaxus Deutschland GmbH</label> <input type="text" id="note-17725725" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4940822160757</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Odilia-Von-Goch-Strasse+15%2C+47839+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Odilia-Von-Goch-Strasse 15, 47839 Krefeld </a> </div> </td> <td class="copyable">TP X12 detachable G2</td> <td class="copyable">No power, replace system board</td> <td class="copyable">PW0MHMKX</td> </tr> <tr> <td class="copyable">17725743</td> <td class="copyable">4021691749</td> <td> <input type="checkbox" id="called-17725743" aria-label="Kunde angerufen: 17725743"> <label for="called-17725743" class="copyable">Galaxus Deutschland GmbH</label> <input type="text" id="note-17725743" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4940822160757</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Odilia-Von-Goch-Strasse+15%2C+47839+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Odilia-Von-Goch-Strasse 15, 47839 Krefeld </a> </div> </td> <td class="copyable">Desktop TC M75q Gen 5</td> <td class="copyable">No POST, replace system board</td> <td class="copyable">GM12PBMJ</td> </tr> <tr> <td class="copyable">17727071</td> <td class="copyable">06465496688</td> <td> <input type="checkbox" id="called-17727071" aria-label="Kunde angerufen: 17727071"> <label for="called-17727071" class="copyable">Tristan von Nagell | SCHAUINSLAND-REISEN GMBH</label> <input type="text" id="note-17727071" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+492039940510228</td> <td> <div class="copyable">Duisburg</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Stresemannstr.+80%2C+47051+Duisburg" target="_blank" rel="noopener noreferrer" class="copyable"> Stresemannstr. 80, 47051 Duisburg </a> </div> </td> <td class="copyable">Latitude 7320</td> <td class="copyable">Stripes on internal LCD, replace LCD assembly</td> <td class="copyable">1K894M3</td> </tr> <tr> <td class="copyable">17727097</td> <td class="copyable">4021710795</td> <td> <input type="checkbox" id="called-17727097" aria-label="Kunde angerufen: 17727097"> <label for="called-17727097" class="copyable">Galaxus Deutschland GmbH</label> <input type="text" id="note-17727097" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4940822160757</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Odilia-Von-Goch-Strasse+15%2C+47839+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Odilia-Von-Goch-Strasse 15, 47839 Krefeld </a> </div> </td> <td class="copyable">Desktop TC M75q Gen 5</td> <td class="copyable">No POST, beeps 3 times, replace system board</td> <td class="copyable">GM12JSQH</td> </tr> <tr> <td class="copyable">17727532</td> <td class="copyable">4021714926</td> <td> <input type="checkbox" id="called-17727532" aria-label="Kunde angerufen: 17727532"> <label for="called-17727532" class="copyable">Duisburg-Essen University</label> <input type="text" id="note-17727532" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4915901295592</td> <td> <div class="copyable">Duisburg</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Oststra%C3%9Fe+99%2C+47057+Duisburg" target="_blank" rel="noopener noreferrer" class="copyable"> Oststraße 99, 47057 Duisburg </a> </div> </td> <td class="copyable">NB TP L15 G4</td> <td class="copyable">BIOS cannot be downgraded or updated, CPU throttling, replace planar and fan</td> <td class="copyable">PW08ELDE</td> </tr> <tr> <td class="copyable">17727734</td> <td class="copyable">06465446820</td> <td> <input type="checkbox" id="called-17727734" aria-label="Kunde angerufen: 17727734"> <label for="called-17727734" class="copyable">Sahin Bilgi | TIPICO DEUTSCHLAND MARKETING UND VERTRI</label> <input type="text" id="note-17727734" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">00491787626776 / 4972183172920</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Tipico+Sportwetten%2C+47805+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Tipico Sportwetten, 47805 Krefeld </a> </div> </td> <td class="copyable">OptiPlex 7080 XE Micro</td> <td class="copyable">Error 2000-0151 disk 1 incorrect status, replace HDD</td> <td class="copyable">25XP5B3</td> </tr> <tr> <td class="copyable">17728075</td> <td class="copyable">4021725872</td> <td> <input type="checkbox" id="called-17728075" aria-label="Kunde angerufen: 17728075"> <label for="called-17728075" class="copyable">rambedv</label> <input type="text" id="note-17728075" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4915758215221 / +491739377211</td> <td> <div class="copyable">Kempen</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Schmelendorf+1%2C+47906+Kempen" target="_blank" rel="noopener noreferrer" class="copyable"> Schmelendorf 1, 47906 Kempen </a> </div> </td> <td class="copyable">NB TP E16 AMD G2</td> <td class="copyable">No power/POST after BIOS update, replace planar</td> <td class="copyable">PF58ZKRL</td> </tr> <tr> <td class="copyable">17728094</td> <td class="copyable">06465518212</td> <td> <input type="checkbox" id="called-17728094" aria-label="Kunde angerufen: 17728094"> <label for="called-17728094" class="copyable">Gino Seggio | AKIEM HOLDING</label> <input type="text" id="note-17728094" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4916097541350 / 4915170658523</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Bahnstr.+48%2C+47799+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Bahnstr. 48, 47799 Krefeld </a> </div> </td> <td class="copyable">Latitude 5450</td> <td class="copyable">No power, replace mainboard and battery cable</td> <td class="copyable">8RBF544</td> </tr> <tr> <td class="copyable">17728666</td> <td class="copyable">06465525807</td> <td> <input type="checkbox" id="called-17728666" aria-label="Kunde angerufen: 17728666"> <label for="called-17728666" class="copyable">Ali Khan | BECKMAN COULTER GESELLSCHAFT MIT BESCHR</label> <input type="text" id="note-17728666" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">+4915901295460</td> <td> <div class="copyable">Krefeld</div> <div> <a href="https://www.google.com/maps/search/?api=1&query=Europark+Fichtenhain+B+13%2C+47807+Krefeld" target="_blank" rel="noopener noreferrer" class="copyable"> Europark Fichtenhain B 13, 47807 Krefeld </a> </div> </td> <td class="copyable">Dell Pro 14</td> <td class="copyable">No POST, replace fan and mainboard</td> <td class="copyable">GL9X4D4</td> </tr> </tbody> </table> </div> </div> <script> (function() { const STORAGE_PREFIX = 'WOList:56640:10-03-2026 19:13:'; const workOrders = [ '17725725', '17725743', '17727071', '17727097', '17727532', '17727734', '17728075', '17728094', '17728666' ]; function storageKey(type, wo) { return STORAGE_PREFIX + type + ':' + wo; } function loadState() { workOrders.forEach(wo => { const cb = document.getElementById('called-' + wo); if (cb) { const stored = localStorage.getItem(storageKey('called', wo)); if (stored === 'true') { cb.checked = true; } else if (stored === 'false') { cb.checked = false; } cb.addEventListener('change', function() { try { localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false'); } catch (e) {} }); } const note = document.getElementById('note-' + wo); if (note) { const storedNote = localStorage.getItem(storageKey('note', wo)); if (storedNote !== null) { note.value = storedNote; } note.addEventListener('input', function() { try { localStorage.setItem(storageKey('note', wo), note.value); } catch (e) {} }); } }); } function setupClickToCopy() { function copyText(text) { if (!text) return; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); }); } else { fallbackCopy(text); } } function fallbackCopy(text) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '0'; document.body.appendChild(ta); ta.focus(); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); } document.addEventListener('click', function(e) { const target = e.target; if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') { return; } if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) { return; } if (target.closest('input[type="text"]')) { return; } if (target.tagName === 'INPUT' && target.type === 'checkbox') { return; } if (target.classList.contains('copyable')) { const text = target.innerText || target.textContent; copyText(text.trim()); } }); } document.addEventListener('DOMContentLoaded', function() { loadState(); setupClickToCopy(); }); })(); </script> </body> </html>
+    </head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 11-03-2026 19:13</p> <div class="powered-by">Interaktive Übersicht der aktuellen Work Orders</div> </div> <div class="table-wrapper"> <table> <thead> <tr> <th>WO#</th> <th>Callnummer</th> <th>Firma (Ansprechpartner)</th> <th>Telefon</th> <th>Ansprechpartner Stadt (Adresse)</th> <th>Gerät</th> <th>Problem/Arbeit</th> <th>SN</th> </tr> </thead> <tbody> <tr> <td class="copyable">17725287</td> <td class="copyable">06465463021</td> <td> <input type="checkbox" id="called-17725287" aria-label="Kunde angerufen: 17725287"> <label for="called-17725287" class="copyable">Jan Karwath | Lange Volknant Management Consulting</label> <br> <input type="text" id="note-17725287" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4917670631845 / 491728547002</td> <td> <div class="copyable">Ratingen</div> <a href="https://www.google.com/maps/search/?api=1&query=Christinenstr.+1,+40880+Ratingen" target="_blank" class="copyable">Christinenstr. 1, 40880 Ratingen</a> </td> <td class="copyable">XPS 16 9640</td> <td class="copyable">Multiple keyboard keys not reacting, external keyboard works, no mechanical damage or liquid, OS reinstall did not help.</td> <td class="copyable">1TK2K24</td> </tr> <tr> <td class="copyable">17725495</td> <td class="copyable">06465465801</td> <td> <input type="checkbox" id="called-17725495" aria-label="Kunde angerufen: 17725495"> <label for="called-17725495" class="copyable">Louisa Kassner | Insight Technology Solutions GmbH</label> <br> <input type="text" id="note-17725495" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4921025510998</td> <td> <div class="copyable">Ratingen</div> <a href="https://www.google.com/maps/search/?api=1&query=Balcke-D%C3%BCrr-Allee+7,+40882+Ratingen" target="_blank" class="copyable">Balcke-Dürr-Allee 7, 40882 Ratingen</a> </td> <td class="copyable">Latitude 5450</td> <td class="copyable">Previous dispatch LCD was DOA, replace LCD, paid service, contact customer before visit.</td> <td class="copyable">5PP8V44</td> </tr> <tr> <td class="copyable">17728361</td> <td class="copyable">06465521503</td> <td> <input type="checkbox" id="called-17728361" aria-label="Kunde angerufen: 17728361"> <label for="called-17728361" class="copyable">Wolfgang Danz | Gerresheimer AG</label> <br> <input type="text" id="note-17728361" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">492116181103 / 49211618222</td> <td> <div class="copyable">Düsseldorf</div> <a href="https://www.google.com/maps/search/?api=1&query=Peter-M%C3%BCller-Str.+3,+40468+D%C3%BCsseldorf" target="_blank" class="copyable">Peter-Müller-Str. 3, 40468 Düsseldorf</a> </td> <td class="copyable">Latitude 9440 2-in-1</td> <td class="copyable">Camera shutter not opening, known issue, recommended solution does not work, replace LCD assembly.</td> <td class="copyable">227ZRV3</td> </tr> <tr> <td class="copyable">17728565</td> <td class="copyable">06465524673</td> <td> <input type="checkbox" id="called-17728565" aria-label="Kunde angerufen: 17728565"> <label for="called-17728565" class="copyable">Tom Florichs | Schauinsland-Reisen GmbH</label> <br> <input type="text" id="note-17728565" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">4915110546257 / 492039940510226</td> <td> <div class="copyable">Duisburg</div> <a href="https://www.google.com/maps/search/?api=1&query=Stresemannstr.+80,+47051+Duisburg" target="_blank" class="copyable">Stresemannstr. 80, 47051 Duisburg</a> </td> <td class="copyable">Latitude 7320</td> <td class="copyable">LCD issue, please replace LCD, no customer induced damage, morning call requested.</td> <td class="copyable">1R084M3</td> </tr> <tr> <td class="copyable">17729505</td> <td class="copyable">06465544554</td> <td> <input type="checkbox" id="called-17729505" aria-label="Kunde angerufen: 17729505"> <label for="called-17729505" class="copyable">Sascha Khandantour | Kardio mit Herz</label> <br> <input type="text" id="note-17729505" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">1711060580</td> <td> <div class="copyable">Muelheim an der Ruhr</div> <a href="https://www.google.com/maps/search/?api=1&query=Friedrichstr.+12,+45468+Muelheim+an+der+Ruhr" target="_blank" class="copyable">Friedrichstr. 12, 45468 Muelheim an der Ruhr</a> </td> <td class="copyable">Dell Pro Max Tower T2</td> <td class="copyable">Optical drive not working correctly, replace optical drive, hardware service parts and labor.</td> <td class="copyable">GMFW894</td> </tr> <tr> <td class="copyable">17729702</td> <td class="copyable">06465547931</td> <td> <input type="checkbox" id="called-17729702" aria-label="Kunde angerufen: 17729702"> <label for="called-17729702" class="copyable">Max Rüters | AGENA GmbH Gesellschaft für Organisation</label> <br> <input type="text" id="note-17729702" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">02051201660</td> <td> <div class="copyable">Velbert</div> <a href="https://www.google.com/maps/search/?api=1&query=Heidestra%C3%9Fe+71,+42549+Velbert" target="_blank" class="copyable">Heidestraße 71, 42549 Velbert</a> </td> <td class="copyable">Dell Pro Max 16 Plus</td> <td class="copyable">System not charging, replace motherboard, connector and daughterboard.</td> <td class="copyable">4S915J4</td> </tr> <tr> <td class="copyable">17730023</td> <td class="copyable">06465552514</td> <td> <input type="checkbox" id="called-17730023" aria-label="Kunde angerufen: 17730023"> <label for="called-17730023" class="copyable">johannes hoppe | alsterarbeit gemeinnützige GmbH</label> <br> <input type="text" id="note-17730023" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;"> </td> <td class="copyable">0492011832109</td> <td> <div class="copyable">Essen</div> <a href="https://www.google.com/maps/search/?api=1&query=Universit%C3%A4tsstr.+2,+45141+Essen" target="_blank" class="copyable">Universitätsstr. 2, 45141 Essen</a> </td> <td class="copyable">Latitude 5540</td> <td class="copyable">Flickering LCD, troubleshooting done, next step replace motherboard.</td> <td class="copyable">3LWKJS3</td> </tr> </tbody> </table> </div> </div> <script> (function() { const STORAGE_PREFIX = 'WOList:56640:11-02-2026 19:13:'; const workOrders = [ '17725287', '17725495', '17728361', '17728565', '17729505', '17729702', '17730023' ];
+    function storageKey(type, wo) {
+        return STORAGE_PREFIX + type + ':' + wo;
+    }
+
+    function loadState() {
+        workOrders.forEach(wo => {
+            const cb = document.getElementById('called-' + wo);
+            if (cb) {
+                const stored = localStorage.getItem(storageKey('called', wo));
+                if (stored === 'true') {
+                    cb.checked = true;
+                } else if (stored === 'false') {
+                    cb.checked = false;
+                }
+                cb.addEventListener('change', function() {
+                    try {
+                        localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
+                    } catch (e) {}
+                });
+            }
+
+            const note = document.getElementById('note-' + wo);
+            if (note) {
+                const storedNote = localStorage.getItem(storageKey('note', wo));
+                if (storedNote !== null) {
+                    note.value = storedNote;
+                }
+                note.addEventListener('input', function() {
+                    try {
+                        localStorage.setItem(storageKey('note', wo), note.value);
+                    } catch (e) {}
+                });
+            }
+        });
+    }
+
+    function setupClickToCopy() {
+        function copyText(text) {
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            ta.style.top = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try {
+                document.execCommand('copy');
+            } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
+                return;
+            }
+
+            if (target.closest('input[type="text"]')) {
+                return;
+            }
+
+            if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+                return;
+            }
+
+            if (target.classList.contains('copyable')) {
+                const text = target.innerText || target.textContent;
+                copyText(text.trim());
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadState();
+        setupClickToCopy();
+    });
+})();
+</script> </body> </html>
