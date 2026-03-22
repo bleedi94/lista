@@ -148,7 +148,160 @@
     }
 </style>
 </head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 20-03-2026 19:13</p> </div>
-   <div class="table-wrapper">
+<!DOCTYPE html> <html lang="de"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <title>Work Order Information Summary</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
+text
+    html {
+        -webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen  */
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+        color: #111;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .header p {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 20px;
+    }
+
+    .powered-by {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-top: 15px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
+        overscroll-behavior-x: contain;
+        background: white;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
+    }
+
+    thead {
+        background-color: #2c3e50;
+        color: white;
+    }
+
+    /* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein  */
+    @supports (position: sticky) {
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+    }
+
+    th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        border-right: 1px solid #34495e;
+        white-space: nowrap;
+    }
+
+    th:last-child {
+        border-right: none;
+    }
+
+    td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+        vertical-align: top;
+    }
+
+    tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tbody tr:nth-child(even):hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Column-specific styling */
+    td:nth-child(1),
+    th:nth-child(1) {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    td:nth-child(4),
+    th:nth-child(4) {
+        color: #555;
+        font-size: 12px;
+    }
+
+    td:nth-child(6),
+    th:nth-child(6) {
+        color: #555;
+        font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        body { padding: 12px; }
+        .container { border-radius: 10px; }
+
+        .header { padding: 22px 14px; }
+        .header h1 { font-size: 20px; line-height: 1.2; }
+        .header p { font-size: 13px; margin-bottom: 12px; }
+        .powered-by { font-size: 11px; }
+
+        table { font-size: 12px; }
+        th, td { padding: 10px 12px; }
+    }
+
+    @media (max-width: 420px) {
+        body { padding: 10px; }
+        .header h1 { font-size: 18px; }
+
+        table { font-size: 11px; }
+        th, td { padding: 9px 10px; }
+    }
+</style>
+<!-- Datenbasis:  -->[1]
+</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 20-03-2026 19:13</p> </div>
+text
+    <div class="table-wrapper">
         <table>
             <thead>
                 <tr>
@@ -171,13 +324,16 @@
                             <input type="checkbox" id="called-17729652" aria-label="Kunde angerufen: 17729652">
                             <label for="called-17729652"><span class="copyable">Flughafen Düsseldorf GmbH</span></label>
                         </div>
-                        <div style="margin-left:24px; margin-bottom:8px;"><span class="copyable">Flughafen Düsseldorf GmbH</span></div>
                         <input type="text" id="note-17729652" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
                     </td>
                     <td><span class="copyable">+4915234674512 / +4915234668802</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Flughafenstra%C3%9Fe%20105%2C%2040474%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Flughafenstraße 105, 40474 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Flughafenstra%C3%9Fe%20105%2C%2040474%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Flughafenstraße 105, 40474 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X13 Yoga G2</span></td>
                     <td><span class="copyable">Battery defective, laptop only works on AC power and shuts down without charger.</span></td>
@@ -196,7 +352,11 @@
                     <td><span class="copyable">+491728985736</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Henkelstra%C3%9Fe%2067%20E06%203.OG%2C%2040589%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Henkelstraße 67 E06 3.OG, 40589 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Henkelstra%C3%9Fe%2067%20E06%203.OG%2C%2040589%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Henkelstraße 67 E06 3.OG, 40589 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X13 Yoga G4</span></td>
                     <td><span class="copyable">No charging, both USB-C ports not working, battery fully discharged.</span></td>
@@ -215,10 +375,14 @@
                     <td><span class="copyable">+492517604604</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Flughafenstra%C3%9Fe%20105%2C%2040474%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Flughafenstraße 105, 40474 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Flughafenstra%C3%9Fe%20105%2C%2040474%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Flughafenstraße 105, 40474 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X13 Yoga G2</span></td>
-                    <td><span class="copyable">Replace system board and complete verification after repair.</span></td>
+                    <td><span class="copyable">Replace system board and verify system functionality after repair.</span></td>
                     <td><span class="copyable">PW01XLKC</span></td>
                 </tr>
                 <tr>
@@ -234,10 +398,14 @@
                     <td><span class="copyable">+49215495319850</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Zeppenheimer%20Str.%2010%2C%2040489%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Zeppenheimer Str. 10, 40489 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Zeppenheimer%20Str.%2010%2C%2040489%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Zeppenheimer Str. 10, 40489 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">Desktop TC M90q Gen 5</span></td>
-                    <td><span class="copyable">Fan controller may be defective, replace planar due to fan noise issue.</span></td>
+                    <td><span class="copyable">Fan controller suspected defective, replace planar board.</span></td>
                     <td><span class="copyable">GM0RBBV3</span></td>
                 </tr>
                 <tr>
@@ -253,10 +421,14 @@
                     <td><span class="copyable">+4915901295460</span></td>
                     <td>
                         <div class="copyable">Krefeld</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Europark%20Fichtenhain%20B%2013%2C%2047807%20Krefeld" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Europark Fichtenhain B 13, 47807 Krefeld</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Europark%20Fichtenhain%20B%2013%2C%2047807%20Krefeld" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Europark Fichtenhain B 13, 47807 Krefeld
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X13 Yoga G3</span></td>
-                    <td><span class="copyable">Specific keys not working, replace mainboard and keyboard cover assembly.</span></td>
+                    <td><span class="copyable">Specific keys not working, replace mainboard and keyboard cover.</span></td>
                     <td><span class="copyable">PW04Z29S</span></td>
                 </tr>
                 <tr>
@@ -272,10 +444,14 @@
                     <td><span class="copyable">+491743163867</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Postenweg%2030a%2C%2040489%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Postenweg 30a, 40489 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Postenweg%2030a%2C%2040489%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Postenweg 30a, 40489 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X1 Carbon G13</span></td>
-                    <td><span class="copyable">Internal display stays black, replace LCD assembly.</span></td>
+                    <td><span class="copyable">Internal display remains black while external monitor works, replace LCD assembly.</span></td>
                     <td><span class="copyable">PF5DSLZS</span></td>
                 </tr>
                 <tr>
@@ -291,10 +467,14 @@
                     <td><span class="copyable">+491743095235</span></td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Ro%C3%9Fstra%C3%9Fe%2092%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Roßstraße 92, 40476 Düsseldorf</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Ro%C3%9Fstra%C3%9Fe%2092%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Roßstraße 92, 40476 Düsseldorf
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">NB TP X13 G3</span></td>
-                    <td><span class="copyable">Labor-only job, complete missing Golden Key step after mainboard replacement.</span></td>
+                    <td><span class="copyable">Labor-only visit, complete missing Golden Key configuration after mainboard replacement.</span></td>
                     <td><span class="copyable">GM09DBM3</span></td>
                 </tr>
                 <tr>
@@ -310,7 +490,11 @@
                     <td><span class="copyable">491706312815</span></td>
                     <td>
                         <div class="copyable">Duisburg</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Targobank-Platz%201%2C%2047058%20Duisburg" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Targobank-Platz 1, 47058 Duisburg</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Targobank-Platz%201%2C%2047058%20Duisburg" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Targobank-Platz 1, 47058 Duisburg
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">Latitude 3550</span></td>
                     <td><span class="copyable">No video on internal LCD, replace LCD and cable.</span></td>
@@ -329,7 +513,11 @@
                     <td><span class="copyable">4920830663871 / 496742879754</span></td>
                     <td>
                         <div class="copyable">Mülheim an der Ruhr</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wissollstr.%2018%2C%2045478%20M%C3%BClheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Wissollstr. 18, 45478 Mülheim an der Ruhr</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wissollstr.%2018%2C%2045478%20M%C3%BClheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Wissollstr. 18, 45478 Mülheim an der Ruhr
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">Latitude 7450</span></td>
                     <td><span class="copyable">LCD cracked, replace LCD.</span></td>
@@ -348,14 +536,18 @@
                     <td><span class="copyable">4915140650532 / 020360860933</span></td>
                     <td>
                         <div class="copyable">Duisburg</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Am%20Silberpalais%201%2C%2047057%20Duisburg" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Am Silberpalais 1, 47057 Duisburg</a></div>
+                        <div>
+                            <a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Am%20Silberpalais%201%2C%2047057%20Duisburg" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">
+                                Am Silberpalais 1, 47057 Duisburg
+                            </a>
+                        </div>
                     </td>
                     <td><span class="copyable">Latitude 7450</span></td>
-                    <td><span class="copyable">System shuts down after 10-20 minutes, replace motherboard.</span></td>
+                    <td><span class="copyable">System shuts down after 10–20 minutes, replace motherboard.</span></td>
                     <td><span class="copyable">28LZB54</span></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-<script> (function() { const STORAGE_PREFIX = 'WOList:56640:20-03-2026 19:13:'; text const workOrders = [ '17729652', '17731797', '17732823', '17735927', '17736425', '17737780', '17738045', '17738300', '17738942', '17739277' ]; function storageKey(type, wo) { return STORAGE_PREFIX + type + ':' + wo; } function loadState() { workOrders.forEach(wo => { const cb = document.getElementById('called-' + wo); if (cb) { const stored = localStorage.getItem(storageKey('called', wo)); if (stored === 'true') { cb.checked = true; } else if (stored === 'false') { cb.checked = false; } cb.addEventListener('change', function() { try { localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false'); } catch (e) {} }); } const note = document.getElementById('note-' + wo); if (note) { const storedNote = localStorage.getItem(storageKey('note', wo)); if (storedNote !== null) { note.value = storedNote; } note.addEventListener('input', function() { try { localStorage.setItem(storageKey('note', wo), note.value); } catch (e) {} }); } }); } function setupClickToCopy() { function copyText(text) { if (!text) return; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); }); } else { fallbackCopy(text); } } function fallbackCopy(text) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '0'; document.body.appendChild(ta); ta.focus(); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); } document.addEventListener('click', function(e) { const target = e.target; if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') { return; } if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) { return; } if (target.closest('input[type="text"]')) { return; } if (target.tagName === 'INPUT' && target.type === 'checkbox') { return; } if (target.classList.contains('copyable')) { const text = target.innerText || target.textContent; copyText(text.trim()); } }); } document.addEventListener('DOMContentLoaded', function() { loadState(); setupClickToCopy(); }); })(); </script> </body> </html>
+<script> (function() { const STORAGE_PREFIX = 'WOList:56640:20-03-2026 19:13:'; const workOrders = [ '17729652', '17731797', '17732823', '17735927', '17736425', '17737780', '17738045', '17738300', '17738942', '17739277' ]; function storageKey(type, wo) { return STORAGE_PREFIX + type + ':' + wo; } function loadState() { workOrders.forEach(wo => { const cb = document.getElementById('called-' + wo); if (cb) { const stored = localStorage.getItem(storageKey('called', wo)); if (stored === 'true') { cb.checked = true; } else if (stored === 'false') { cb.checked = false; } cb.addEventListener('change', function() { try { localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false'); } catch (e) {} }); } const note = document.getElementById('note-' + wo); if (note) { const storedNote = localStorage.getItem(storageKey('note', wo)); if (storedNote !== null) { note.value = storedNote; } note.addEventListener('input', function() { try { localStorage.setItem(storageKey('note', wo), note.value); } catch (e) {} }); } }); } function setupClickToCopy() { function copyText(text) { if (!text) return; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); }); } else { fallbackCopy(text); } } function fallbackCopy(text) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '0'; document.body.appendChild(ta); ta.focus(); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); } document.addEventListener('click', function(e) { const target = e.target; if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') { return; } if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) { return; } if (target.closest('input[type="text"]')) { return; } if (target.tagName === 'INPUT' && target.type === 'checkbox') { return; } if (target.classList.contains('copyable')) { const text = target.innerText || target.textContent; copyText(text.trim()); } }); } document.addEventListener('DOMContentLoaded', function() { loadState(); setupClickToCopy(); }); })(); </script> </body> </html>
