@@ -147,7 +147,7 @@
         th, td { padding: 9px 10px; }
     }
 </style>
-</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 24-03-2026 19:16</p> </div>
+</head> <body> <div class="container"> <div class="header"> <h1>Work Order Information Summary</h1> <p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 24-03-2026 19:14</p> <div class="powered-by"> Lokale Zustände (Checkboxen &amp; Notizen) werden nur im Browser (localStorage) gespeichert. </div> </div>
     <div class="table-wrapper">
         <table>
             <thead>
@@ -164,159 +164,300 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="copyable">17733941</span></td>
-                    <td><span class="copyable">4021799468</span></td>
+                    <td class="copyable">17733941</td>
+                    <td class="copyable">4021799468</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17733941" aria-label="Kunde angerufen: 17733941">
-                            <label for="called-17733941"><span class="copyable">Anna Levsen | Deutsches Krankenhausinstitut</span></label>
+                            <label for="called-17733941" class="copyable">Anna Levsen | Deutsches Krankenhausinstitut</label>
                         </div>
-                        <input type="text" id="note-17733941" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17733941" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+492114705114 / +491719172074</span></td>
+                    <td class="copyable">+492114705114 / +491719172074</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Prinzenallee%2013%2C%2040549%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Prinzenallee 13, 40549 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Prinzenallee+13,+40549+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Prinzenallee 13, 40549 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">TP E16 G3</span></td>
-                    <td><span class="copyable">Internal keyboard keys not working; replace internal keyboard.</span></td>
-                    <td><span class="copyable">PF5QF91R</span></td>
+                    <td class="copyable">TP E16 G3</td>
+                    <td class="copyable">Some keys not functional on internal keyboard; replace internal keyboard.</td>
+                    <td class="copyable">PF5QF91R</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17735927</span></td>
-                    <td><span class="copyable">4021822665</span></td>
+                    <td class="copyable">17735927</td>
+                    <td class="copyable">4021822665</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17735927" aria-label="Kunde angerufen: 17735927">
-                            <label for="called-17735927"><span class="copyable">Henning Mueller | Megaposter</span></label>
+                            <label for="called-17735927" class="copyable">Henning Mueller | Megaposter</label>
                         </div>
-                        <input type="text" id="note-17735927" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17735927" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+49215495319850</span></td>
+                    <td class="copyable">+49215495319850</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Zeppenheimer%20Str.%2010%2C%2040489%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Zeppenheimer Str. 10, 40489 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Zeppenheimer+Str.+10,+40489+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Zeppenheimer Str. 10, 40489 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">Desktop TC M90q Gen 5</span></td>
-                    <td><span class="copyable">Fan noise persists; replace planar.</span></td>
-                    <td><span class="copyable">GM0RBBV3</span></td>
+                    <td class="copyable">M90q Gen 5</td>
+                    <td class="copyable">Fan noise; replace planar/mainboard as requested.</td>
+                    <td class="copyable">GM0RBBV3</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17741547</span></td>
-                    <td><span class="copyable">4021885309</span></td>
+                    <td class="copyable">17741547</td>
+                    <td class="copyable">4021885309</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17741547" aria-label="Kunde angerufen: 17741547">
-                            <label for="called-17741547"><span class="copyable">Jeff Stralek | Hitachi Europe GmbH</span></label>
+                            <label for="called-17741547" class="copyable">Jeff Stralek | Hitachi Europe GmbH</label>
                         </div>
-                        <input type="text" id="note-17741547" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17741547" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+492115283668</span></td>
+                    <td class="copyable">+492115283668</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Niederkasseler%20Lohweg%20191%201OG%20-%20I%2C%2040547%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Niederkasseler Lohweg 191 1OG - I, 40547 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Niederkasseler+Lohweg+191,+40547+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Niederkasseler Lohweg 191, 40547 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">TP X1 2-in-1 G10</span></td>
-                    <td><span class="copyable">No power; replace main board.</span></td>
-                    <td><span class="copyable">PF5KDS4K</span></td>
+                    <td class="copyable">X1 2-in-1 G10</td>
+                    <td class="copyable">No power; replace main board as per instructions.</td>
+                    <td class="copyable">PF5KDS4K</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17741628</span></td>
-                    <td><span class="copyable">4021895914</span></td>
+                    <td class="copyable">17741628</td>
+                    <td class="copyable">4021895914</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17741628" aria-label="Kunde angerufen: 17741628">
-                            <label for="called-17741628"><span class="copyable">vantago GmbH</span></label>
+                            <label for="called-17741628" class="copyable">Support Team | vantago GmbH</label>
                         </div>
-                        <input type="text" id="note-17741628" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17741628" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+4915126208693</span></td>
+                    <td class="copyable">+4915126208693</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Peter-M%C3%BCller-Str.%2026%2C%2040468%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Peter-Müller-Str. 26, 40468 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Peter-M%C3%BCller-Str.+26,+40468+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Peter-Müller-Str. 26, 40468 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">TP L14 G4</span></td>
-                    <td><span class="copyable">No POST; replace mainboard first, backup parts if needed.</span></td>
-                    <td><span class="copyable">PW05XS2J</span></td>
+                    <td class="copyable">L14 G4</td>
+                    <td class="copyable">No POST; replace mainboard first, other parts as backup.</td>
+                    <td class="copyable">PW05XS2J</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17741647</span></td>
-                    <td><span class="copyable">06465769913</span></td>
+                    <td class="copyable">17741647</td>
+                    <td class="copyable">06465769913</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17741647" aria-label="Kunde angerufen: 17741647">
-                            <label for="called-17741647"><span class="copyable">Christelle Schmitz | Danaher Holding GmbH</span></label>
+                            <label for="called-17741647" class="copyable">Christelle Schmitz | Danaher Holding GmbH</label>
                         </div>
-                        <input type="text" id="note-17741647" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17741647" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">4915115776506</span></td>
+                    <td class="copyable">+4915115776506</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Willst%C3%A4tterstr.%2011%2C%2040549%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Willstätterstr. 11, 40549 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Willst%C3%A4tterstr.+11,+40549+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Willstätterstr. 11, 40549 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">Latitude 5440</span></td>
-                    <td><span class="copyable">LCD damaged by liquid spillage; replace LCD.</span></td>
-                    <td><span class="copyable">HXTHJ34</span></td>
+                    <td class="copyable">Latitude 5440</td>
+                    <td class="copyable">LCD damaged by liquid; replace LCD under Complete Care.</td>
+                    <td class="copyable">HXTHJ34</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17741657</span></td>
-                    <td><span class="copyable">4021896236</span></td>
+                    <td class="copyable">17741657</td>
+                    <td class="copyable">4021896236</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17741657" aria-label="Kunde angerufen: 17741657">
-                            <label for="called-17741657"><span class="copyable">Atul Dalmia</span></label>
+                            <label for="called-17741657" class="copyable">Atul Dalmia</label>
                         </div>
-                        <input type="text" id="note-17741657" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17741657" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+491743187551</span></td>
+                    <td class="copyable">+491743187551</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Orionplatz%206%2C%2040213%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Orionplatz 6, 40213 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Orionplatz+6,+40213+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Orionplatz 6, 40213 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">ThinkPad X1 2-in-1 G10</span></td>
-                    <td><span class="copyable">Keyboard keys only work when pressed hard after liquid damage; replace keyboard, mainboard only if needed.</span></td>
-                    <td><span class="copyable">PF5R6TB6</span></td>
+                    <td class="copyable">X1 2-in-1 G10</td>
+                    <td class="copyable">Few keys only work when hard pressed; liquid damage, replace keyboard (mainboard as backup).</td>
+                    <td class="copyable">PF5R6TB6</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17741741</span></td>
-                    <td><span class="copyable">4021896711</span></td>
+                    <td class="copyable">17741741</td>
+                    <td class="copyable">4021896711</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17741741" aria-label="Kunde angerufen: 17741741">
-                            <label for="called-17741741"><span class="copyable">Metro</span></label>
+                            <label for="called-17741741" class="copyable">Om Heydt | Metro</label>
                         </div>
-                        <input type="text" id="note-17741741" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17741741" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+4915115114607</span></td>
+                    <td class="copyable">+4915115114607</td>
                     <td>
                         <div class="copyable">Düsseldorf</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Metro-Stra%C3%9Fe%20B2%2C04.002%2C%2040235%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Metro-Straße B2,04.002, 40235 Düsseldorf</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Metro-Stra%C3%9Fe+B2,04.002,+40235+D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
+                            Metro-Straße B2,04.002, 40235 Düsseldorf
+                        </a>
                     </td>
-                    <td><span class="copyable">TP T14 AMD G3</span></td>
-                    <td><span class="copyable">SSD/HDD not detected and data corruption; replace planar and SSD.</span></td>
-                    <td><span class="copyable">PF4BKMW9</span></td>
+                    <td class="copyable">T14 Gen 3</td>
+                    <td class="copyable">HDD/SSD not detected; replace planar and SSD, test with customer.</td>
+                    <td class="copyable">PF4BKMW9</td>
                 </tr>
                 <tr>
-                    <td><span class="copyable">17742200</span></td>
-                    <td><span class="copyable">4021898160</span></td>
+                    <td class="copyable">17742200</td>
+                    <td class="copyable">4021898160</td>
                     <td>
-                        <div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                        <div>
                             <input type="checkbox" id="called-17742200" aria-label="Kunde angerufen: 17742200">
-                            <label for="called-17742200"><span class="copyable">Gerald Nitsche</span></label>
+                            <label for="called-17742200" class="copyable">Gerald Nitsche</label>
                         </div>
-                        <input type="text" id="note-17742200" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        <div style="margin-top: 8px;">
+                            <input type="text" id="note-17742200" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+                        </div>
                     </td>
-                    <td><span class="copyable">+491739689648</span></td>
+                    <td class="copyable">+491739689648</td>
                     <td>
                         <div class="copyable">Ratingen</div>
-                        <div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Oberhausener%20Str.%2033%20IBG%20Geb%C3%A4ude%2C%2040472%20Ratingen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Oberhausener Str. 33 IBG Gebäude, 40472 Ratingen</a></div>
+                        <a class="copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Oberhausener+Str.+33+IBG+Geb%C3%A4ude,+40472+Ratingen" target="_blank" rel="noopener noreferrer">
+                            Oberhausener Str. 33 IBG Gebäude, 40472 Ratingen
+                        </a>
                     </td>
-                    <td><span class="copyable">TP L14 G5</span></td>
-                    <td><span class="copyable">No power / no POST; troubleshoot first, replace planar if confirmed.</span></td>
-                    <td><span class="copyable">PW0GLZ3G</span></td>
+                    <td class="copyable">L14 G5</td>
+                    <td class="copyable">No power; follow troubleshooting, then replace mainboard (planar).</td>
+                    <td class="copyable">PW0GLZ3G</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-<script> (function() { const STORAGE_PREFIX = 'WOList:56640:24-03-2026 19:16:'; text const workOrders = [ '17733941', '17735927', '17741547', '17741628', '17741647', '17741657', '17741741', '17742200' ]; function storageKey(type, wo) { return STORAGE_PREFIX + type + ':' + wo; } function loadState() { workOrders.forEach(wo => { const cb = document.getElementById('called-' + wo); if (cb) { const stored = localStorage.getItem(storageKey('called', wo)); if (stored === 'true') { cb.checked = true; } else if (stored === 'false') { cb.checked = false; } cb.addEventListener('change', function() { try { localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false'); } catch (e) {} }); } const note = document.getElementById('note-' + wo); if (note) { const storedNote = localStorage.getItem(storageKey('note', wo)); if (storedNote !== null) { note.value = storedNote; } note.addEventListener('input', function() { try { localStorage.setItem(storageKey('note', wo), note.value); } catch (e) {} }); } }); } function setupClickToCopy() { function copyText(text) { if (!text) return; if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); }); } else { fallbackCopy(text); } } function fallbackCopy(text) { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; ta.style.top = '0'; document.body.appendChild(ta); ta.focus(); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); } document.addEventListener('click', function(e) { const target = e.target; if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') { return; } if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) { return; } if (target.closest('input[type="text"]')) { return; } if (target.tagName === 'INPUT' && target.type === 'checkbox') { return; } if (target.classList.contains('copyable')) { const text = target.innerText || target.textContent; copyText(text.trim()); } }); } document.addEventListener('DOMContentLoaded', function() { loadState(); setupClickToCopy(); }); })(); </script> </body> </html>
+
+<script>
+    (function() { const STORAGE_PREFIX = 'WOList:56640:24-03-2026 19:14:';
+    const workOrders = [
+        '17733941',
+        '17735927',
+        '17741547',
+        '17741628',
+        '17741647',
+        '17741657',
+        '17741741',
+        '17742200'
+    ];
+
+    function storageKey(type, wo) {
+        return STORAGE_PREFIX + type + ':' + wo;
+    }
+
+    function loadState() {
+        workOrders.forEach(wo => {
+            const cb = document.getElementById('called-' + wo);
+            if (cb) {
+                const stored = localStorage.getItem(storageKey('called', wo));
+                if (stored === 'true') {
+                    cb.checked = true;
+                } else if (stored === 'false') {
+                    cb.checked = false;
+                }
+                cb.addEventListener('change', function() {
+                    try {
+                        localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
+                    } catch (e) {}
+                });
+            }
+
+            const note = document.getElementById('note-' + wo);
+            if (note) {
+                const storedNote = localStorage.getItem(storageKey('note', wo));
+                if (storedNote !== null) {
+                    note.value = storedNote;
+                }
+                note.addEventListener('input', function() {
+                    try {
+                        localStorage.setItem(storageKey('note', wo), note.value);
+                    } catch (e) {}
+                });
+            }
+        });
+    }
+
+    function setupClickToCopy() {
+        function copyText(text) {
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            ta.style.top = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try {
+                document.execCommand('copy');
+            } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+
+            if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
+                return;
+            }
+
+            if (target.closest('input[type="text"]')) {
+                return;
+            }
+
+            if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+                return;
+            }
+
+            if (target.classList.contains('copyable')) {
+                const text = target.innerText || target.textContent;
+                copyText(text.trim());
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadState();
+        setupClickToCopy();
+    });
+})();
+</script>
+</body> </html>
