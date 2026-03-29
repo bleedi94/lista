@@ -1,452 +1,479 @@
+<!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Work Order Information Summary</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-    html {
-        -webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen  */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Work Order Information Summary</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
 
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        background-color: #f5f5f5;
-        padding: 20px;
-        color: #111;
-    }
+html {
+-webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen */
+}
 
-    .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+background-color: #f5f5f5;
+padding: 20px;
+color: #111;
+}
 
-    .header {
-        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-    }
+.container {
+max-width: 1400px;
+margin: 0 auto;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+overflow: hidden;
+}
 
-    .header h1 {
-        font-size: 28px;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
+.header {
+background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+color: white;
+padding: 40px 20px;
+text-align: center;
+}
 
-    .header p {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 20px;
-    }
+.header h1 {
+font-size: 28px;
+margin-bottom: 10px;
+font-weight: 600;
+}
 
-    .powered-by {
-        font-size: 12px;
-        opacity: 0.7;
-        margin-top: 15px;
-    }
+.header p {
+font-size: 14px;
+opacity: 0.9;
+margin-bottom: 20px;
+}
 
-    .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
-        overscroll-behavior-x: contain;
-        background: white;
-    }
+.powered-by {
+font-size: 12px;
+opacity: 0.7;
+margin-top: 15px;
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-        min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
-    }
+.table-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
+overscroll-behavior-x: contain;
+background: white;
+}
 
-    thead {
-        background-color: #2c3e50;
-        color: white;
-    }
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 13px;
+min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
+}
 
-    /* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein  */
-    @supports (position: sticky) {
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-    }
+thead {
+background-color: #2c3e50;
+color: white;
+}
 
-    th {
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        border-right: 1px solid #34495e;
-        white-space: nowrap;
-    }
+/* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein */
+@supports (position: sticky) {
+thead {
+position: sticky;
+top: 0;
+z-index: 5;
+}
+}
 
-    th:last-child {
-        border-right: none;
-    }
+th {
+padding: 15px;
+text-align: left;
+font-weight: 600;
+border-right: 1px solid #34495e;
+white-space: nowrap;
+}
 
-    td {
-        padding: 12px 15px;
-        border-bottom: 1px solid #e0e0e0;
-        vertical-align: top;
-    }
+th:last-child {
+border-right: none;
+}
 
-    tbody tr {
-        transition: background-color 0.2s ease;
-    }
+td {
+padding: 12px 15px;
+border-bottom: 1px solid #e0e0e0;
+vertical-align: top;
+}
 
-    tbody tr:hover {
-        background-color: #f9f9f9;
-    }
+tbody tr {
+transition: background-color 0.2s ease;
+}
 
-    tbody tr:nth-child(even) {
-        background-color: #f5f5f5;
-    }
+tbody tr:hover {
+background-color: #f9f9f9;
+}
 
-    tbody tr:nth-child(even):hover {
-        background-color: #f0f0f0;
-    }
+tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
 
-    /* Column-specific styling */
-    td:nth-child(1),
-    th:nth-child(1) {
-        font-weight: 600;
-        color: #2c3e50;
-    }
+tbody tr:nth-child(even):hover {
+background-color: #f0f0f0;
+}
 
-    td:nth-child(4),
-    th:nth-child(4) {
-        color: #555;
-        font-size: 12px;
-    }
+/* Column-specific styling */
+td:nth-child(1),
+th:nth-child(1) {
+font-weight: 600;
+color: #2c3e50;
+}
 
-    td:nth-child(6),
-    th:nth-child(6) {
-        color: #555;
-        font-size: 12px;
-    }
+td:nth-child(4),
+th:nth-child(4) {
+color: #555;
+font-size: 12px;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        body { padding: 12px; }
-        .container { border-radius: 10px; }
+td:nth-child(6),
+th:nth-child(6) {
+color: #555;
+font-size: 12px;
+}
 
-        .header { padding: 22px 14px; }
-        .header h1 { font-size: 20px; line-height: 1.2; }
-        .header p { font-size: 13px; margin-bottom: 12px; }
-        .powered-by { font-size: 11px; }
+/* Responsive */
+@media (max-width: 768px) {
+body { padding: 12px; }
+.container { border-radius: 10px; }
 
-        table { font-size: 12px; }
-        th, td { padding: 10px 12px; }
-    }
+.header { padding: 22px 14px; }
+.header h1 { font-size: 20px; line-height: 1.2; }
+.header p { font-size: 13px; margin-bottom: 12px; }
+.powered-by { font-size: 11px; }
 
-    @media (max-width: 420px) {
-        body { padding: 10px; }
-        .header h1 { font-size: 18px; }
+table { font-size: 12px; }
+th, td { padding: 10px 12px; }
+}
 
-        table { font-size: 11px; }
-        th, td { padding: 9px 10px; }
-    }
+@media (max-width: 420px) {
+body { padding: 10px; }
+.header h1 { font-size: 18px; }
+
+table { font-size: 11px; }
+th, td { padding: 9px 10px; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <h1>Work Order Information Summary</h1>
-        <p></p>
-        <div class="powered-by">Powered by localStorage Work Order Helper</div>
-    </div>
-    <div class="table-wrapper">
-        <table>
-            <thead>
-            <tr>
-                <th>WO#</th>
-                <th>Callnummer</th>
-                <th>Firma (Ansprechpartner)</th>
-                <th>Telefon</th>
-                <th>Ansprechpartner Stadt (Adresse)</th>
-                <th>Gerät</th>
-                <th>Problem/Arbeit</th>
-                <th>SN</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="copyable">17742450</td>
-                <td class="copyable">4021897861</td>
-                <td>
-                    <input type="checkbox" id="called-17742450" aria-label="Kunde angerufen: 17742450">
-                    <label for="called-17742450" class="copyable">Ralph Hans | Lenovo Technology Limited</label>
-                    <input type="text" id="note-17742450" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">+49280190515</td>
-                <td>
-                    <div class="copyable">Xanten</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Maulbeerkamp+15%2C+46509+Xanten" target="_blank" class="copyable">Maulbeerkamp 15, 46509 Xanten</a></div>
-                </td>
-                <td class="copyable">Notebook TP</td>
-                <td class="copyable">no POST, cables cross tested, emergency reset done</td>
-                <td class="copyable">PF4313RF</td>
-            </tr>
-            <tr>
-                <td class="copyable">17742651</td>
-                <td class="copyable">06465782510</td>
-                <td>
-                    <input type="checkbox" id="called-17742651" aria-label="Kunde angerufen: 17742651">
-                    <label for="called-17742651" class="copyable">Björn Welling | UNIQUE PROJECTS GMBH &amp; CO. KG</label>
-                    <input type="text" id="note-17742651" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">49203709009117</td>
-                <td>
-                    <div class="copyable">Duisburg</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Schifferstra%C3%9Fe+200%2C+47059+Duisburg" target="_blank" class="copyable">Schifferstraße 200, 47059 Duisburg</a></div>
-                </td>
-                <td class="copyable">Dell Pro 14 Plus PB142504LA</td>
-                <td class="copyable">Cracked / bent hinges, replace LCD and check functionality</td>
-                <td class="copyable">BZ11PG4</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744163</td>
-                <td class="copyable">06465809111</td>
-                <td>
-                    <input type="checkbox" id="called-17744163" aria-label="Kunde angerufen: 17744163">
-                    <label for="called-17744163" class="copyable">FloorSupport. Duesseldorf | Vodafone GmbH</label>
-                    <input type="text" id="note-17744163" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">492115331037</td>
-                <td>
-                    <div class="copyable">Duesseldorf</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Ferdinand-Braun-Platz+1%2C+40549+Duesseldorf" target="_blank" class="copyable">Ferdinand-Braun-Platz 1, 40549 Duesseldorf</a></div>
-                </td>
-                <td class="copyable">Dell Pro 14 Premium PA142504LA</td>
-                <td class="copyable">Webcam issue, check cable, replace LCD/HUD if needed</td>
-                <td class="copyable">GNM9KD4</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744450</td>
-                <td class="copyable">06465819118</td>
-                <td>
-                    <input type="checkbox" id="called-17744450" aria-label="Kunde angerufen: 17744450">
-                    <label for="called-17744450" class="copyable">Christoph Kunze | SICK VERTRIEBS-GMBH</label>
-                    <input type="text" id="note-17744450" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">492115301222 / 491727639970</td>
-                <td>
-                    <div class="copyable">Düsseldorf</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=B%C3%B6hlerstr.+69%2C+40549+D%C3%BCsseldorf" target="_blank" class="copyable">Böhlerstr. 69, 40549 Düsseldorf</a></div>
-                </td>
-                <td class="copyable">Dell Pro 14 Plus PB142504LA</td>
-                <td class="copyable">Camera/micro/speaker/internal LCD not working, replace ordered parts</td>
-                <td class="copyable">557QCC4</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744611</td>
-                <td class="copyable">4021930163</td>
-                <td>
-                    <input type="checkbox" id="called-17744611" aria-label="Kunde angerufen: 17744611">
-                    <label for="called-17744611" class="copyable">Rheinmetall AG</label>
-                    <input type="text" id="note-17744611" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">+491707805935</td>
-                <td>
-                    <div class="copyable">Düsseldorf</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Rheinmetall-Platz+1+OSS+B%C3%BCro%2C+40476+D%C3%BCsseldorf" target="_blank" class="copyable">Rheinmetall-Platz 1 OSS Büro, 40476 Düsseldorf</a></div>
-                </td>
-                <td class="copyable">NB TP T14 G5 ULT5 16G 256G 11P</td>
-                <td class="copyable">Defective RAM, replace RAM and test with diagnostics</td>
-                <td class="copyable">PF562AQG</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744658</td>
-                <td class="copyable">06465822129</td>
-                <td>
-                    <input type="checkbox" id="called-17744658" aria-label="Kunde angerufen: 17744658">
-                    <label for="called-17744658" class="copyable">Laura Balaguer | IDEXX B.V.</label>
-                    <input type="text" id="note-17744658" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">4915784030772 / 4971549929000</td>
-                <td>
-                    <div class="copyable">Duisburg</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Kammerstr.+218%2C+47057+Duisburg" target="_blank" class="copyable">Kammerstr. 218, 47057 Duisburg</a></div>
-                </td>
-                <td class="copyable">Latitude 74504LT</td>
-                <td class="copyable">No power, replace motherboard and all ordered parts</td>
-                <td class="copyable">F9YR564</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744752</td>
-                <td class="copyable">06465823326</td>
-                <td>
-                    <input type="checkbox" id="called-17744752" aria-label="Kunde angerufen: 17744752">
-                    <label for="called-17744752" class="copyable">Yannik Peters | KROHNE MESSTECHNIK GMBH</label>
-                    <input type="text" id="note-17744752" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">492033014478 / 492033010</td>
-                <td>
-                    <div class="copyable">Duisburg</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Ludwig-Krohne-Str.+5%2C+47058+Duisburg" target="_blank" class="copyable">Ludwig-Krohne-Str. 5, 47058 Duisburg</a></div>
-                </td>
-                <td class="copyable">Dell Pro Max 16 Plus MB162504LB</td>
-                <td class="copyable">No charging with any adapter, replace motherboard</td>
-                <td class="copyable">74NJQH4</td>
-            </tr>
-            <tr>
-                <td class="copyable">17744947</td>
-                <td class="copyable">4021932720</td>
-                <td>
-                    <input type="checkbox" id="called-17744947" aria-label="Kunde angerufen: 17744947">
-                    <label for="called-17744947" class="copyable">ERR European Rail Rent GmbH</label>
-                    <input type="text" id="note-17744947" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">+4915123345272</td>
-                <td>
-                    <div class="copyable">Duisburg</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Schifferstra%C3%9Fe+196+4%2C+47059+Duisburg" target="_blank" class="copyable">Schifferstraße 196 4, 47059 Duisburg</a></div>
-                </td>
-                <td class="copyable">ThinkPad T14 Gen 4</td>
-                <td class="copyable">Dim internal display, replace listed parts and test</td>
-                <td class="copyable">PF4YWY6B</td>
-            </tr>
-            <tr>
-                <td class="copyable">17745314</td>
-                <td class="copyable">06465829970</td>
-                <td>
-                    <input type="checkbox" id="called-17745314" aria-label="Kunde angerufen: 17745314">
-                    <label for="called-17745314" class="copyable">Mehmet Efe | DE LAGE LANDEN LEASING GMBH</label>
-                    <input type="text" id="note-17745314" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid  #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-                </td>
-                <td class="copyable">491704883105 / 4921154018416</td>
-                <td>
-                    <div class="copyable">Düsseldorf</div>
-                    <div><a href="https://www.google.com/maps/search/?api=1&query=Theo-Champion-Str.+1%2C+40549+D%C3%BCsseldorf" target="_blank" class="copyable">Theo-Champion-Str. 1, 40549 Düsseldorf</a></div>
-                </td>
-                <td class="copyable">Latitude 73404LT</td>
-                <td class="copyable">Paint peel on STRG key, replace keyboard</td>
-                <td class="copyable">1XMYLX3</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="header">
+<h1>Work Order Information Summary</h1>
+<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 27-03-2026 19:13</p>
 </div>
 
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>WO#</th>
+<th>Callnummer</th>
+<th>Firma (Ansprechpartner)</th>
+<th>Telefon</th>
+<th>Ansprechpartner Stadt (Adresse)</th>
+<th>Gerät</th>
+<th>Problem/Arbeit</th>
+<th>SN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="copyable">17744711</span></td>
+<td><span class="copyable">4021930818</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17744711" aria-label="Kunde angerufen: 17744711">
+<label for="called-17744711"><span class="copyable">Gerald Nitsche | ABB</span></label>
+</div>
+<input type="text" id="note-17744711" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+491739689648 / +491714155445</span></td>
+<td>
+<div class="copyable">Ratingen</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Oberhausener%20Str.%2033%20IBG%20Geb%C3%A4ude%2C%2040472%20Ratingen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Oberhausener Str. 33 IBG Gebäude, 40472 Ratingen</a></div>
+</td>
+<td><span class="copyable">TP L14 G5</span></td>
+<td><span class="copyable">Replace LCD display; test external display and run post-repair diagnostics.</span></td>
+<td><span class="copyable">PW0HGQ1X</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17745120</span></td>
+<td><span class="copyable">06465827432</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17745120" aria-label="Kunde angerufen: 17745120">
+<label for="called-17745120"><span class="copyable">Daniel Otto | Jungheinrich AG</span></label>
+</div>
+<input type="text" id="note-17745120" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">492085803123</span></td>
+<td>
+<div class="copyable">Muelheim an der Ruhr</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Ruhrorter%20Str.%2049%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Ruhrorter Str. 49, 45478 Muelheim an der Ruhr</a></div>
+</td>
+<td><span class="copyable">Latitude 5430 Rugged</span></td>
+<td><span class="copyable">USB-C port issue; replace right-side USB-C port and bottom cover.</span></td>
+<td><span class="copyable">2N0ZDD3</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17745314</span></td>
+<td><span class="copyable">06465829970</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17745314" aria-label="Kunde angerufen: 17745314">
+<label for="called-17745314"><span class="copyable">Mehmet Efe | DE LAGE LANDEN LEASING GMBH</span></label>
+</div>
+<input type="text" id="note-17745314" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">491704883105 / 4921154018416</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Theo-Champion-Str.%201%2C%2040549%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Theo-Champion-Str. 1, 40549 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">Latitude 7340</span></td>
+<td><span class="copyable">Paint peeling on STRG key; replace keyboard.</span></td>
+<td><span class="copyable">1XMYLX3</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17745901</span></td>
+<td><span class="copyable">4021930450</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17745901" aria-label="Kunde angerufen: 17745901">
+<label for="called-17745901"><span class="copyable">A Parham | Vigo Krankenversicherung VVaG</span></label>
+</div>
+<input type="text" id="note-17745901" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+4921135590029</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Werstener%20Str.%204%20Etage%202%2C%2040227%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Werstener Str. 4 Etage 2, 40227 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">TP E16 G3</span></td>
+<td><span class="copyable">Specific keys not working; replace C-cover keyboard.</span></td>
+<td><span class="copyable">PF5MNZSW</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17746107</span></td>
+<td><span class="copyable">06465847661</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17746107" aria-label="Kunde angerufen: 17746107">
+<label for="called-17746107"><span class="copyable">Ruediger HAHN | AIR LIQUIDE Deutschland GmbH</span></label>
+</div>
+<input type="text" id="note-17746107" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">017302342855 / 15204226312</span></td>
+<td>
+<div class="copyable">Duesseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Hans-Boeckler-Str.%2033%2C%2040476%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Hans-Boeckler-Str. 33, 40476 Duesseldorf</a></div>
+</td>
+<td><span class="copyable">Latitude 5430</span></td>
+<td><span class="copyable">Battery error after prior repair; replace motherboard.</span></td>
+<td><span class="copyable">8C2V4X3</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17746111</span></td>
+<td><span class="copyable">06465847731</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17746111" aria-label="Kunde angerufen: 17746111">
+<label for="called-17746111"><span class="copyable">Monika Krause | Mitsubishi Heavy Industries EMEA. Ltd.</span></label>
+</div>
+<input type="text" id="note-17746111" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">4915126077928</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Kennedydamm%2019%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Kennedydamm 19, 40476 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">Latitude 5440</span></td>
+<td><span class="copyable">After fan repair a new no-power fault appeared; replace motherboard.</span></td>
+<td><span class="copyable">197LB54</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17746117</span></td>
+<td><span class="copyable">06465847766</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17746117" aria-label="Kunde angerufen: 17746117">
+<label for="called-17746117"><span class="copyable">Caroline Hemsing | TimeWaver Production GmbH</span></label>
+</div>
+<input type="text" id="note-17746117" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">491792498080</span></td>
+<td>
+<div class="copyable">Duesseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Arnheimer%20Str.%20102%2C%2040489%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Arnheimer Str. 102, 40489 Duesseldorf</a></div>
+</td>
+<td><span class="copyable">Dell Pro 16 Plus PB16250</span></td>
+<td><span class="copyable">No POST issue; replace motherboard and check system carefully with customer.</span></td>
+<td><span class="copyable">78DTSB4</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17746166</span></td>
+<td><span class="copyable">06465848335</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17746166" aria-label="Kunde angerufen: 17746166">
+<label for="called-17746166"><span class="copyable">Elias Krückeberg | HPP Architekten GmbH</span></label>
+</div>
+<input type="text" id="note-17746166" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">02118384544</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Zollhof%2026%2C%2040221%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Zollhof 26, 40221 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">Precision 5570</span></td>
+<td><span class="copyable">System fell off; replace LCD.</span></td>
+<td><span class="copyable">81Z5TV3</span></td>
+</tr>
+
+<tr>
+<td><span class="copyable">17746597</span></td>
+<td><span class="copyable">06465260596</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17746597" aria-label="Kunde angerufen: 17746597">
+<label for="called-17746597"><span class="copyable">Jan Groesdonk | SANA TRENNWANDBAU GMBH</span></label>
+</div>
+<input type="text" id="note-17746597" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">491622637946 / 0211814000</span></td>
+<td>
+<div class="copyable">Duesseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Moorenstr.%205%2C%2040225%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Moorenstr. 5, 40225 Duesseldorf</a></div>
+</td>
+<td><span class="copyable">Dell Pro Desktop</span></td>
+<td><span class="copyable">No POST issue; replace CPU and update Intel drivers after boot.</span></td>
+<td><span class="copyable">HQNJDF4</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 <script>
-    (function() { const STORAGE_PREFIX = 'WOList:56640:26-03-2026 19:13:';
-        const workOrders = [
-            '17742450',
-            '17742651',
-            '17744163',
-            '17744450',
-            '17744611',
-            '17744658',
-            '17744752',
-            '17744947',
-            '17745314'
-        ];
+(function() { const STORAGE_PREFIX = 'WOList:56640:27-03-2026 19:13:';
+const workOrders = [
+'17744711',
+'17745120',
+'17745314',
+'17745901',
+'17746107',
+'17746111',
+'17746117',
+'17746166',
+'17746597'
+];
 
-        function storageKey(type, wo) {
-            return STORAGE_PREFIX + type + ':' + wo;
-        }
+function storageKey(type, wo) {
+return STORAGE_PREFIX + type + ':' + wo;
+}
 
-        function loadState() {
-            workOrders.forEach(wo => {
-                const cb = document.getElementById('called-' + wo);
-                if (cb) {
-                    const stored = localStorage.getItem(storageKey('called', wo));
-                    if (stored === 'true') {
-                        cb.checked = true;
-                    } else if (stored === 'false') {
-                        cb.checked = false;
-                    }
-                    cb.addEventListener('change', function() {
-                        try {
-                            localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
-                        } catch (e) {}
-                    });
-                }
+function loadState() {
+workOrders.forEach(wo => {
+const cb = document.getElementById('called-' + wo);
+if (cb) {
+const stored = localStorage.getItem(storageKey('called', wo));
+if (stored === 'true') {
+cb.checked = true;
+} else if (stored === 'false') {
+cb.checked = false;
+}
+cb.addEventListener('change', function() {
+try {
+localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
+} catch (e) {}
+});
+}
 
-                const note = document.getElementById('note-' + wo);
-                if (note) {
-                    const storedNote = localStorage.getItem(storageKey('note', wo));
-                    if (storedNote !== null) {
-                        note.value = storedNote;
-                    }
-                    note.addEventListener('input', function() {
-                        try {
-                            localStorage.setItem(storageKey('note', wo), note.value);
-                        } catch (e) {}
-                    });
-                }
-            });
-        }
+const note = document.getElementById('note-' + wo);
+if (note) {
+const storedNote = localStorage.getItem(storageKey('note', wo));
+if (storedNote !== null) {
+note.value = storedNote;
+}
+note.addEventListener('input', function() {
+try {
+localStorage.setItem(storageKey('note', wo), note.value);
+} catch (e) {}
+});
+}
+});
+}
 
-        function setupClickToCopy() {
-            function copyText(text) {
-                if (!text) return;
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(text).catch(function() {
-                        fallbackCopy(text);
-                    });
-                } else {
-                    fallbackCopy(text);
-                }
-            }
+function setupClickToCopy() {
+function copyText(text) {
+if (!text) return;
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(text).catch(function() {
+fallbackCopy(text);
+});
+} else {
+fallbackCopy(text);
+}
+}
 
-            function fallbackCopy(text) {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                ta.style.position = 'fixed';
-                ta.style.left = '-9999px';
-                ta.style.top = '0';
-                document.body.appendChild(ta);
-                ta.focus();
-                ta.select();
-                try {
-                    document.execCommand('copy');
-                } catch (e) {}
-                document.body.removeChild(ta);
-            }
+function fallbackCopy(text) {
+const ta = document.createElement('textarea');
+ta.value = text;
+ta.style.position = 'fixed';
+ta.style.left = '-9999px';
+ta.style.top = '0';
+document.body.appendChild(ta);
+ta.focus();
+ta.select();
+try {
+document.execCommand('copy');
+} catch (e) {}
+document.body.removeChild(ta);
+}
 
-            document.addEventListener('click', function(e) {
-                const target = e.target;
+document.addEventListener('click', function(e) {
+const target = e.target;
 
-                if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-                    return;
-                }
+if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+return;
+}
 
-                if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
-                    return;
-                }
+if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
+return;
+}
 
-                if (target.closest('input[type="text"]')) {
-                    return;
-                }
+if (target.closest('input[type="text"]')) {
+return;
+}
 
-                if (target.tagName === 'INPUT' && target.type === 'checkbox') {
-                    return;
-                }
+if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+return;
+}
 
-                if (target.classList.contains('copyable')) {
-                    const text = target.innerText || target.textContent;
-                    copyText(text.trim());
-                }
-            });
-        }
+if (target.classList.contains('copyable')) {
+const text = target.innerText || target.textContent;
+copyText(text.trim());
+}
+});
+}
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadState();
-            setupClickToCopy();
-        });
-    })();
+document.addEventListener('DOMContentLoaded', function() {
+loadState();
+setupClickToCopy();
+});
+})();
 </script>
 </body>
 </html>
