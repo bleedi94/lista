@@ -158,13 +158,56 @@ body { padding: 10px; }
 table { font-size: 11px; }
 th, td { padding: 9px 10px; }
 }
+
+.company-cell label {
+display: inline-flex;
+align-items: flex-start;
+gap: 8px;
+cursor: pointer;
+user-select: none;
+width: 100%;
+}
+
+.company-cell input[type="checkbox"] {
+margin-top: 2px;
+flex: 0 0 auto;
+}
+
+.company-text {
+user-select: text;
+line-height: 1.4;
+width: 100%;
+}
+
+.company-main {
+display: block;
+margin-bottom: 8px;
+}
+
+.address-link {
+color: inherit;
+text-decoration: none;
+}
+
+.address-link:hover {
+text-decoration: underline;
+}
+
+.copyable {
+cursor: pointer;
+}
+
+.copyable:hover {
+text-decoration: underline;
+text-underline-offset: 2px;
+}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header">
 <h1>Work Order Information Summary</h1>
-<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 27-03-2026 19:13</p>
+<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 30-03-2026 19:13</p>
 </div>
 
 <div class="table-wrapper">
@@ -183,183 +226,202 @@ th, td { padding: 9px 10px; }
 </thead>
 <tbody>
 <tr>
-<td><span class="copyable">17744711</span></td>
-<td><span class="copyable">4021930818</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17744711" aria-label="Kunde angerufen: 17744711">
-<label for="called-17744711"><span class="copyable">Gerald Nitsche | ABB</span></label>
-</div>
-<input type="text" id="note-17744711" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17730921</span></td>
+<td><span class="copyable">06465556721</span></td>
+<td class="company-cell">
+<label for="called-17730921">
+<input type="checkbox" id="called-17730921" aria-label="Kunde angerufen: 17730921">
+<span class="company-text">
+<span class="company-main copyable">Bernd Wagner | MECO Systemhaus GmbH</span>
+</span>
+</label>
+<input type="text" id="note-17730921" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">+491739689648 / +491714155445</span></td>
+<td><span class="copyable">20830663871</span></td>
 <td>
-<div class="copyable">Ratingen</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Oberhausener%20Str.%2033%20IBG%20Geb%C3%A4ude%2C%2040472%20Ratingen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Oberhausener Str. 33 IBG Gebäude, 40472 Ratingen</a></div>
-</td>
-<td><span class="copyable">TP L14 G5</span></td>
-<td><span class="copyable">Replace LCD display; test external display and run post-repair diagnostics.</span></td>
-<td><span class="copyable">PW0HGQ1X</span></td>
-</tr>
+<span class="copyable">Muelheim an der Ruhr</span>
 
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Wissollstr.%2018%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Wissollstr. 18, 45478 Muelheim an der Ruhr</a>
+</td>
+<td><span class="copyable">Dell Pro 14 Plus PB14250</span></td>
+<td><span class="copyable">Fan noise, replace fan.</span></td>
+<td><span class="copyable">54G19H4</span></td>
+</tr>
+<tr>
+<td><span class="copyable">17744545</span></td>
+<td><span class="copyable">06465776246</span></td>
+<td class="company-cell">
+<label for="called-17744545">
+<input type="checkbox" id="called-17744545" aria-label="Kunde angerufen: 17744545">
+<span class="company-text">
+<span class="company-main copyable">Fabian Langen | ALDI International Services SE &amp; Co. oHG</span>
+</span>
+</label>
+<input type="text" id="note-17744545" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">4920820726049</span></td>
+<td>
+<span class="copyable">Muelheim an der Ruhr</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Mintarder%20Str.%2036-40%2C%2045481%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Mintarder Str. 36-40, 45481 Muelheim an der Ruhr</a>
+</td>
+<td><span class="copyable">Precision 7680</span></td>
+<td><span class="copyable">System turns off when lifted, replace motherboard.</span></td>
+<td><span class="copyable">38FTJ64</span></td>
+</tr>
 <tr>
 <td><span class="copyable">17745120</span></td>
 <td><span class="copyable">06465827432</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<td class="company-cell">
+<label for="called-17745120">
 <input type="checkbox" id="called-17745120" aria-label="Kunde angerufen: 17745120">
-<label for="called-17745120"><span class="copyable">Daniel Otto | Jungheinrich AG</span></label>
-</div>
+<span class="company-text">
+<span class="company-main copyable">Daniel Otto | Jungheinrich AG</span>
+</span>
+</label>
 <input type="text" id="note-17745120" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
 <td><span class="copyable">492085803123</span></td>
 <td>
-<div class="copyable">Muelheim an der Ruhr</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Ruhrorter%20Str.%2049%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Ruhrorter Str. 49, 45478 Muelheim an der Ruhr</a></div>
+<span class="copyable">Muelheim an der Ruhr</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Ruhrorter%20Str.%2049%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Ruhrorter Str. 49, 45478 Muelheim an der Ruhr</a>
 </td>
 <td><span class="copyable">Latitude 5430 Rugged</span></td>
-<td><span class="copyable">USB-C port issue; replace right-side USB-C port and bottom cover.</span></td>
+<td><span class="copyable">USB-C port issue, replace right USB-C port and bottom cover.</span></td>
 <td><span class="copyable">2N0ZDD3</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17745314</span></td>
-<td><span class="copyable">06465829970</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17745314" aria-label="Kunde angerufen: 17745314">
-<label for="called-17745314"><span class="copyable">Mehmet Efe | DE LAGE LANDEN LEASING GMBH</span></label>
-</div>
-<input type="text" id="note-17745314" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17745313</span></td>
+<td><span class="copyable">06465829827</span></td>
+<td class="company-cell">
+<label for="called-17745313">
+<input type="checkbox" id="called-17745313" aria-label="Kunde angerufen: 17745313">
+<span class="company-text">
+<span class="company-main copyable">Marc Grünberg | Sauter - Cumulus GmbH</span>
+</span>
+</label>
+<input type="text" id="note-17745313" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">491704883105 / 4921154018416</span></td>
+<td><span class="copyable">491752911188</span></td>
 <td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Theo-Champion-Str.%201%2C%2040549%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Theo-Champion-Str. 1, 40549 Düsseldorf</a></div>
+<span class="copyable">Düsseldorf</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Kanzlerstr.%204%2C%2040472%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Kanzlerstr. 4, 40472 Düsseldorf</a>
 </td>
-<td><span class="copyable">Latitude 7340</span></td>
-<td><span class="copyable">Paint peeling on STRG key; replace keyboard.</span></td>
-<td><span class="copyable">1XMYLX3</span></td>
+<td><span class="copyable">Latitude 7350 Detachable</span></td>
+<td><span class="copyable">Frequent bluescreens and BIOS corruption, replace mainboard.</span></td>
+<td><span class="copyable">FFG4VF4</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17745901</span></td>
-<td><span class="copyable">4021930450</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17745901" aria-label="Kunde angerufen: 17745901">
-<label for="called-17745901"><span class="copyable">A Parham | Vigo Krankenversicherung VVaG</span></label>
-</div>
-<input type="text" id="note-17745901" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17745865</span></td>
+<td><span class="copyable">06465843809</span></td>
+<td class="company-cell">
+<label for="called-17745865">
+<input type="checkbox" id="called-17745865" aria-label="Kunde angerufen: 17745865">
+<span class="company-text">
+<span class="company-main copyable">Daniel Klockenkämper | Vodafone Procurement Company</span>
+</span>
+</label>
+<input type="text" id="note-17745865" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">+4921135590029</span></td>
+<td><span class="copyable">1741691200</span></td>
 <td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Werstener%20Str.%204%20Etage%202%2C%2040227%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Werstener Str. 4 Etage 2, 40227 Düsseldorf</a></div>
+<span class="copyable">Ratingen</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Rehhecke%2050%2C%2040885%20Ratingen" target="_blank" rel="noopener noreferrer">Rehhecke 50, 40885 Ratingen</a>
 </td>
-<td><span class="copyable">TP E16 G3</span></td>
-<td><span class="copyable">Specific keys not working; replace C-cover keyboard.</span></td>
-<td><span class="copyable">PF5MNZSW</span></td>
+<td><span class="copyable">PowerEdge R7615</span></td>
+<td><span class="copyable">Proactive NIC replacement, coordinate access and intervention date.</span></td>
+<td><span class="copyable">4RLX134</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17746107</span></td>
-<td><span class="copyable">06465847661</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17746107" aria-label="Kunde angerufen: 17746107">
-<label for="called-17746107"><span class="copyable">Ruediger HAHN | AIR LIQUIDE Deutschland GmbH</span></label>
-</div>
-<input type="text" id="note-17746107" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17746399</span></td>
+<td><span class="copyable">06465850612</span></td>
+<td class="company-cell">
+<label for="called-17746399">
+<input type="checkbox" id="called-17746399" aria-label="Kunde angerufen: 17746399">
+<span class="company-text">
+<span class="company-main copyable">Fabian Langen | ALDI International Services SE &amp; Co. oHG</span>
+</span>
+</label>
+<input type="text" id="note-17746399" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">017302342855 / 15204226312</span></td>
+<td><span class="copyable">4920820726049</span></td>
 <td>
-<div class="copyable">Duesseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Hans-Boeckler-Str.%2033%2C%2040476%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Hans-Boeckler-Str. 33, 40476 Duesseldorf</a></div>
+<span class="copyable">Muelheim an der Ruhr</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Mintarder%20Str.%2036-40%2C%2045481%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Mintarder Str. 36-40, 45481 Muelheim an der Ruhr</a>
 </td>
-<td><span class="copyable">Latitude 5430</span></td>
-<td><span class="copyable">Battery error after prior repair; replace motherboard.</span></td>
-<td><span class="copyable">8C2V4X3</span></td>
+<td><span class="copyable">Precision 7670</span></td>
+<td><span class="copyable">Fan noise issue, replace heatsink assembly.</span></td>
+<td><span class="copyable">BHY75X3</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17746111</span></td>
-<td><span class="copyable">06465847731</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17746111" aria-label="Kunde angerufen: 17746111">
-<label for="called-17746111"><span class="copyable">Monika Krause | Mitsubishi Heavy Industries EMEA. Ltd.</span></label>
-</div>
-<input type="text" id="note-17746111" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17747211</span></td>
+<td><span class="copyable">06465870488</span></td>
+<td class="company-cell">
+<label for="called-17747211">
+<input type="checkbox" id="called-17747211" aria-label="Kunde angerufen: 17747211">
+<span class="company-text">
+<span class="company-main copyable">Loutfi Mesbahi | VODAFONE GROUP SERVICES GMBH</span>
+</span>
+</label>
+<input type="text" id="note-17747211" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">4915126077928</span></td>
+<td><span class="copyable">336662724173</span></td>
 <td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Kennedydamm%2019%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Kennedydamm 19, 40476 Düsseldorf</a></div>
+<span class="copyable">Ratingen</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Ratingen-Lintorf%20Rehhecke%2050%2C%2040885%20Ratingen" target="_blank" rel="noopener noreferrer">Ratingen-Lintorf Rehhecke 50, 40885 Ratingen</a>
 </td>
-<td><span class="copyable">Latitude 5440</span></td>
-<td><span class="copyable">After fan repair a new no-power fault appeared; replace motherboard.</span></td>
-<td><span class="copyable">197LB54</span></td>
+<td><span class="copyable">Dell EMC XC640 Core</span></td>
+<td><span class="copyable">Faulty boot drive in slot 1, replace drive and verify RAID rebuild.</span></td>
+<td><span class="copyable">137S813</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17746117</span></td>
-<td><span class="copyable">06465847766</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17746117" aria-label="Kunde angerufen: 17746117">
-<label for="called-17746117"><span class="copyable">Caroline Hemsing | TimeWaver Production GmbH</span></label>
-</div>
-<input type="text" id="note-17746117" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17747855</span></td>
+<td><span class="copyable">4021970593</span></td>
+<td class="company-cell">
+<label for="called-17747855">
+<input type="checkbox" id="called-17747855" aria-label="Kunde angerufen: 17747855">
+<span class="company-text">
+<span class="company-main copyable">Novitas BKK | Novitas BKK</span>
+</span>
+</label>
+<input type="text" id="note-17747855" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">491792498080</span></td>
+<td><span class="copyable">+492035458644</span></td>
 <td>
-<div class="copyable">Duesseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Arnheimer%20Str.%20102%2C%2040489%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Arnheimer Str. 102, 40489 Duesseldorf</a></div>
+<span class="copyable">Duisburg</span>
+
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=Zum%20Portsmouthpl.%2024%2C%2047051%20Duisburg" target="_blank" rel="noopener noreferrer">Zum Portsmouthpl. 24, 47051 Duisburg</a>
 </td>
-<td><span class="copyable">Dell Pro 16 Plus PB16250</span></td>
-<td><span class="copyable">No POST issue; replace motherboard and check system carefully with customer.</span></td>
-<td><span class="copyable">78DTSB4</span></td>
+<td><span class="copyable">TP E15 AMD G4</span></td>
+<td><span class="copyable">Loose USB-C connection, replace mainboard and run Goldenkey/MAC tool.</span></td>
+<td><span class="copyable">PF456K2E</span></td>
 </tr>
-
 <tr>
-<td><span class="copyable">17746166</span></td>
-<td><span class="copyable">06465848335</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17746166" aria-label="Kunde angerufen: 17746166">
-<label for="called-17746166"><span class="copyable">Elias Krückeberg | HPP Architekten GmbH</span></label>
-</div>
-<input type="text" id="note-17746166" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<td><span class="copyable">17747950</span></td>
+<td><span class="copyable">06465879643</span></td>
+<td class="company-cell">
+<label for="called-17747950">
+<input type="checkbox" id="called-17747950" aria-label="Kunde angerufen: 17747950">
+<span class="company-text">
+<span class="company-main copyable">Peter Adamek | STADTSPARKASSE OBERHAUSEN</span>
+</span>
+</label>
+<input type="text" id="note-17747950" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">02118384544</span></td>
+<td><span class="copyable">492088346616</span></td>
 <td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Zollhof%2026%2C%2040221%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Zollhof 26, 40221 Düsseldorf</a></div>
-</td>
-<td><span class="copyable">Precision 5570</span></td>
-<td><span class="copyable">System fell off; replace LCD.</span></td>
-<td><span class="copyable">81Z5TV3</span></td>
-</tr>
+<span class="copyable">Oberhausen</span>
 
-<tr>
-<td><span class="copyable">17746597</span></td>
-<td><span class="copyable">06465260596</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17746597" aria-label="Kunde angerufen: 17746597">
-<label for="called-17746597"><span class="copyable">Jan Groesdonk | SANA TRENNWANDBAU GMBH</span></label>
-</div>
-<input type="text" id="note-17746597" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+<a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&query=W%C3%B6rthstra%C3%9Fe%2012%2C%2046045%20Oberhausen" target="_blank" rel="noopener noreferrer">Wörthstraße 12, 46045 Oberhausen</a>
 </td>
-<td><span class="copyable">491622637946 / 0211814000</span></td>
-<td>
-<div class="copyable">Duesseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Moorenstr.%205%2C%2040225%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Moorenstr. 5, 40225 Duesseldorf</a></div>
-</td>
-<td><span class="copyable">Dell Pro Desktop</span></td>
-<td><span class="copyable">No POST issue; replace CPU and update Intel drivers after boot.</span></td>
-<td><span class="copyable">HQNJDF4</span></td>
+<td><span class="copyable">OptiPlex 3000 Thin Client</span></td>
+<td><span class="copyable">Replace motherboard and set Wyse ThinOS PCoIP SKU in BIOS.</span></td>
+<td><span class="copyable">5C45B94</span></td>
 </tr>
 </tbody>
 </table>
@@ -367,17 +429,17 @@ th, td { padding: 9px 10px; }
 </div>
 
 <script>
-(function() { const STORAGE_PREFIX = 'WOList:56640:27-03-2026 19:13:';
+(function() { const STORAGE_PREFIX = 'WOList:56640:30-03-2026 19:13:';
 const workOrders = [
-'17744711',
+'17730921',
+'17744545',
 '17745120',
-'17745314',
-'17745901',
-'17746107',
-'17746111',
-'17746117',
-'17746166',
-'17746597'
+'17745313',
+'17745865',
+'17746399',
+'17747211',
+'17747855',
+'17747950'
 ];
 
 function storageKey(type, wo) {
@@ -462,8 +524,9 @@ if (target.tagName === 'INPUT' && target.type === 'checkbox') {
 return;
 }
 
-if (target.classList.contains('copyable')) {
-const text = target.innerText || target.textContent;
+const copyTarget = target.closest('.copyable');
+if (copyTarget) {
+const text = copyTarget.innerText || copyTarget.textContent;
 copyText(text.trim());
 }
 });
