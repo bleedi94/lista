@@ -164,13 +164,15 @@ th, td { padding: 9px 10px; }
 <div class="container">
 <div class="header">
 <h1>Work Order Information Summary</h1>
-<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 31-03-2026 19:13</p>
-<div class="powered-by">GTN Field Service GmbH – Workorder List 56640</div>
+<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 01-04-2026 19:13</p>
+<div class="powered-by">Interaktive Übersicht mit Drag &amp; Drop, Click-to-Copy und lokaler Speicherung</div>
 </div>
+
 <div class="table-wrapper">
 <table>
 <thead>
 <tr>
+<th></th>
 <th>WO#</th>
 <th>Callnummer</th>
 <th>Firma (Ansprechpartner)</th>
@@ -181,236 +183,258 @@ th, td { padding: 9px 10px; }
 <th>SN</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody id="wo-tbody">
+<tr draggable="true" data-wo="17743612">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
 <td><span class="copyable">17743612</span></td>
 <td><span class="copyable">06465801092</span></td>
 <td>
-<input type="checkbox" id="called-17743612" aria-label="Kunde angerufen: 17743612">
-<label for="called-17743612"><span class="copyable">Stefan Sebus | LEMKEN GMBH &amp; CO. KG</span></label>
-
-
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17743612" aria-label="Kunde angerufen: 17743612" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17743612" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Stefan Sebus | LEMKEN GMBH &amp; CO. KG</span>
+</label>
+</div>
 <input type="text" id="note-17743612" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">49280281537</span></td>
+<td><span class="copyable">+49280281537</span></td>
 <td>
-<div><span class="copyable">Alpen</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Weselser%20Str.%205%2C%2046519%20Alpen" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Weselser Str. 5, 46519 Alpen</span>
-</a>
-</div>
+<div class="copyable">Alpen</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Weselser%20Str.%205%2C%2046519%20Alpen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Weselser Str. 5, 46519 Alpen</a></div>
 </td>
 <td><span class="copyable">Latitude 5550</span></td>
-<td><span class="copyable">USB-C port not working, replace mainboard (all-day BTTR window).</span></td>
+<td><span class="copyable">USB-C not working, replace mainboard.</span></td>
 <td><span class="copyable">5WYWR54</span></td>
 </tr>
-<tr>
-<td><span class="copyable">17744038</span></td>
-<td><span class="copyable">06465806079</span></td>
-<td>
-<input type="checkbox" id="called-17744038" aria-label="Kunde angerufen: 17744038">
-<label for="called-17744038"><span class="copyable">Mario Lampert | ALSO Deutschland GmbH</span></label>
 
-
-<input type="text" id="note-17744038" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">021027315349</span></td>
-<td>
-<div><span class="copyable">Düsseldorf</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Berliner%20Allee%2057%2C%2040212%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Berliner Allee 57, 40212 Düsseldorf</span>
-</a>
-</div>
-</td>
-<td><span class="copyable">Latitude 7650</span></td>
-<td><span class="copyable">Fan not working (EPSA error 0511), replace fan assembly and call customer before arrival.</span></td>
-<td><span class="copyable">5RVVHB4</span></td>
-</tr>
-<tr>
-<td><span class="copyable">17745120</span></td>
-<td><span class="copyable">06465827432</span></td>
-<td>
-<input type="checkbox" id="called-17745120" aria-label="Kunde angerufen: 17745120">
-<label for="called-17745120"><span class="copyable">Daniel Otto | Jungheinrich AG</span></label>
-
-
-<input type="text" id="note-17745120" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">492085803123</span></td>
-<td>
-<div><span class="copyable">Muelheim an der Ruhr</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Ruhrorter%20Str.%2049%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Ruhrorter Str. 49, 45478 Muelheim an der Ruhr</span>
-</a>
-</div>
-</td>
-<td><span class="copyable">Latitude 5430 Rugged</span></td>
-<td><span class="copyable">USB-C port issue, replace right-side USB-C port and bottom cover.</span></td>
-<td><span class="copyable">2N0ZDD3</span></td>
-</tr>
-<tr>
-<td><span class="copyable">17746285</span></td>
-<td><span class="copyable">4021949495</span></td>
-<td>
-<input type="checkbox" id="called-17746285" aria-label="Kunde angerufen: 17746285">
-<label for="called-17746285"><span class="copyable">Michael Flecke | Pierburg GmbH</span></label>
-
-
-<input type="text" id="note-17746285" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+4921315203181</span></td>
-<td>
-<div><span class="copyable">Neuss</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Alfred-Pierburg-Stra%C3%9Fe%201%2C%2041460%20Neuss" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Alfred-Pierburg-Straße 1, 41460 Neuss</span>
-</a>
-</div>
-</td>
-<td><span class="copyable">NB TP T14 G4</span></td>
-<td><span class="copyable">Battery defective, device gets hot when fully charged, replace internal battery.</span></td>
-<td><span class="copyable">PF4VFEHD</span></td>
-</tr>
-<tr>
-<td><span class="copyable">17747629</span></td>
-<td><span class="copyable">06465875469</span></td>
-<td>
-<input type="checkbox" id="called-17747629" aria-label="Kunde angerufen: 17747629">
-<label for="called-17747629"><span class="copyable">Mehmet Efe | DE LAGE LANDEN LEASING GMBH</span></label>
-
-
-<input type="text" id="note-17747629" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">491704883105 / 4921154018416</span></td>
-<td>
-<div><span class="copyable">Duesseldorf</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Theo-Champion-Str.%201%2C%2040549%20Duesseldorf" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Theo-Champion-Str. 1, 40549 Duesseldorf</span>
-</a>
-</div>
-</td>
-<td><span class="copyable">Latitude 7340</span></td>
-<td><span class="copyable">New keyboard DOA, replace keyboard and palmrest.</span></td>
-<td><span class="copyable">1XMYLX3</span></td>
-</tr>
-<tr>
-<td><span class="copyable">17747855</span></td>
-<td><span class="copyable">4021970593</span></td>
-<td>
-<input type="checkbox" id="called-17747855" aria-label="Kunde angerufen: 17747855">
-<label for="called-17747855"><span class="copyable">Support Team | Novitas BKK</span></label>
-
-
-<input type="text" id="note-17747855" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+492035458644</span></td>
-<td>
-<div><span class="copyable">Duisburg</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Zum%20Portsmouthpl.%2024%2C%2047051%20Duisburg" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Zum Portsmouthpl. 24, 47051 Duisburg</span>
-</a>
-</div>
-</td>
-<td><span class="copyable">NB TP E15 AMD G4</span></td>
-<td><span class="copyable">USB-C port loose with no connection, replace mainboard.</span></td>
-<td><span class="copyable">PF456K2E</span></td>
-</tr>
-<tr>
+<tr draggable="true" data-wo="17748034">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
 <td><span class="copyable">17748034</span></td>
 <td><span class="copyable">06465880867</span></td>
 <td>
-<input type="checkbox" id="called-17748034" aria-label="Kunde angerufen: 17748034">
-<label for="called-17748034"><span class="copyable">Björn Röder | GEBIT GESELLSCHAFT FÜR EDV-BERATUNG UN</span></label>
-
-
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17748034" aria-label="Kunde angerufen: 17748034" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17748034" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Björn Röder | GEBIT GESELLSCHAFT FÜR EDV- BERATUNG UN</span>
+</label>
+</div>
 <input type="text" id="note-17748034" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">49211513414710</span></td>
+<td><span class="copyable">+49211513414710</span></td>
 <td>
-<div><span class="copyable">Duesseldorf</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Oststr.%2010%2C%2040211%20Duesseldorf" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Oststr. 10, 40211 Duesseldorf</span>
-</a>
-</div>
+<div class="copyable">Duesseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Oststr.%2010%2C%2040211%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Oststr. 10, 40211 Duesseldorf</a></div>
 </td>
 <td><span class="copyable">Precision 7670</span></td>
-<td><span class="copyable">Several keyboard keys not responding, replace keyboard and test with customer.</span></td>
+<td><span class="copyable">Keyboard keys not responding, check options and replace keyboard-related parts.</span></td>
 <td><span class="copyable">8TH8KR3</span></td>
 </tr>
-<tr>
-<td><span class="copyable">17748524</span></td>
-<td><span class="copyable">4021983173</span></td>
-<td>
-<input type="checkbox" id="called-17748524" aria-label="Kunde angerufen: 17748524">
-<label for="called-17748524"><span class="copyable">Dirk Ehring | Stadtwerke Geldern GmbH</span></label>
 
-
-<input type="text" id="note-17748524" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+492831933335 / +492831933331</span></td>
+<tr draggable="true" data-wo="17748638">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17748638</span></td>
+<td><span class="copyable">4021984100</span></td>
 <td>
-<div><span class="copyable">Geldern</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=Markt%2025%2C%2047608%20Geldern" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Markt 25, 47608 Geldern</span>
-</a>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17748638" aria-label="Kunde angerufen: 17748638" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17748638" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Andreas Bitner | Rheinmetall IT Solutions GmbH</span>
+</label>
 </div>
+<input type="text" id="note-17748638" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">NB TP L13 2-in-1 G6</span></td>
-<td><span class="copyable">Defective NVMe/storage, replace planar and NVMe SSD, then run diagnostics.</span></td>
-<td><span class="copyable">PW0LHDWP</span></td>
+<td><span class="copyable">+491602052431</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Rheinmetall-Platz%201%20N0.F20%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Rheinmetall-Platz 1 N0.F20, 40476 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">ThinkPad T14 G4</span></td>
+<td><span class="copyable">Battery defective, unit only runs on AC; replace planar and battery.</span></td>
+<td><span class="copyable">PF4XVMTV</span></td>
 </tr>
-<tr>
+
+<tr draggable="true" data-wo="17748668">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
 <td><span class="copyable">17748668</span></td>
 <td><span class="copyable">4021984316</span></td>
 <td>
-<input type="checkbox" id="called-17748668" aria-label="Kunde angerufen: 17748668">
-<label for="called-17748668"><span class="copyable">Support Team | Freizeitanlage Wankumer Heidesee GmbH</span></label>
-
-
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17748668" aria-label="Kunde angerufen: 17748668" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17748668" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Support Team | Freizeitanlage Wankumer Heidesee GmbH</span>
+</label>
+</div>
 <input type="text" id="note-17748668" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
 <td><span class="copyable">+491722545129</span></td>
 <td>
-<div><span class="copyable">Wachtendonk</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=J%C3%BClicher%20Strasse%201%2C%2047669%20Wachtendonk" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Jülicher Strasse 1, 47669 Wachtendonk</span>
-</a>
-</div>
+<div class="copyable">Wachtendonk</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=J%C3%BClicher%20Strasse%201%2C%2047669%20Wachtendonk" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Jülicher Strasse 1, 47669 Wachtendonk</a></div>
 </td>
-<td><span class="copyable">Desktop TC M70q Gen 6</span></td>
-<td><span class="copyable">System boot issue, replace CPU and front cover, then verify operation.</span></td>
+<td><span class="copyable">ThinkCentre M70q Gen 6</span></td>
+<td><span class="copyable">Boot issue, replace needed parts and test system.</span></td>
 <td><span class="copyable">GM15HX8M</span></td>
 </tr>
-<tr>
-<td><span class="copyable">17748714</span></td>
-<td><span class="copyable">4021984573</span></td>
-<td>
-<input type="checkbox" id="called-17748714" aria-label="Kunde angerufen: 17748714">
-<label for="called-17748714"><span class="copyable">Support Team | SOLENIS GmbH</span></label>
 
-
-<input type="text" id="note-17748714" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+491723867361</span></td>
+<tr draggable="true" data-wo="17748761">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17748761</span></td>
+<td><span class="copyable">06465899287</span></td>
 <td>
-<div><span class="copyable">Krefeld</span></div>
-<div>
-<a href="https://www.google.com/maps/search/?api=1&amp;query=B%C3%A4kerpfad%2025%2C%2047805%20Krefeld" target="_blank" rel="noopener noreferrer">
-<span class="copyable">Bäkerpfad 25, 47805 Krefeld</span>
-</a>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17748761" aria-label="Kunde angerufen: 17748761" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17748761" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Christoph Benedens | RDS CONSULTING GMBH</span>
+</label>
 </div>
+<input type="text" id="note-17748761" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
 </td>
-<td><span class="copyable">NB TP L14 AMD G4</span></td>
-<td><span class="copyable">No power, perform on-site diagnosis and replace required components.</span></td>
-<td><span class="copyable">PW0AZZNN</span></td>
+<td><span class="copyable">+4921196856473</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=M%C3%B6rsenbroicher%20Weg%20200%2C%2040470%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Mörsenbroicher Weg 200, 40470 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">XPS 14 9440</span></td>
+<td><span class="copyable">Damaged palmrest, replace palmrest.</span></td>
+<td><span class="copyable">9MS2C54</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17749758">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17749758</span></td>
+<td><span class="copyable">4021989465</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17749758" aria-label="Kunde angerufen: 17749758" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17749758" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Jasmin Calvo Lorenzo | Grohe AG</span>
+</label>
+</div>
+<input type="text" id="note-17749758" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+4915202459631</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=3%20OG%2C%2040545%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">3 OG, 40545 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">ThinkPad X1 Carbon G10</span></td>
+<td><span class="copyable">USB-A not working, replace sub board.</span></td>
+<td><span class="copyable">PF46R37L</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17749785">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17749785</span></td>
+<td><span class="copyable">06465920238</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17749785" aria-label="Kunde angerufen: 17749785" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17749785" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Peter Mucha | Atlas Copco Holding GmbH</span>
+</label>
+</div>
+<input type="text" id="note-17749785" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+492012177333 / +492012177052</span></td>
+<td>
+<div class="copyable">Essen</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wetterschacht%209%2C%2045139%20Essen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Wetterschacht 9, 45139 Essen</a></div>
+</td>
+<td><span class="copyable">Precision 7770</span></td>
+<td><span class="copyable">Grinding fan noise and freezing, replace motherboard and run ePSA advanced test.</span></td>
+<td><span class="copyable">D7RCRV3</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17749850">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17749850</span></td>
+<td><span class="copyable">06465921087</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17749850" aria-label="Kunde angerufen: 17749850" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17749850" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Heiko Kyritz | ELRO GROSSKÜCHEN GMBH</span>
+</label>
+</div>
+<input type="text" id="note-17749850" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+491732192421</span></td>
+<td>
+<div class="copyable">Kempen</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Industriering%20Ost%2031%2C%2047906%20Kempen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Industriering Ost 31, 47906 Kempen</a></div>
+</td>
+<td><span class="copyable">Dell Pro 14 Plus PB14250</span></td>
+<td><span class="copyable">Cracked LCD and LCD cover, replace parts and test functionality.</span></td>
+<td><span class="copyable">43WX8J4</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17750189">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17750189</span></td>
+<td><span class="copyable">06465925443</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17750189" aria-label="Kunde angerufen: 17750189" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17750189" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Robert Krahl | Versorgungswerk der Architektenkammer N</span>
+</label>
+</div>
+<input type="text" id="note-17750189" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+491752991465</span></td>
+<td>
+<div class="copyable">Düsseldorf</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Lindenstr.%2087%2C%2040233%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Lindenstr. 87, 40233 Düsseldorf</a></div>
+</td>
+<td><span class="copyable">Latitude 7650</span></td>
+<td><span class="copyable">Webcam issue, replace LCD/HUD assembly with camera included.</span></td>
+<td><span class="copyable">B6J4W44</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17750203">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17750203</span></td>
+<td><span class="copyable">06465925742</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17750203" aria-label="Kunde angerufen: 17750203" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17750203" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Marco Bodewig | Deichmann SE</span>
+</label>
+</div>
+<input type="text" id="note-17750203" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+49201867615832</span></td>
+<td>
+<div class="copyable">Essen</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Deichmannweg%209%2C%2045359%20Essen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Deichmannweg 9, 45359 Essen</a></div>
+</td>
+<td><span class="copyable">Latitude 5450</span></td>
+<td><span class="copyable">Cracked LCD, customer needs replacement quote; replace LCD.</span></td>
+<td><span class="copyable">FJP3T74</span></td>
+</tr>
+
+<tr draggable="true" data-wo="17750299">
+<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
+<td><span class="copyable">17750299</span></td>
+<td><span class="copyable">06465876499</span></td>
+<td>
+<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+<input type="checkbox" id="called-17750299" aria-label="Kunde angerufen: 17750299" style="margin-top: 2px; flex: 0 0 auto;">
+<label for="called-17750299" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
+<span class="copyable">Benjamin Wagner | MECO Systemhaus GmbH</span>
+</label>
+</div>
+<input type="text" id="note-17750299" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
+</td>
+<td><span class="copyable">+4920830663871</span></td>
+<td>
+<div class="copyable">Mülheim an der Ruhr</div>
+<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wissollstr.%2018%2C%2045478%20M%C3%BClheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Wissollstr. 18, 45478 Mülheim an der Ruhr</a></div>
+</td>
+<td><span class="copyable">Dell Pro 14 Plus PB14250</span></td>
+<td><span class="copyable">No POST, replace motherboard.</span></td>
+<td><span class="copyable">BH1WJC4</span></td>
 </tr>
 </tbody>
 </table>
@@ -419,18 +443,19 @@ th, td { padding: 9px 10px; }
 
 <script>
 (function() {
-const STORAGE_PREFIX = 'WOList:56640:31-03-2026 19:13:';
+const STORAGE_PREFIX = 'WOList:56640:01-04-2026 19:13:';
 const workOrders = [
 '17743612',
-'17744038',
-'17745120',
-'17746285',
-'17747629',
-'17747855',
 '17748034',
-'17748524',
+'17748638',
 '17748668',
-'17748714'
+'17748761',
+'17749758',
+'17749785',
+'17749850',
+'17750189',
+'17750203',
+'17750299'
 ];
 
 function storageKey(type, wo) {
@@ -522,9 +547,115 @@ copyText(text.trim());
 });
 }
 
+function setupDragAndDrop() {
+const tbody = document.getElementById('wo-tbody');
+const ORDER_KEY = STORAGE_PREFIX + 'rowOrder';
+let draggedRow = null;
+
+function saveOrder() {
+try {
+const order = Array.from(tbody.querySelectorAll('tr[data-wo]')).map(row => row.getAttribute('data-wo'));
+localStorage.setItem(ORDER_KEY, JSON.stringify(order));
+} catch (e) {}
+}
+
+function loadOrder() {
+try {
+const stored = localStorage.getItem(ORDER_KEY);
+if (!stored) return;
+const order = JSON.parse(stored);
+if (!Array.isArray(order)) return;
+
+order.forEach(wo => {
+const row = tbody.querySelector('tr[data-wo="' + wo + '"]');
+if (row) {
+tbody.appendChild(row);
+}
+});
+} catch (e) {}
+}
+
+function getRowAfterY(y) {
+const rows = Array.from(tbody.querySelectorAll('tr[data-wo]:not(.dragging)'));
+let closest = null;
+let closestOffset = Number.NEGATIVE_INFINITY;
+
+rows.forEach(row => {
+const rect = row.getBoundingClientRect();
+const offset = y - rect.top - rect.height / 2;
+if (offset < 0 && offset > closestOffset) {
+closestOffset = offset;
+closest = row;
+}
+});
+
+return closest;
+}
+
+tbody.querySelectorAll('tr[data-wo]').forEach(row => {
+const handle = row.querySelector('.drag-handle');
+if (!handle) return;
+
+row.draggable = false;
+handle.draggable = true;
+handle.style.cursor = 'grab';
+handle.style.userSelect = 'none';
+handle.style.webkitUserSelect = 'none';
+handle.style.touchAction = 'none';
+
+handle.addEventListener('dragstart', function(e) {
+draggedRow = row;
+row.classList.add('dragging');
+row.style.opacity = '0.5';
+if (e.dataTransfer) {
+e.dataTransfer.effectAllowed = 'move';
+e.dataTransfer.setData('text/plain', row.getAttribute('data-wo'));
+}
+});
+
+handle.addEventListener('dragend', function() {
+if (draggedRow) {
+draggedRow.classList.remove('dragging');
+draggedRow.style.opacity = '';
+}
+draggedRow = null;
+saveOrder();
+handle.style.cursor = 'grab';
+});
+
+handle.addEventListener('mousedown', function() {
+handle.style.cursor = 'grabbing';
+});
+
+handle.addEventListener('mouseup', function() {
+handle.style.cursor = 'grab';
+});
+});
+
+tbody.addEventListener('dragover', function(e) {
+e.preventDefault();
+if (!draggedRow) return;
+
+const afterRow = getRowAfterY(e.clientY);
+if (afterRow) {
+tbody.insertBefore(draggedRow, afterRow);
+} else {
+tbody.appendChild(draggedRow);
+}
+});
+
+tbody.addEventListener('drop', function(e) {
+e.preventDefault();
+saveOrder();
+});
+
+loadOrder();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 loadState();
 setupClickToCopy();
+setupDragAndDrop();
 });
 })();
 </script>
