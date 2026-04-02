@@ -454,7 +454,7 @@
 
         </div>
 
-        <div class="status-bar" id="statusBar">Sende exportierte Liste zu GitHub ...</div>
+        <div class="status-bar" id="statusBar">PDF gelesen, aber keine neuen Work Orders erkannt.</div>
 
         <div class="table-wrapper">
             <table>
@@ -1992,6 +1992,11 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         return lastExportedHtml;
     }
 
+    function createFreshExportSnapshot() {
+        lastExportedHtml = buildStandaloneExportHtml();
+        return lastExportedHtml;
+    }
+
     function base64EncodeUnicode(str) {
         return btoa(unescape(encodeURIComponent(str)));
     }
@@ -2014,14 +2019,14 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         return data && data.sha ? data.sha : null;
     }
 
-    async function commitHtmlToGithub() {
+    async function commitHtmlToGithub(useLastExportedSnapshot) {
         const settings = getGithubSettings();
         if (!settings.owner || !settings.repo || !settings.branch || !settings.path || !settings.token) {
             throw new Error('Bitte Owner, Repository, Branch, Datei-Pfad und Token ausfüllen.');
         }
         saveGithubSettings();
 
-        const html = getExportHtmlSnapshot(true);
+        const html = useLastExportedSnapshot ? getExportHtmlSnapshot(false) : createFreshExportSnapshot();
         const sha = await fetchExistingFileSha(settings);
         const url = 'https://api.github.com/repos/' + encodeURIComponent(settings.owner) + '/' + encodeURIComponent(settings.repo) + '/contents/' + settings.path.split('/').map(encodeURIComponent).join('/');
         const payload = {
@@ -2081,7 +2086,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         if (added && autoPushCheckbox && autoPushCheckbox.checked) {
             try {
                 statusBar.textContent = 'PDF fertig. Übertrage die neuen Daten direkt zu GitHub ...';
-                await commitHtmlToGithub();
+                await commitHtmlToGithub(false);
                 statusBar.textContent = 'Fertig. ' + added + ' neue Work Orders hinzugefügt und direkt nach GitHub übertragen.';
             } catch (err) {
                 console.error(err);
@@ -2091,7 +2096,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
     }
 
     function exportHtmlFile() {
-        const html = getExportHtmlSnapshot(true);
+        const html = createFreshExportSnapshot();
         const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -2153,9 +2158,11 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         });
         if (pushToGithubBtn) pushToGithubBtn.addEventListener('click', async function() {
             try {
-                statusBar.textContent = 'Sende exportierte Liste zu GitHub ...';
-                await commitHtmlToGithub();
-                statusBar.textContent = 'Exportierte Liste erfolgreich zu GitHub übertragen.';
+                statusBar.textContent = lastExportedHtml
+                    ? 'Übertrage genau die zuletzt mit „HTML exportieren“ erzeugte Datei zu GitHub ...'
+                    : 'Noch kein HTML exportiert – erstelle jetzt ein Export-Snapshot und übertrage es zu GitHub ...';
+                await commitHtmlToGithub(true);
+                statusBar.textContent = 'GitHub-Upload erfolgreich. Übertragen wurde genau die zuletzt mit „HTML exportieren“ erzeugte Datei.';
             } catch (err) {
                 console.error(err);
                 statusBar.textContent = err && err.message ? err.message : 'GitHub-Upload fehlgeschlagen.';
