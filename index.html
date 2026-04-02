@@ -1924,6 +1924,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         if (githubCommitMessageInput) githubCommitMessageInput.value = settings.message || 'Update index.html after PDF upload';
         if (autoPushCheckbox) autoPushCheckbox.checked = (typeof settings.autoPush === 'boolean') ? settings.autoPush : true;
     }
+    let lastExportedHtml = '';
 
     function buildStandaloneExportHtml() {
         const clone = document.documentElement.cloneNode(true);
@@ -1984,6 +1985,13 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         return '<!DOCTYPE html>\n' + clone.outerHTML;
     }
 
+    function getExportHtmlSnapshot(forceRebuild) {
+        if (forceRebuild || !lastExportedHtml) {
+            lastExportedHtml = buildStandaloneExportHtml();
+        }
+        return lastExportedHtml;
+    }
+
     function base64EncodeUnicode(str) {
         return btoa(unescape(encodeURIComponent(str)));
     }
@@ -2013,7 +2021,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         }
         saveGithubSettings();
 
-        const html = buildStandaloneExportHtml();
+        const html = getExportHtmlSnapshot(true);
         const sha = await fetchExistingFileSha(settings);
         const url = 'https://api.github.com/repos/' + encodeURIComponent(settings.owner) + '/' + encodeURIComponent(settings.repo) + '/contents/' + settings.path.split('/').map(encodeURIComponent).join('/');
         const payload = {
@@ -2083,7 +2091,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
     }
 
     function exportHtmlFile() {
-        const html = buildStandaloneExportHtml();
+        const html = getExportHtmlSnapshot(true);
         const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
