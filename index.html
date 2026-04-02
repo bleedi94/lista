@@ -503,44 +503,6 @@
                 <p><strong>PDF-Dateien hierher ziehen</strong> oder auf „PDF auswählen“ klicken.</p>
                 <p>Die Work Orders werden automatisch ausgelesen und in die Tabelle übernommen.</p>
             </div>
-            <div class="github-box">
-                <h2>GitHub Auto-Commit</h2>
-                <div class="github-grid">
-                    <div class="github-field">
-                        <label for="githubOwnerInput">Owner</label>
-                        <input type="text" id="githubOwnerInput" placeholder="z.B. mirandberisha">
-                    </div>
-                    <div class="github-field">
-                        <label for="githubRepoInput">Repository</label>
-                        <input type="text" id="githubRepoInput" placeholder="z.B. work-orders">
-                    </div>
-                    <div class="github-field">
-                        <label for="githubBranchInput">Branch</label>
-                        <input type="text" id="githubBranchInput" placeholder="main">
-                    </div>
-                    <div class="github-field">
-                        <label for="githubPathInput">Datei-Pfad</label>
-                        <input type="text" id="githubPathInput" placeholder="index.html">
-                    </div>
-                    <div class="github-field">
-                        <label for="githubTokenInput">GitHub Token</label>
-                        <input type="password" id="githubTokenInput" placeholder="Fine-grained PAT">
-                    </div>
-                    <div class="github-field">
-                        <label for="githubCommitMessageInput">Commit-Message</label>
-                        <input type="text" id="githubCommitMessageInput" placeholder="Update index.html from PDF upload">
-                    </div>
-                </div>
-                <div class="github-actions">
-                    <button type="button" class="btn secondary" id="saveGithubSettingsBtn">GitHub speichern</button>
-                    <button type="button" class="btn" id="pushToGithubBtn">Index zu GitHub pushen</button>
-                    <label class="check-inline"><input type="checkbox" id="autoPushCheckbox"> Automatisch nach jedem PDF-Upload zu GitHub senden</label>
-                </div>
-                <div class="github-note">
-                    Für Sicherheit den Token nie im Code hardcoden. Diese Variante ist für deinen eigenen Gebrauch gedacht:
-                    Token lokal im Browser speichern und dann per GitHub API nur dein <code>index.html</code> aktualisieren.
-                </div>
-            </div>
 
         </div>
 
