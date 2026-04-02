@@ -1,663 +1,1578 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Work Order Information Summary</title>
-<style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
+<html lang="de"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Work Order Information Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-html {
--webkit-text-size-adjust: 100%; /* iOS Safari: verhindert automatisches Text-Zoomen */
-}
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
 
-body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-background-color: #f5f5f5;
-padding: 20px;
-color: #111;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #111;
+        }
 
-.container {
-max-width: 1400px;
-margin: 0 auto;
-background-color: white;
-border-radius: 8px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-overflow: hidden;
-}
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
 
-.header {
-background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-color: white;
-padding: 40px 20px;
-text-align: center;
-}
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
 
-.header h1 {
-font-size: 28px;
-margin-bottom: 10px;
-font-weight: 600;
-}
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
 
-.header p {
-font-size: 14px;
-opacity: 0.9;
-margin-bottom: 20px;
-}
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
 
-.powered-by {
-font-size: 12px;
-opacity: 0.7;
-margin-top: 15px;
-}
+        .powered-by {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
 
-.table-wrapper {
-overflow-x: auto;
--webkit-overflow-scrolling: touch; /* iOS Momentum-Scroll */
-overscroll-behavior-x: contain;
-background: white;
-}
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            background: white;
+        }
 
-table {
-width: 100%;
-border-collapse: collapse;
-font-size: 13px;
-min-width: 980px; /* erzwingt horizontales Scrollen auf Mobile */
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 980px;
+        }
 
-thead {
-background-color: #2c3e50;
-color: white;
-}
+        thead {
+            background-color: #2c3e50;
+            color: white;
+        }
 
-/* Hinweis: Sticky kann in iOS/Safari + overflow manchmal unzuverlässig sein */
-@supports (position: sticky) {
-thead {
-position: sticky;
-top: 0;
-z-index: 5;
-}
-}
+        @supports (position: sticky) {
+            thead {
+                position: sticky;
+                top: 0;
+                z-index: 5;
+            }
+        }
 
-th {
-padding: 15px;
-text-align: left;
-font-weight: 600;
-border-right: 1px solid #34495e;
-white-space: nowrap;
-}
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid #34495e;
+            white-space: nowrap;
+        }
 
-th:last-child {
-border-right: none;
-}
+        th:last-child {
+            border-right: none;
+        }
 
-td {
-padding: 12px 15px;
-border-bottom: 1px solid #e0e0e0;
-vertical-align: top;
-}
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
 
-tbody tr {
-transition: background-color 0.2s ease;
-}
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
 
-tbody tr:hover {
-background-color: #f9f9f9;
-}
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
 
-tbody tr:nth-child(even) {
-background-color: #f5f5f5;
-}
+        tbody tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
 
-tbody tr:nth-child(even):hover {
-background-color: #f0f0f0;
-}
+        tbody tr:nth-child(even):hover {
+            background-color: #f0f0f0;
+        }
 
-/* Column-specific styling */
-td:nth-child(1),
-th:nth-child(1) {
-font-weight: 600;
-color: #2c3e50;
-}
+        td:nth-child(1),
+        th:nth-child(1) {
+            font-weight: 600;
+            color: #2c3e50;
+        }
 
-td:nth-child(4),
-th:nth-child(4) {
-color: #555;
-font-size: 12px;
-}
+        td:nth-child(4),
+        th:nth-child(4) {
+            color: #555;
+            font-size: 12px;
+        }
 
-td:nth-child(6),
-th:nth-child(6) {
-color: #555;
-font-size: 12px;
-}
+        td:nth-child(6),
+        th:nth-child(6) {
+            color: #555;
+            font-size: 12px;
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-body { padding: 12px; }
-.container { border-radius: 10px; }
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .container { border-radius: 10px; }
+            .header { padding: 22px 14px; }
+            .header h1 { font-size: 20px; line-height: 1.2; }
+            .header p { font-size: 13px; margin-bottom: 12px; }
+            .powered-by { font-size: 11px; }
+            table { font-size: 12px; }
+            th, td { padding: 10px 12px; }
+        }
 
-.header { padding: 22px 14px; }
-.header h1 { font-size: 20px; line-height: 1.2; }
-.header p { font-size: 13px; margin-bottom: 12px; }
-.powered-by { font-size: 11px; }
+        @media (max-width: 420px) {
+            body { padding: 10px; }
+            .header h1 { font-size: 18px; }
+            table { font-size: 11px; }
+            th, td { padding: 9px 10px; }
+        }
 
-table { font-size: 12px; }
-th, td { padding: 10px 12px; }
-}
+        .toolbar {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fff;
+        }
 
-@media (max-width: 420px) {
-body { padding: 10px; }
-.header h1 { font-size: 18px; }
+        .toolbar-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-table { font-size: 11px; }
-th, td { padding: 9px 10px; }
-}
-</style>
+        .toolbar-left,
+        .toolbar-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            appearance: none;
+            border: 1px solid #2c3e50;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn.secondary {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .meta {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .dropzone {
+            margin-top: 12px;
+            border: 2px dashed #cfd6dc;
+            border-radius: 8px;
+            padding: 18px 16px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .dropzone.dragover {
+            border-color: #2c3e50;
+            background: #f2f5f7;
+        }
+
+        .dropzone p {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .hidden-file-input {
+            display: none;
+        }
+
+        .status-bar {
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fcfcfc;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .drag-header,
+        .drag-cell {
+            width: 42px;
+            min-width: 42px;
+            text-align: center;
+        }
+
+        .drag-cell {
+            cursor: grab;
+            user-select: none;
+            color: #777;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .copyable {
+            cursor: pointer;
+            user-select: text;
+        }
+
+        .copyable:hover {
+            text-decoration: underline;
+            text-decoration-color: rgba(44, 62, 80, 0.35);
+        }
+
+        .company-cell {
+            min-width: 270px;
+        }
+
+        .company-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .company-line input[type="checkbox"] {
+            margin-top: 2px;
+            flex: 0 0 auto;
+        }
+
+        .company-line label {
+            display: block;
+            cursor: pointer;
+            user-select: text;
+            line-height: 1.4;
+        }
+
+        .city-line {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .address-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .address-link:hover {
+            text-decoration: underline;
+        }
+
+        .problem-text {
+            line-height: 1.45;
+            max-width: 360px;
+        }
+
+        .empty-state {
+            padding: 28px 20px 36px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%) translateY(16px);
+            background: rgba(44, 62, 80, 0.96);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .hint {
+            padding: 14px 20px 18px;
+            font-size: 12px;
+            color: #666;
+            background: white;
+        }
+
+        .debug-box {
+            display: none;
+            border-top: 1px solid #e0e0e0;
+            background: #fbfbfb;
+            padding: 16px 20px;
+        }
+
+        .debug-box.show {
+            display: block;
+        }
+
+        .debug-box h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .debug-box textarea {
+            width: 100%;
+            min-height: 240px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            color: #111;
+            background: #fff;
+            resize: vertical;
+        }
+
+
+        .github-box {
+            margin-top: 14px;
+            padding: 14px;
+            border: 1px solid #dfe7ef;
+            background: #f8fbff;
+            border-radius: 10px;
+        }
+
+        .github-box h2 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .github-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
+
+        .github-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .github-field label {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .github-field input {
+            border: 1px solid #cfd8e3;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            background: #fff;
+        }
+
+        .github-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .github-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #5f6b7a;
+            line-height: 1.45;
+        }
+
+        .check-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+    </style>
 </head>
 <body>
-<div class="container">
-<div class="header">
-<h1>Work Order Information Summary</h1>
-<p>Techniker: Dragidella, Bledar (Keskin) | Erstellt: 01-04-2026 19:13</p>
-<div class="powered-by">Interaktive Übersicht mit Drag &amp; Drop, Click-to-Copy und lokaler Speicherung</div>
-</div>
+    <div class="container">
+        <div class="header">
+            <h1>Work Order Information Summary</h1>
+            <p id="subtitle" style="">Erstellt: 02-04-2026 19:13</p>
+            <div class="powered-by">PDF hochladen, automatisch auslesen, manuell sortieren und als HTML mit Code exportieren</div>
+        </div>
 
-<div class="table-wrapper">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>WO#</th>
-<th>Callnummer</th>
-<th>Firma (Ansprechpartner)</th>
-<th>Telefon</th>
-<th>Ansprechpartner Stadt (Adresse)</th>
-<th>Gerät</th>
-<th>Problem/Arbeit</th>
-<th>SN</th>
-</tr>
-</thead>
-<tbody id="wo-tbody">
-<tr draggable="true" data-wo="17743612">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17743612</span></td>
-<td><span class="copyable">06465801092</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17743612" aria-label="Kunde angerufen: 17743612" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17743612" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Stefan Sebus | LEMKEN GMBH &amp; CO. KG</span>
-</label>
-</div>
-<input type="text" id="note-17743612" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+49280281537</span></td>
-<td>
-<div class="copyable">Alpen</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Weselser%20Str.%205%2C%2046519%20Alpen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Weselser Str. 5, 46519 Alpen</a></div>
-</td>
-<td><span class="copyable">Latitude 5550</span></td>
-<td><span class="copyable">USB-C not working, replace mainboard.</span></td>
-<td><span class="copyable">5WYWR54</span></td>
-</tr>
+        <div class="toolbar">
+            <div class="toolbar-row">
+                <div class="toolbar-left">
+                    <button type="button" class="btn" id="choosePdfBtn">PDF auswählen</button>
+                    <input type="file" id="pdfInput" class="hidden-file-input" accept="application/pdf" multiple="">
+                    <button type="button" class="btn secondary" id="exportHtmlBtn">HTML exportieren</button>
+                    <button type="button" class="btn secondary" id="clearBtn">Liste leeren</button>
+                    <button type="button" class="btn secondary" id="toggleDebugBtn">Debug anzeigen</button>
+                </div>
+                <div class="toolbar-right">
+                    <span class="meta" id="summaryInfo">12 Work Orders geladen.</span>
+                </div>
+            </div>
+            <div class="dropzone" id="dropzone">
+                <p><strong>PDF-Dateien hierher ziehen</strong> oder auf „PDF auswählen“ klicken.</p>
+                <p>Die Work Orders werden automatisch ausgelesen und in die Tabelle übernommen.</p>
+            </div>
+            <div class="github-box">
+                <h2>GitHub Auto-Commit</h2>
+                <div class="github-grid">
+                    <div class="github-field">
+                        <label for="githubOwnerInput">Owner</label>
+                        <input type="text" id="githubOwnerInput" placeholder="z.B. mirandberisha">
+                    </div>
+                    <div class="github-field">
+                        <label for="githubRepoInput">Repository</label>
+                        <input type="text" id="githubRepoInput" placeholder="z.B. work-orders">
+                    </div>
+                    <div class="github-field">
+                        <label for="githubBranchInput">Branch</label>
+                        <input type="text" id="githubBranchInput" placeholder="main">
+                    </div>
+                    <div class="github-field">
+                        <label for="githubPathInput">Datei-Pfad</label>
+                        <input type="text" id="githubPathInput" placeholder="index.html">
+                    </div>
+                    <div class="github-field">
+                        <label for="githubTokenInput">GitHub Token</label>
+                        <input type="password" id="githubTokenInput" placeholder="Fine-grained PAT" value="">
+                    </div>
+                    <div class="github-field">
+                        <label for="githubCommitMessageInput">Commit-Message</label>
+                        <input type="text" id="githubCommitMessageInput" placeholder="Update index.html from PDF upload">
+                    </div>
+                </div>
+                <div class="github-actions">
+                    <button type="button" class="btn secondary" id="saveGithubSettingsBtn">GitHub speichern</button>
+                    <button type="button" class="btn" id="pushToGithubBtn">Index zu GitHub pushen</button>
+                    <label class="check-inline"><input type="checkbox" id="autoPushCheckbox"> Automatisch nach PDF-Upload committen</label>
+                </div>
+                <div class="github-note">
+                    Für Sicherheit den Token nie im Code hardcoden. Diese Variante ist für deinen eigenen Gebrauch gedacht:
+                    Token lokal im Browser speichern und dann per GitHub API nur dein <code>index.html</code> aktualisieren.
+                </div>
+            </div>
 
-<tr draggable="true" data-wo="17748034">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17748034</span></td>
-<td><span class="copyable">06465880867</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17748034" aria-label="Kunde angerufen: 17748034" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17748034" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Björn Röder | GEBIT GESELLSCHAFT FÜR EDV- BERATUNG UN</span>
-</label>
-</div>
-<input type="text" id="note-17748034" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+49211513414710</span></td>
-<td>
-<div class="copyable">Duesseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Oststr.%2010%2C%2040211%20Duesseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Oststr. 10, 40211 Duesseldorf</a></div>
-</td>
-<td><span class="copyable">Precision 7670</span></td>
-<td><span class="copyable">Keyboard keys not responding, check options and replace keyboard-related parts.</span></td>
-<td><span class="copyable">8TH8KR3</span></td>
-</tr>
+        </div>
 
-<tr draggable="true" data-wo="17748638">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17748638</span></td>
-<td><span class="copyable">4021984100</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17748638" aria-label="Kunde angerufen: 17748638" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17748638" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Andreas Bitner | Rheinmetall IT Solutions GmbH</span>
-</label>
-</div>
-<input type="text" id="note-17748638" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+491602052431</span></td>
-<td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Rheinmetall-Platz%201%20N0.F20%2C%2040476%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Rheinmetall-Platz 1 N0.F20, 40476 Düsseldorf</a></div>
-</td>
-<td><span class="copyable">ThinkPad T14 G4</span></td>
-<td><span class="copyable">Battery defective, unit only runs on AC; replace planar and battery.</span></td>
-<td><span class="copyable">PF4XVMTV</span></td>
-</tr>
+        <div class="status-bar" id="statusBar">Bereit.</div>
 
-<tr draggable="true" data-wo="17748668">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17748668</span></td>
-<td><span class="copyable">4021984316</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17748668" aria-label="Kunde angerufen: 17748668" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17748668" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Support Team | Freizeitanlage Wankumer Heidesee GmbH</span>
-</label>
-</div>
-<input type="text" id="note-17748668" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+491722545129</span></td>
-<td>
-<div class="copyable">Wachtendonk</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=J%C3%BClicher%20Strasse%201%2C%2047669%20Wachtendonk" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Jülicher Strasse 1, 47669 Wachtendonk</a></div>
-</td>
-<td><span class="copyable">ThinkCentre M70q Gen 6</span></td>
-<td><span class="copyable">Boot issue, replace needed parts and test system.</span></td>
-<td><span class="copyable">GM15HX8M</span></td>
-</tr>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="drag-header"></th>
+                        <th>WO#</th>
+                        <th>Callnummer</th>
+                        <th>Firma (Ansprechpartner)</th>
+                        <th>Telefon</th>
+                        <th>Ansprechpartner Stadt (Adresse)</th>
+                        <th>Gerät</th>
+                        <th>Problem/Arbeit</th>
+                        <th>SN</th>
+                    </tr>
+                </thead>
+                <tbody id="woTableBody"><tr data-id="17730921"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17730921</span></td><td><span class="copyable">06465556721</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17730921" aria-label="Kunde angerufen: 17730921"><label for="called-17730921"><span class="copyable">B Wagner | MECO Systemhaus GmbH</span></label></div><input type="text" id="note-17730921" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:20830663871">20830663871</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Wissollstr.%2018%2C%2045478%20Muelheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Wissollstr. 18, 45478 Muelheim an der Ruhr</a></div></td><td><span class="copyable">Dell Pro 14 Plus</span></td><td><span class="problem-text">Fan issue - replace fan assembly</span></td><td><span class="copyable">54G19H4</span></td></tr><tr data-id="17743612"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17743612</span></td><td><span class="copyable">06465801092</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17743612" aria-label="Kunde angerufen: 17743612"><label for="called-17743612"><span class="copyable">Stefan Sebus | LEMKEN GMBH &amp; CO. KG</span></label></div><input type="text" id="note-17743612" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:49280281537">49280281537</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Weselser%20Str.%205%2C%2046519%20Alpen" target="_blank" rel="noopener noreferrer">Weselser Str. 5, 46519 Alpen</a></div></td><td><span class="copyable">Latitude 5550</span></td><td><span class="problem-text">USB-C issue - replace mainboard</span></td><td><span class="copyable">5WYWR54</span></td></tr><tr data-id="17748034"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17748034</span></td><td><span class="copyable">06465880867</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17748034" aria-label="Kunde angerufen: 17748034"><label for="called-17748034"><span class="copyable">Björn Röder | GEBIT GESELLSCHAFT FÜR EDV- BERATUNG UNZIP CODE : DE40211</span></label></div><input type="text" id="note-17748034" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:49211513414710">49211513414710</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Oststr.%2010%2C%2040211%20Duesseldorf" target="_blank" rel="noopener noreferrer">Oststr. 10, 40211 Duesseldorf</a></div></td><td><span class="copyable">Precision 7670</span></td><td><span class="problem-text">Keyboard issue - replace keyboard</span></td><td><span class="copyable">8TH8KR3</span></td></tr><tr data-id="17748580"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17748580</span></td><td><span class="copyable">4021983609</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17748580" aria-label="Kunde angerufen: 17748580"><label for="called-17748580"><span class="copyable">Galaxus Deutschland GmbH</span></label></div><input type="text" id="note-17748580" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:+4940822160757">+4940822160757</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Odilia-Von-Goch-Strasse%2015%20%2CSVC76ADDR2%3A%2C%2047839%20Krefeld" target="_blank" rel="noopener noreferrer">Odilia-Von-Goch-Strasse 15 ,SVC76ADDR2:, 47839 Krefeld</a></div></td><td><span class="copyable">NB TP X12 Detachable G2</span></td><td><span class="problem-text">Fan issue - replace fan assembly</span></td><td><span class="copyable">PW0G4RK9</span></td></tr><tr data-id="17750203"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17750203</span></td><td><span class="copyable">06465925742</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17750203" aria-label="Kunde angerufen: 17750203"><label for="called-17750203"><span class="copyable">Marco Bodewig..... | Deichmann SE</span></label></div><input type="text" id="note-17750203" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:490201867615832">490201867615832</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Deichmannweg%209%2C%2045359%20Essen" target="_blank" rel="noopener noreferrer">Deichmannweg 9, 45359 Essen</a></div></td><td><span class="copyable">Latitude 5450</span></td><td><span class="problem-text">Display issue - replace LCD</span></td><td><span class="copyable">FJP3T74</span></td></tr><tr data-id="17750299"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17750299</span></td><td><span class="copyable">06465876499</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17750299" aria-label="Kunde angerufen: 17750299"><label for="called-17750299"><span class="copyable">B Wagner | MECO Systemhaus GmbH</span></label></div><input type="text" id="note-17750299" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:4920830663871">4920830663871</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Wissollstr.%2018%2C%2045478%20M%C3%BClheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer">Wissollstr. 18, 45478 Mülheim an der Ruhr</a></div></td><td><span class="copyable">Dell Pro 14 Plus</span></td><td><span class="problem-text">Boot issue - replace needed parts</span></td><td><span class="copyable">BH1WJC4</span></td></tr><tr data-id="17750300"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17750300</span></td><td><span class="copyable">4022003733</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17750300" aria-label="Kunde angerufen: 17750300"><label for="called-17750300"><span class="copyable">UNISYS C/O HENKEL | UNISYS C/O HENKEL</span></label></div><input type="text" id="note-17750300" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:+491622559047">+491622559047</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Henkelstra%C3%9Fe%2067%20GEBAUDE%20E06%2C%2040589%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Henkelstraße 67 GEBAUDE E06, 40589 Düsseldorf</a></div></td><td><span class="copyable">NB TP X13 Yoga G4</span></td><td><span class="problem-text">Fan issue - replace fan assembly</span></td><td><span class="copyable">PF4PNTAQ</span></td></tr><tr data-id="17750488"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17750488</span></td><td><span class="copyable">4022005738</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17750488" aria-label="Kunde angerufen: 17750488"><label for="called-17750488"><span class="copyable">FRTG Group | FRTG Group</span></label></div><input type="text" id="note-17750488" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:+4921194403711">+4921194403711</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Prinz-Georg-Stra%C3%9Fe%2015%2C%2040477%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer">Prinz-Georg-Straße 15, 40477 Düsseldorf</a></div></td><td><span class="copyable">NB TP E16 AMD G3</span></td><td><span class="problem-text">Mainboard issue - replace mainboard</span></td><td><span class="copyable">PF5P6PZC</span></td></tr><tr data-id="17750960"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17750960</span></td><td><span class="copyable">06465944379</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17750960" aria-label="Kunde angerufen: 17750960"><label for="called-17750960"><span class="copyable">SWK AG</span></label></div><input type="text" id="note-17750960" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:1707829208">1707829208</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=St.%20T%C3%B6niser%20Str.%20124%2C%2047804%20Krefeld" target="_blank" rel="noopener noreferrer">St. Töniser Str. 124, 47804 Krefeld</a></div></td><td><span class="copyable">Latitude 5450</span></td><td><span class="problem-text">Webcam issue - replace webcam</span></td><td><span class="copyable">GXPXT44</span></td></tr><tr data-id="17751043"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17751043</span></td><td><span class="copyable">06465945720</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17751043" aria-label="Kunde angerufen: 17751043"><label for="called-17751043"><span class="copyable">Gürsel Yilmaz | PKF FASSELT PARTNERSCHAFT MBB WIRTSCHAFZIP CODE : DE47059</span></label></div><input type="text" id="note-17751043" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:491622001203">491622001203</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Schifferstr.%20210%2C%2047059%20Duisburg" target="_blank" rel="noopener noreferrer">Schifferstr. 210, 47059 Duisburg</a></div></td><td><span class="copyable">Latitude 5540</span></td><td><span class="problem-text">No power - diagnose and repair</span></td><td><span class="copyable">1JC8FS3</span></td></tr><tr data-id="17751216"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17751216</span></td><td><span class="copyable">06465947666</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17751216" aria-label="Kunde angerufen: 17751216"><label for="called-17751216"><span class="copyable">Paul Fischer | Tech Data Service GmbH</span></label></div><input type="text" id="note-17751216" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:49203709009500">49203709009500</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Schifferstra%C3%9Fe%20200%2C%2047059%20Duisburg" target="_blank" rel="noopener noreferrer">Schifferstraße 200, 47059 Duisburg</a></div></td><td><span class="copyable">Latitude 3520</span></td><td><span class="problem-text">Hardware issue - inspect unit</span></td><td><span class="copyable">3FD5V93</span></td></tr><tr data-id="17751357"><td class="drag-cell" title="Ziehen zum Sortieren">☰</td><td><span class="copyable">17751357</span></td><td><span class="copyable">4022019928</span></td><td class="company-cell"><div class="company-line"><input type="checkbox" id="called-17751357" aria-label="Kunde angerufen: 17751357"><label for="called-17751357"><span class="copyable">Fraunhofer IMS | Fraunhofer IMS</span></label></div><input type="text" id="note-17751357" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;"></td><td><a class="address-link" href="tel:+4920337830240">+4920337830240</a></td><td><div><a class="address-link copyable" href="https://www.google.com/maps/search/?api=1&amp;query=Finkenstra%C3%9Fe%2061%20Fraunhofer%20IMS%2C%2047057%20Duisburg" target="_blank" rel="noopener noreferrer">Finkenstraße 61 Fraunhofer IMS, 47057 Duisburg</a></div></td><td><span class="copyable">NB TP X13 G5</span></td><td><span class="problem-text">Mainboard issue - replace mainboard</span></td><td><span class="copyable">GM0NPDYH</span></td></tr></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" style="display: none;">Noch keine Work Orders erkannt.</div>
+        </div>
 
-<tr draggable="true" data-wo="17748761">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17748761</span></td>
-<td><span class="copyable">06465899287</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17748761" aria-label="Kunde angerufen: 17748761" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17748761" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Christoph Benedens | RDS CONSULTING GMBH</span>
-</label>
-</div>
-<input type="text" id="note-17748761" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+4921196856473</span></td>
-<td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=M%C3%B6rsenbroicher%20Weg%20200%2C%2040470%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Mörsenbroicher Weg 200, 40470 Düsseldorf</a></div>
-</td>
-<td><span class="copyable">XPS 14 9440</span></td>
-<td><span class="copyable">Damaged palmrest, replace palmrest.</span></td>
-<td><span class="copyable">9MS2C54</span></td>
-</tr>
+        <div class="debug-box" id="debugBox">
+            <h2>Debug Rohtext</h2>
+            <textarea id="debugOutput" spellcheck="false"></textarea>
+        </div>
 
-<tr draggable="true" data-wo="17749758">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17749758</span></td>
-<td><span class="copyable">4021989465</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17749758" aria-label="Kunde angerufen: 17749758" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17749758" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Jasmin Calvo Lorenzo | Grohe AG</span>
-</label>
-</div>
-<input type="text" id="note-17749758" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+4915202459631</span></td>
-<td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=3%20OG%2C%2040545%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">3 OG, 40545 Düsseldorf</a></div>
-</td>
-<td><span class="copyable">ThinkPad X1 Carbon G10</span></td>
-<td><span class="copyable">USB-A not working, replace sub board.</span></td>
-<td><span class="copyable">PF46R37L</span></td>
-</tr>
+        <div class="hint">Adressen öffnen direkt in Google Maps. Checkboxen, Notizen und Sortierung werden lokal gespeichert.</div>
+    </div>
 
-<tr draggable="true" data-wo="17749785">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17749785</span></td>
-<td><span class="copyable">06465920238</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17749785" aria-label="Kunde angerufen: 17749785" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17749785" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Peter Mucha | Atlas Copco Holding GmbH</span>
-</label>
-</div>
-<input type="text" id="note-17749785" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+492012177333 / +492012177052</span></td>
-<td>
-<div class="copyable">Essen</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wetterschacht%209%2C%2045139%20Essen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Wetterschacht 9, 45139 Essen</a></div>
-</td>
-<td><span class="copyable">Precision 7770</span></td>
-<td><span class="copyable">Grinding fan noise and freezing, replace motherboard and run ePSA advanced test.</span></td>
-<td><span class="copyable">D7RCRV3</span></td>
-</tr>
+    <div class="toast" id="toast">Kopiert</div>
 
-<tr draggable="true" data-wo="17749850">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17749850</span></td>
-<td><span class="copyable">06465921087</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17749850" aria-label="Kunde angerufen: 17749850" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17749850" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Heiko Kyritz | ELRO GROSSKÜCHEN GMBH</span>
-</label>
-</div>
-<input type="text" id="note-17749850" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+491732192421</span></td>
-<td>
-<div class="copyable">Kempen</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Industriering%20Ost%2031%2C%2047906%20Kempen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Industriering Ost 31, 47906 Kempen</a></div>
-</td>
-<td><span class="copyable">Dell Pro 14 Plus PB14250</span></td>
-<td><span class="copyable">Cracked LCD and LCD cover, replace parts and test functionality.</span></td>
-<td><span class="copyable">43WX8J4</span></td>
-</tr>
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
-<tr draggable="true" data-wo="17750189">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17750189</span></td>
-<td><span class="copyable">06465925443</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17750189" aria-label="Kunde angerufen: 17750189" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17750189" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Robert Krahl | Versorgungswerk der Architektenkammer N</span>
-</label>
-</div>
-<input type="text" id="note-17750189" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+491752991465</span></td>
-<td>
-<div class="copyable">Düsseldorf</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Lindenstr.%2087%2C%2040233%20D%C3%BCsseldorf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Lindenstr. 87, 40233 Düsseldorf</a></div>
-</td>
-<td><span class="copyable">Latitude 7650</span></td>
-<td><span class="copyable">Webcam issue, replace LCD/HUD assembly with camera included.</span></td>
-<td><span class="copyable">B6J4W44</span></td>
-</tr>
-
-<tr draggable="true" data-wo="17750203">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17750203</span></td>
-<td><span class="copyable">06465925742</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17750203" aria-label="Kunde angerufen: 17750203" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17750203" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Marco Bodewig | Deichmann SE</span>
-</label>
-</div>
-<input type="text" id="note-17750203" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+49201867615832</span></td>
-<td>
-<div class="copyable">Essen</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Deichmannweg%209%2C%2045359%20Essen" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Deichmannweg 9, 45359 Essen</a></div>
-</td>
-<td><span class="copyable">Latitude 5450</span></td>
-<td><span class="copyable">Cracked LCD, customer needs replacement quote; replace LCD.</span></td>
-<td><span class="copyable">FJP3T74</span></td>
-</tr>
-
-<tr draggable="true" data-wo="17750299">
-<td class="drag-handle" title="Ziehen zum Sortieren" style="cursor: grab; user-select: none;">☰</td>
-<td><span class="copyable">17750299</span></td>
-<td><span class="copyable">06465876499</span></td>
-<td>
-<div style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
-<input type="checkbox" id="called-17750299" aria-label="Kunde angerufen: 17750299" style="margin-top: 2px; flex: 0 0 auto;">
-<label for="called-17750299" style="cursor: pointer; flex: 1 1 auto; line-height: 1.35;">
-<span class="copyable">Benjamin Wagner | MECO Systemhaus GmbH</span>
-</label>
-</div>
-<input type="text" id="note-17750299" placeholder="Notiz (z.B. Kunde ab 13 Uhr erreichbar)" style="width: 100%; padding: 8px 10px; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 12px; color: #111; background: #fff;">
-</td>
-<td><span class="copyable">+4920830663871</span></td>
-<td>
-<div class="copyable">Mülheim an der Ruhr</div>
-<div><a class="copyable" href="https://www.google.com/maps/search/?api=1&query=Wissollstr.%2018%2C%2045478%20M%C3%BClheim%20an%20der%20Ruhr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Wissollstr. 18, 45478 Mülheim an der Ruhr</a></div>
-</td>
-<td><span class="copyable">Dell Pro 14 Plus PB14250</span></td>
-<td><span class="copyable">No POST, replace motherboard.</span></td>
-<td><span class="copyable">BH1WJC4</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+    
 
 <script>
 (function() {
-const STORAGE_PREFIX = 'WOList:56640:01-04-2026 19:13:';
-const workOrders = [
-'17743612',
-'17748034',
-'17748638',
-'17748668',
-'17748761',
-'17749758',
-'17749785',
-'17749850',
-'17750189',
-'17750203',
-'17750299'
-];
+    const STORAGE_PREFIX = 'WOList:dynamic-v11:';
+    let rowsData = [];
+    let sortable = null;
+    let toastTimer = null;
 
-function storageKey(type, wo) {
-return STORAGE_PREFIX + type + ':' + wo;
-}
+    const pdfInput = document.getElementById('pdfInput');
+    const choosePdfBtn = document.getElementById('choosePdfBtn');
+    const exportHtmlBtn = document.getElementById('exportHtmlBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const toggleDebugBtn = document.getElementById('toggleDebugBtn');
+    const dropzone = document.getElementById('dropzone');
+    const tbody = document.getElementById('woTableBody');
+    const emptyState = document.getElementById('emptyState');
+    const statusBar = document.getElementById('statusBar');
+    const summaryInfo = document.getElementById('summaryInfo');
+    const subtitle = document.getElementById('subtitle');
+    const debugBox = document.getElementById('debugBox');
+    const debugOutput = document.getElementById('debugOutput');
+    const toast = document.getElementById('toast');
+    const githubOwnerInput = document.getElementById('githubOwnerInput');
+    const githubRepoInput = document.getElementById('githubRepoInput');
+    const githubBranchInput = document.getElementById('githubBranchInput');
+    const githubPathInput = document.getElementById('githubPathInput');
+    const githubTokenInput = document.getElementById('githubTokenInput');
+    const githubCommitMessageInput = document.getElementById('githubCommitMessageInput');
+    const saveGithubSettingsBtn = document.getElementById('saveGithubSettingsBtn');
+    const pushToGithubBtn = document.getElementById('pushToGithubBtn');
+    const autoPushCheckbox = document.getElementById('autoPushCheckbox');
 
-function loadState() {
-workOrders.forEach(wo => {
-const cb = document.getElementById('called-' + wo);
-if (cb) {
-const stored = localStorage.getItem(storageKey('called', wo));
-if (stored === 'true') {
-cb.checked = true;
-} else if (stored === 'false') {
-cb.checked = false;
-}
-cb.addEventListener('change', function() {
-try {
-localStorage.setItem(storageKey('called', wo), cb.checked ? 'true' : 'false');
-} catch (e) {}
-});
-}
 
-const note = document.getElementById('note-' + wo);
-if (note) {
-const storedNote = localStorage.getItem(storageKey('note', wo));
-if (storedNote !== null) {
-note.value = storedNote;
-}
-note.addEventListener('input', function() {
-try {
-localStorage.setItem(storageKey('note', wo), note.value);
-} catch (e) {}
-});
-}
-});
-}
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.worker.min.js';
+    }
 
-function setupClickToCopy() {
-function copyText(text) {
-if (!text) return;
-if (navigator.clipboard && navigator.clipboard.writeText) {
-navigator.clipboard.writeText(text).catch(function() {
-fallbackCopy(text);
-});
-} else {
-fallbackCopy(text);
-}
-}
+    function storageKey(type, wo) { return STORAGE_PREFIX + type + ':' + wo; }
+    function globalStorageKey(type) { return STORAGE_PREFIX + type; }
+    function norm(v) { return String(v == null ? '' : v).replace(/\u00A0/g, ' ').replace(/\r/g, '').replace(/[ \t]+/g, ' ').trim(); }
+    function compact(v) { return norm(v).replace(/\s+/g, ' ').trim(); }
+    function escapeHtml(value) {
+        return String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+    function escapeRegExp(value) { return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function telHref(phone) {
+        const digits = String(phone || '').replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
+        return digits ? 'tel:' + digits : '';
+    }
+    function normalizePhone(v) {
+        let s = compact(v);
+        if (!s) return '';
+        s = s.replace(/(TEL\.?1|TEL\.?2|ALT\.TEL\.?1|ALT\.TEL\.?2|Phone|Telefon)\s*:?\s*/gi, '');
+        s = s.replace(/[^\d+]/g, '');
+        s = s.replace(/(?!^)\+/g, '');
+        if (s === '+49' || s.length < 6) return '';
+        return s;
+    }
+    function looksLikeCompany(value) {
+        const s = compact(value);
+        return /gmbh|ag|kg|limited|consulting|technology|holding|systemhaus|solutions|werk|stadtwerke|office|support|team|beratung|freizeitanlage/i.test(s);
+    }
+    function titleCaseWord(word) {
+        if (!word) return '';
+        if (/^[A-ZÄÖÜ]{2,5}$/.test(word)) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }
+    function deriveNameFromEmail(email) {
+        const e = compact(email).toLowerCase();
+        if (!e || e.indexOf('@') === -1) return '';
+        const local = e.split('@')[0];
+        if (!local || /^(info|support|service|helpdesk|office|kontakt|contact|it|team|admin|sales|mail|noreply|no-reply)$/.test(local)) return '';
+        const parts = local.replace(/[_\-]+/g, '.').split('.').filter(Boolean);
+        if (parts.length < 2) return '';
+        return parts.map(titleCaseWord).join(' ');
+    }
+    function looksLikePerson(value) {
+        const s = compact(value);
+        if (!s || looksLikeCompany(s)) return false;
+        if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(s)) return false;
+        return /[A-Za-zÄÖÜäöüß]/.test(s) && s.split(/\s+/).length >= 2;
+    }
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 1200);
+    }
+    function copyText(text) {
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() { showToast('Kopiert'); }).catch(function() { fallbackCopy(text); });
+        } else {
+            fallbackCopy(text);
+        }
+    }
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); showToast('Kopiert'); } catch (e) {}
+        document.body.removeChild(ta);
+    }
+    function setupClickToCopy() {
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+            if (!target || target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'A') return;
+            if (target.classList && target.classList.contains('copyable')) {
+                copyText((target.innerText || target.textContent || '').trim());
+            }
+        });
+    }
+    function saveRows() { try { localStorage.setItem(globalStorageKey('rowsData'), JSON.stringify(rowsData)); } catch (e) {} }
+    function loadRows() {
+        try {
+            const parsed = JSON.parse(localStorage.getItem(globalStorageKey('rowsData')) || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) { return []; }
+    }
+    function saveOrder() {
+        try {
+            const order = Array.from(tbody.querySelectorAll('tr[data-id]')).map(function(tr) { return tr.getAttribute('data-id'); });
+            localStorage.setItem(globalStorageKey('order'), JSON.stringify(order));
+        } catch (e) {}
+    }
+    function applySavedOrder(list) {
+        let order = [];
+        try { order = JSON.parse(localStorage.getItem(globalStorageKey('order')) || '[]'); } catch (e) {}
+        if (!Array.isArray(order) || !order.length) return list.slice();
+        const map = new Map();
+        list.forEach(function(item) { map.set(item.wo, item); });
+        const out = [];
+        order.forEach(function(id) { if (map.has(id)) { out.push(map.get(id)); map.delete(id); } });
+        map.forEach(function(v) { out.push(v); });
+        return out;
+    }
+    function updateSummary() {
+        summaryInfo.textContent = rowsData.length ? (rowsData.length + ' Work Orders geladen.') : 'Noch keine PDF geladen.';
+    }
+    function loadState() {
+        rowsData.forEach(function(row) {
+            const cb = document.getElementById('called-' + row.wo);
+            if (cb) {
+                cb.checked = localStorage.getItem(storageKey('called', row.wo)) === 'true';
+                cb.addEventListener('change', function() {
+                    try { localStorage.setItem(storageKey('called', row.wo), cb.checked ? 'true' : 'false'); } catch (e) {}
+                });
+            }
+            const note = document.getElementById('note-' + row.wo);
+            if (note) {
+                const stored = localStorage.getItem(storageKey('note', row.wo));
+                if (stored !== null) note.value = stored;
+                note.addEventListener('input', function() {
+                    try { localStorage.setItem(storageKey('note', row.wo), note.value); } catch (e) {}
+                });
+            }
+        });
+    }
+    function cleanAddressValue(value) {
+        let s = compact(value);
+        if (!s) return '';
+        s = s.replace(/\bADDR2\s*:.*$/i, '').trim();
+        s = s.replace(/\bSTATE\s*:.*$/i, '').trim();
+        s = s.replace(/\bZIP\s+CODE\s*:.*$/i, '').trim();
+        s = s.replace(/\s*\/\s*Baua?\s*$/i, '').trim();
+        s = s.replace(/\s*Dept%3a.*$/i, '').trim();
+        s = s.replace(/\s{2,}/g, ' ').trim();
+        return s;
+    }
+    function cleanCityValue(value) {
+        let s = compact(value);
+        if (!s) return '';
+        s = s.replace(/\bSTATE\s*:.*$/i, '').trim();
+        s = s.replace(/\bZIP\s+CODE\s*:.*$/i, '').trim();
+        s = s.replace(/\s{2,}/g, ' ').trim();
+        return s;
+    }
+    function addressText(row) {
+        const zipCity = [compact(row.zip), cleanCityValue(row.city)].filter(Boolean).join(' ');
+        return [cleanAddressValue(row.addr1), zipCity].filter(Boolean).join(', ');
+    }
+    function companyText(row) {
+        const contact = compact(row.contact);
+        const company = compact(row.company).replace(/\bZIP\s*CODE\s*:.*$/i, '').trim();
+        if (contact && company) return contact + ' | ' + company;
+        if (contact) return contact;
+        if (company) return company;
+        return '';
+    }
+    function rowHtml(row) {
+        const address = addressText(row);
+        const maps = address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address) : '#';
+        return '<tr data-id="' + escapeHtml(row.wo) + '">' +
+            '<td class="drag-cell" title="Ziehen zum Sortieren">☰</td>' +
+            '<td><span class="copyable">' + escapeHtml(row.wo) + '</span></td>' +
+            '<td><span class="copyable">' + escapeHtml(row.callNumber) + '</span></td>' +
+            '<td class="company-cell">' +
+                '<div class="company-line">' +
+                    '<input type="checkbox" id="called-' + escapeHtml(row.wo) + '" aria-label="Kunde angerufen: ' + escapeHtml(row.wo) + '">' +
+                    '<label for="called-' + escapeHtml(row.wo) + '"><span class="copyable">' + escapeHtml(companyText(row)) + '</span></label>' +
+                '</div>' +
+                '<input type="text" id="note-' + escapeHtml(row.wo) + '" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;">' +
+            '</td>' +
+            '<td>' +
+                (row.phoneLink ? '<a class="address-link" href="' + escapeHtml(row.phoneLink) + '">' + escapeHtml(row.phone) + '</a>' : '<span>' + escapeHtml(row.phone) + '</span>') +
+                (row.phoneAltLink ? '<br><a class="address-link" href="' + escapeHtml(row.phoneAltLink) + '">' + escapeHtml(row.phoneAlt) + '</a>' : '') +
+            '</td>' +
+            '<td><div><a class="address-link copyable" href="' + escapeHtml(maps) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(address) + '</a></div></td>' +
+            '<td><span class="copyable">' + escapeHtml(row.device) + '</span></td>' +
+            '<td><span class="problem-text">' + escapeHtml(row.problem) + '</span></td>' +
+            '<td><span class="copyable">' + escapeHtml(row.serial) + '</span></td>' +
+        '</tr>';
+    }
+    function syncRowsFromDom() {
+        const order = Array.from(tbody.querySelectorAll('tr[data-id]')).map(function(tr) { return tr.getAttribute('data-id'); });
+        const map = new Map();
+        rowsData.forEach(function(r) { map.set(r.wo, r); });
+        rowsData = order.map(function(id) { return map.get(id); }).filter(Boolean);
+        saveRows();
+        updateSummary();
+    }
+    function initSortable() {
+        if (sortable) sortable.destroy();
+        if (window.Sortable) {
+            sortable = Sortable.create(tbody, {
+                handle: '.drag-cell',
+                animation: 150,
+                ghostClass: 'dragging-row',
+                onEnd: function() { saveOrder(); syncRowsFromDom(); }
+            });
+        }
+    }
+    function render() {
+        tbody.innerHTML = rowsData.map(rowHtml).join('');
+        emptyState.style.display = rowsData.length ? 'none' : 'block';
+        initSortable();
+        loadState();
+        updateSummary();
+    }
+    function setDebugText(text) { debugOutput.value = text || ''; }
 
-function fallbackCopy(text) {
-const ta = document.createElement('textarea');
-ta.value = text;
-ta.style.position = 'fixed';
-ta.style.left = '-9999px';
-ta.style.top = '0';
-document.body.appendChild(ta);
-ta.focus();
-ta.select();
-try {
-document.execCommand('copy');
-} catch (e) {}
-document.body.removeChild(ta);
-}
+    function extractCreatedAt(text) {
+        const m = text.match(/Workorder List\s*\n?\s*\d+\s+(\d{2}-\d{2}-\d{4}\s+\d{2}:\d{2})/i);
+        return m ? m[1] : '';
+    }
+    function updateHeaderMeta(text) {
+        const created = extractCreatedAt(text);
+        if (created) {
+            subtitle.textContent = 'Erstellt: ' + created;
+            subtitle.style.display = '';
+        }
+    }
 
-document.addEventListener('click', function(e) {
-const target = e.target;
+    function groupPageLines(items) {
+        const buckets = [];
+        items.forEach(function(item) {
+            const str = compact(item.str || '');
+            if (!str) return;
+            const x = item.transform ? item.transform[4] : 0;
+            const y = item.transform ? item.transform[5] : 0;
+            let bucket = null;
+            for (let i = 0; i < buckets.length; i++) {
+                if (Math.abs(buckets[i].y - y) <= 3) { bucket = buckets[i]; break; }
+            }
+            if (!bucket) {
+                bucket = { y: y, items: [] };
+                buckets.push(bucket);
+            }
+            bucket.items.push({ x: x, str: str });
+        });
+        buckets.sort(function(a, b) { return b.y - a.y; });
+        return buckets.map(function(bucket) {
+            bucket.items.sort(function(a, b) { return a.x - b.x; });
+            const parts = [];
+            let lastX = null;
+            bucket.items.forEach(function(part) {
+                if (lastX !== null && part.x - lastX > 18) parts.push(' ');
+                parts.push(part.str);
+                lastX = part.x + (part.str.length * 4.6);
+            });
+            return compact(parts.join(' '));
+        }).filter(Boolean);
+    }
 
-if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-return;
-}
+    async function extractTextFromPdf(file) {
+        const buffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
+        const pages = [];
+        for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
+            const page = await pdf.getPage(pageNo);
+            const content = await page.getTextContent();
+            pages.push(groupPageLines(content.items).join('\n'));
+        }
+        return pages.join('\n\n');
+    }
 
-if (target.tagName === 'INPUT' && (target.type === 'checkbox' || target.type === 'radio')) {
-return;
-}
+    function parseSummaryLine(line) {
+        const m = line.match(/^(17\d{6})\s+(\d{2})\s+(.+?)\s+(\d{9,12})\s+(.+?)\s+(\d{5})\s+(.+?)\s*$/);
+        if (!m) return null;
+        return {
+            wo: m[1],
+            seq: m[2],
+            product: compact(m[3]),
+            callNumber: m[4],
+            siteName: compact(m[5]),
+            zip: m[6],
+            city: compact(m[7]),
+            contact: '',
+            addr1: ''
+        };
+    }
 
-if (target.closest('input[type="text"]')) {
-return;
-}
+    function enrichSummaryMapWithContactRows(lines, map) {
+        for (let i = 0; i < lines.length; i++) {
+            const line = compact(lines[i]);
+            const woMatch = line.match(/^(17\d{6})\s+\d{2}\b/);
+            if (!woMatch || !map[woMatch[1]]) continue;
+            const entry = map[woMatch[1]];
+            for (let j = i + 1; j < Math.min(i + 18, lines.length); j++) {
+                const candidate = compact(lines[j]);
+                if (!candidate) continue;
+                if (/^17\d{6}\s+\d{2}\b/.test(candidate)) break;
+                if (/^Contact Person\s+Phone\s+Contact Helpdesk Office\s+Visit Address\s+Visit Zip Code\s+Visit Place/i.test(candidate)) {
+                    const dataLine = compact(lines[j + 1] || '');
+                    if (!dataLine) break;
+                    let m = null;
+                    if (entry.zip && entry.city) {
+                        m = dataLine.match(new RegExp('^(.*?)\\s+(\\+?[0-9][0-9 ]{5,})\\s+.*?\\s+(.+?)\\s+' + escapeRegExp(entry.zip) + '\\s+' + escapeRegExp(entry.city) + '$', 'i'));
+                    }
+                    if (!m) {
+                        m = dataLine.match(/^(.*?)\s+(\+?[0-9][0-9 ]{5,})\s+.*?\s+(.+?)\s+(\d{5})\s+(.+)$/i);
+                    }
+                    if (m) {
+                        if (!entry.contact) entry.contact = compact(m[1]);
+                        if (!entry.addr1) entry.addr1 = compact(m[3]);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
-if (target.tagName === 'INPUT' && target.type === 'checkbox') {
-return;
-}
+    function buildSummaryMap(text) {
+        const map = {};
+        const lines = text.split('\n').map(compact);
+        lines.forEach(function(line) {
+            const parsed = parseSummaryLine(line);
+            if (parsed) map[parsed.wo] = parsed;
+        });
+        enrichSummaryMapWithContactRows(lines, map);
+        return map;
+    }
 
-if (target.classList.contains('copyable')) {
-const text = target.innerText || target.textContent;
-copyText(text.trim());
-}
-});
-}
+    function detectWorkOrders(text) {
+        return Array.from(new Set((text.match(/\b17\d{6}\b/g) || [])));
+    }
 
-function setupDragAndDrop() {
-const tbody = document.getElementById('wo-tbody');
-const ORDER_KEY = STORAGE_PREFIX + 'rowOrder';
-let draggedRow = null;
+    function splitDetailedBlocks(text) {
+        const lines = text.split('\n');
+        const indices = [];
+        for (let i = 0; i < lines.length; i++) {
+            if (/^17\d{6}\s+\d{2}\b/.test(compact(lines[i]))) indices.push(i);
+        }
+        const blocks = [];
+        for (let j = 0; j < indices.length; j++) {
+            const start = indices[j];
+            const end = j + 1 < indices.length ? indices[j + 1] : lines.length;
+            const block = lines.slice(start, end).join('\n');
+            if (/Narrative \(full\)|SYSTEM TYPE|CUST\. CALL|CALLER1|COMPANY\s*:/i.test(block)) {
+                const m = compact(lines[start]).match(/^(17\d{6})\s+(\d{2})\s+(.*)$/);
+                blocks.push({ wo: m ? m[1] : '', text: block });
+            }
+        }
+        return blocks;
+    }
 
-function saveOrder() {
-try {
-const order = Array.from(tbody.querySelectorAll('tr[data-wo]')).map(row => row.getAttribute('data-wo'));
-localStorage.setItem(ORDER_KEY, JSON.stringify(order));
-} catch (e) {}
-}
+    function findValue(text, regexes) {
+        for (let i = 0; i < regexes.length; i++) {
+            const m = text.match(regexes[i]);
+            if (m && m[1]) return compact(m[1]);
+        }
+        return '';
+    }
 
-function loadOrder() {
-try {
-const stored = localStorage.getItem(ORDER_KEY);
-if (!stored) return;
-const order = JSON.parse(stored);
-if (!Array.isArray(order)) return;
+    function extractEmails(text) {
+        const matches = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi);
+        return matches ? Array.from(new Set(matches.map(compact))) : [];
+    }
 
-order.forEach(wo => {
-const row = tbody.querySelector('tr[data-wo="' + wo + '"]');
-if (row) {
-tbody.appendChild(row);
-}
-});
-} catch (e) {}
-}
 
-function getRowAfterY(y) {
-const rows = Array.from(tbody.querySelectorAll('tr[data-wo]:not(.dragging)'));
-let closest = null;
-let closestOffset = Number.NEGATIVE_INFINITY;
+    function normalizeDevice(value) {
+        let s = compact(value);
+        if (!s) return '';
+        s = s.replace(/\bSER\.?\s*NUM\b.*$/i, '').trim();
+        s = s.replace(/\bSERVICE\s*LEVEL\b.*$/i, '').trim();
+        s = s.replace(/\bMODEL\s*:?/i, '').trim();
+        s = s.replace(/\bCOMBO\s*CODE\b.*$/i, '').trim();
+        s = s.replace(/\s{2,}/g, ' ').trim();
 
-rows.forEach(row => {
-const rect = row.getBoundingClientRect();
-const offset = y - rect.top - rect.height / 2;
-if (offset < 0 && offset > closestOffset) {
-closestOffset = offset;
-closest = row;
-}
-});
+        let m = s.match(/\bDell\s+Pro\s+\d+\s+Plus\b/i);
+        if (m) return compact(m[0]);
 
-return closest;
-}
+        m = s.match(/\bLatitude\s+\d{4}\s+Rugged\b/i);
+        if (m) return compact(m[0]);
+        m = s.match(/\bLatitude\s+\d{4}\s+Detachable\b/i);
+        if (m) return compact(m[0]);
+        m = s.match(/\bLatitude\s+\d{4}\b/i);
+        if (m) return compact(m[0]);
 
-tbody.querySelectorAll('tr[data-wo]').forEach(row => {
-const handle = row.querySelector('.drag-handle');
-if (!handle) return;
+        m = s.match(/\bPrecision\s+(\d{4})/i);
+        if (m) return 'Precision ' + m[1];
 
-row.draggable = false;
-handle.draggable = true;
-handle.style.cursor = 'grab';
-handle.style.userSelect = 'none';
-handle.style.webkitUserSelect = 'none';
-handle.style.touchAction = 'none';
+        m = s.match(/\bPowerEdge\s+(R\d{4})/i);
+        if (m) return 'PowerEdge ' + m[1];
 
-handle.addEventListener('dragstart', function(e) {
-draggedRow = row;
-row.classList.add('dragging');
-row.style.opacity = '0.5';
-if (e.dataTransfer) {
-e.dataTransfer.effectAllowed = 'move';
-e.dataTransfer.setData('text/plain', row.getAttribute('data-wo'));
-}
-});
+        m = s.match(/\bDell\s+EMC\s+XC\s+Core\s+XC\d+/i);
+        if (m) return compact(m[0]);
 
-handle.addEventListener('dragend', function() {
-if (draggedRow) {
-draggedRow.classList.remove('dragging');
-draggedRow.style.opacity = '';
-}
-draggedRow = null;
-saveOrder();
-handle.style.cursor = 'grab';
-});
+        m = s.match(/\bOptiPlex\s+3000\s+Thin\s+Client\b/i);
+        if (m) return compact(m[0]);
+        m = s.match(/\bOptiPlex\s+[A-Za-z0-9-]+\b/i);
+        if (m) return compact(m[0]);
 
-handle.addEventListener('mousedown', function() {
-handle.style.cursor = 'grabbing';
-});
+        m = s.match(/\bNB\s+TP\s+[A-Z0-9-]+(?:\s+[A-Z0-9-]+)?\s+G\d+\b/i);
+        if (m) return compact(m[0]);
+        m = s.match(/\bNB\s+TP\s+[A-Z0-9-]+(?:\s+[A-Z0-9-]+)?\b/i);
+        if (m) return compact(m[0]);
 
-handle.addEventListener('mouseup', function() {
-handle.style.cursor = 'grab';
-});
-});
+        m = s.match(/\bThinkPad\s+[A-Z0-9-]+\s+Gen\s*\d+\b/i);
+        if (m) return compact(m[0]);
 
-tbody.addEventListener('dragover', function(e) {
-e.preventDefault();
-if (!draggedRow) return;
+        return s.replace(/\b([A-Z0-9]+)4[A-Z]{2}\b/g, '$1').trim();
+    }
 
-const afterRow = getRowAfterY(e.clientY);
-if (afterRow) {
-tbody.insertBefore(draggedRow, afterRow);
-} else {
-tbody.appendChild(draggedRow);
-}
-});
+    function normalizeNarrativeText(value) {
+        let t = compact(value || '').replace(/\|/g, ' ').replace(/\^/g, ' ');
+        t = t.replace(/P\s+rojectNumber/gi, 'ProjectNumber');
+        t = t.replace(/C\s+ustomer Number/gi, 'Customer Number');
+        t = t.replace(/S\s+cheduleStartDatetime/gi, 'ScheduleStartDatetime');
+        t = t.replace(/S\s+cheduleEndDatetime/gi, 'ScheduleEndDatetime');
+        t = t.replace(/D\s+ETAILED/gi, 'DETAILED');
+        t = t.replace(/I\s+ssue Summary/gi, 'Issue Summary');
+        t = t.replace(/R\s+eplace/gi, 'Replace');
+        t = t.replace(/M\s+ainboard/gi, 'Mainboard');
+        t = t.replace(/K\s+eyboard/gi, 'Keyboard');
+        t = t.replace(/B\s+attery/gi, 'Battery');
+        t = t.replace(/U\s+SB-C/gi, 'USB-C');
+        t = t.replace(/U\s+SB-A/gi, 'USB-A');
+        t = t.replace(/\s{2,}/g, ' ').trim();
+        return t;
+    }
 
-tbody.addEventListener('drop', function(e) {
-e.preventDefault();
-saveOrder();
-});
 
-loadOrder();
-}
+    function summarizeProblem(raw) {
+        let t = normalizeNarrativeText(raw);
+        if (!t) return '';
 
-document.addEventListener('DOMContentLoaded', function() {
-loadState();
-setupClickToCopy();
-setupDragAndDrop();
-});
+        function cleanupNarrative(value) {
+            let s = compact(value || '');
+            if (!s) return '';
+
+            const slices = [
+                /#(?:halpro|[a-z0-9_-]+)\s+(.+?)(?:BTTR\b|ProjectNumber\s*:|Service SKU\s*:|ServiceTag\s*:|Customer Number\s*:|ScheduleStartDatetime\s*:|ScheduleEndDatetime\s*:|PROSUPPORT|$)/i,
+                /Issue Summary\/Description of Problem\s*:\s*(.+?)(?:Any error code presented\?|Special Instructions\s*:|ProjectNumber\s*:|Service SKU\s*:|ServiceTag\s*:|Customer Number\s*:|ScheduleStartDatetime\s*:|ScheduleEndDatetime\s*:|$)/i,
+                /SYMPTOM\s*:\s*(.+?)(?:ProjectNumber\s*:|Service SKU\s*:|ServiceTag\s*:|Customer Number\s*:|ScheduleStartDatetime\s*:|ScheduleEndDatetime\s*:|PROSUPPORT|$)/i,
+                /Instructions for Engineer\s*:\s*(.+?)(?:ProjectNumber\s*:|Customer Number\s*:|ScheduleStartDatetime\s*:|$)/i,
+                /DETAILED PROBLEM DESCRIPTION\s*(.+?)(?:ALREADY PERFORMED|PART NAME|WO INITIATOR|Programtype:|DELIVERY INSTRUCTIONS:|DETAILED INSTRUCTIONS FOR TECHNICIAN|TEST AFTER REPAIR|===========|$)/i
+            ];
+            for (let i = 0; i < slices.length; i++) {
+                const m = s.match(slices[i]);
+                if (m && m[1]) {
+                    s = compact(m[1]);
+                    break;
+                }
+            }
+
+            s = s.replace(/^DEPREM\s*-\s*@QW\s*/i, '');
+            s = s.replace(/^NB\s+TP\s+[A-Z0-9\- ]+\s*-\s*/i, '');
+            s = s.replace(/^TP\s+[A-Z0-9\- ]+\s*-\s*/i, '');
+            s = s.replace(/^\/?\/?[A-Z0-9 ]{3,20}\/\//i, '');
+            s = s.replace(/\b(?:CT|OS|Other|SEV|RPT|Call Type|Def)\s*:\s*[^#|]+/gi, ' ');
+            s = s.replace(/Any error code presented\?.*$/i, '');
+            s = s.replace(/Special Instructions\s*:\s*/i, '');
+            s = s.replace(/Issue Summary\/Description of Problem\s*:\s*/i, '');
+            s = s.replace(/DETAILED PROBLEM DESCRIPTION\s*/i, '');
+            s = s.replace(/Instructions for Engineer\s*:\s*/i, '');
+            s = s.replace(/ProjectNumber\s*:.*$/i, '');
+            s = s.replace(/Service SKU\s*:.*$/i, '');
+            s = s.replace(/ServiceTag\s*:.*$/i, '');
+            s = s.replace(/Customer Number\s*:.*$/i, '');
+            s = s.replace(/Customer Name\s*:.*$/i, '');
+            s = s.replace(/ScheduleStartDatetime\s*:.*$/i, '');
+            s = s.replace(/ScheduleEndDatetime\s*:.*$/i, '');
+            s = s.replace(/PROSUPPORT.*$/i, '');
+            s = s.replace(/\s*=+\s*$/g, '');
+            s = s.replace(/\s{2,}/g, ' ').trim();
+            return s;
+        }
+
+        function matches(rx, source) { return rx.test(source); }
+
+        function inferReplacement(source) {
+            const replacements = [
+                [/(replace|replacement of|to be replaced|exchange).{0,40}(mainboard|motherboard|planar|system board)|(?:mainboard|motherboard|planar|system board).{0,20}(replace|replacement)/, 'Mainboard issue - replace mainboard'],
+                [/(replace|replacement of|to be replaced|exchange).{0,40}(usb-?c port|port board|daughter board|i\/o board|io board|sub board|usb board)|(?:usb-?c port|port board|daughter board|i\/o board|io board|sub board|usb board).{0,30}(replace|replacement)/, 'USB-C issue - replace port board'],
+                [/(replace|replacement of|to be replaced|exchange).{0,30}(keyboard|kybd)|(?:keyboard|kybd).{0,20}(replace|replacement)/, 'Keyboard issue - replace keyboard'],
+                [/(replace|replacement of|to be replaced|exchange).{0,30}(fan|fan assembly|heatsink)|(?:fan|fan assembly|heatsink).{0,20}(replace|replacement)/, 'Fan issue - replace fan assembly'],
+                [/(replace|replacement of|to be replaced|exchange).{0,30}(battery).{0,80}(planar|mainboard|motherboard)|(?:planar|mainboard|motherboard).{0,80}(battery).{0,20}(replace|replacement)/, 'Battery issue - replace battery and planar'],
+                [/(replace|replacement of|to be replaced|exchange).{0,20}(battery)|(?:battery).{0,20}(replace|replacement)/, 'Battery issue - replace battery'],
+                [/(replace|replacement of|to be replaced|exchange).{0,40}(boot drive|ssd|nvme|drive in slot 1)|(?:boot drive|ssd|nvme|drive in slot 1).{0,20}(replace|replacement)/, 'Boot drive issue - replace boot drive'],
+                [/(replace|replacement of|to be replaced|exchange).{0,40}(network interface card|nic|ethernet card|network card)|(?:network interface card|nic|ethernet card|network card).{0,20}(replace|replacement)/, 'NIC issue - replace network card'],
+                [/(replace|replacement of|to be replaced|exchange).{0,30}(palmrest)|(?:palmrest).{0,20}(replace|replacement)/, 'Palmrest damaged - replace palmrest'],
+                [/(replace|replacement of|to be replaced|exchange).{0,40}(lcd|display|screen|panel)|(?:lcd|display|screen|panel).{0,20}(replace|replacement)/, 'Display issue - replace LCD'],
+                [/(replace|replacement of|to be replaced|exchange).{0,30}(webcam|camera)|(?:webcam|camera).{0,20}(replace|replacement)/, 'Webcam issue - replace webcam']
+            ];
+            for (let i = 0; i < replacements.length; i++) {
+                if (replacements[i][0].test(source)) return replacements[i][1];
+            }
+            return '';
+        }
+
+        t = cleanupNarrative(t);
+        const source = ' ' + t.toLowerCase() + ' ';
+
+        const byReplacement = inferReplacement(source);
+        if (byReplacement) {
+            if (/usb-?c/.test(source) && /mainboard|motherboard|planar|system board/.test(source)) return 'USB-C issue - replace mainboard';
+            return byReplacement;
+        }
+
+        const directRules = [
+            [/usb-?c.*?(mainboard|motherboard|planar|system board)|(?:mainboard|motherboard|planar|system board).*?usb-?c/, 'USB-C issue - replace mainboard'],
+            [/usb-?c.*?(port board|daughter board|i\/o board|io board|sub board|usb board|replace port|usb-?c port)|(?:port board|daughter board|i\/o board|io board|sub board|usb board|usb-?c port).*?usb-?c/, 'USB-C issue - replace port board'],
+            [/(keyboard|kybd|keys? not responding|keys? missing|keycaps?|some keys|tastatur|tasten)/, 'Keyboard issue - replace keyboard'],
+            [/(fan noise|fan error|fan failure|fan not working|replace fan|fan assembly|replace heatsink|overheating|thermal issue|high temperature|l[üu]fter)/, 'Fan issue - replace fan assembly'],
+            [/(battery defect|battery defective|battery faulty|battery failure|battery issue|only operates when connected|shuts off immediately when unplugged|battery not charging|not holding charge|won.?t power on battery).{0,120}(planar|mainboard|motherboard|system board)|(?:planar|mainboard|motherboard|system board).{0,120}(battery defect|battery defective|battery faulty|battery failure|battery issue|battery not charging|not holding charge)/, 'Battery issue - replace battery and planar'],
+            [/(battery defect|battery defective|battery faulty|battery failure|battery issue|only operates when connected|shuts off immediately when unplugged|battery not charging|not holding charge|won.?t power on battery)/, 'Battery issue - replace battery'],
+            [/(faulty boot drive|boot drive in slot|replace boot drive|boot disk|ssd failure|nvme failure|storage drive failed|disk failure|drive failed|m\.2 failed)/, 'Boot drive issue - replace boot drive'],
+            [/(network interface card|nic|ethernet card|network card).{0,80}(replace|replacement|proactive)|proactive replacement of network interface card/, 'NIC issue - replace network card'],
+            [/(bios corruption|blue screen|bluescreen|bsod|irql_not_less_or_equal|system turns off when lifted|turns off when lifted up|intermittent power loss|board flex|replace motherboard|replace mainboard|replace planar|system board replacement)/, 'Mainboard issue - replace mainboard'],
+            [/(no power|dead unit|does not power on|won.?t power on|not powering on|power issue)/, 'No power - diagnose and repair'],
+            [/(no boot|won.?t boot|boot issue|boot failure|no post|post failure)/, 'Boot issue - replace needed parts'],
+            [/(camera|webcam)/, 'Webcam issue - replace webcam'],
+            [/(cracked lcd|lcd cracked|panel cracked|screen cracked|display cracked|broken display)/, 'Cracked LCD - replace LCD'],
+            [/(palmrest).{0,30}(damaged|broken|replace)|(?:damaged|broken).{0,30}(palmrest)/, 'Palmrest damaged - replace palmrest'],
+            [/(touchpad|trackpad).{0,30}(broken|not working|replace)/, 'Touchpad issue - replace palmrest'],
+            [/(audio|speaker).{0,30}(not working|replace|failure)/, 'Audio issue - replace speaker'],
+            [/(hinge).{0,30}(broken|damaged|replace)/, 'Hinge issue - replace hinge kit']
+        ];
+
+        for (let i = 0; i < directRules.length; i++) {
+            if (matches(directRules[i][0], source)) return directRules[i][1];
+        }
+
+        const weightedRules = [
+            {
+                label: 'USB-C issue - replace mainboard',
+                score: [[/usb-?c/, 6], [/(mainboard|motherboard|planar|system board)/, 5], [/(replace|replacement|not working|charging issue|loose|dock issue)/, 2]],
+                reject: [/(port board|daughter board|i\/o board|io board|sub board|usb board|replace port|usb-?c port)/]
+            },
+            {
+                label: 'USB-C issue - replace port board',
+                score: [[/usb-?c/, 6], [/(port board|daughter board|i\/o board|io board|sub board|usb board|replace port|usb-?c port)/, 6], [/(bottom cover|loose)/, 1]]
+            },
+            {
+                label: 'Keyboard issue - replace keyboard',
+                score: [[/(keyboard|kybd|keys|keycaps|tastatur|tasten)/, 7], [/(replace|replacement|not responding|doa|broken|stuck|missing|failed)/, 2]]
+            },
+            {
+                label: 'Fan issue - replace fan assembly',
+                score: [[/(fan|heatsink|thermal|overheating|temperature high|l[üu]fter)/, 7], [/(replace|assembly|noise|error|failure|loud)/, 2]]
+            },
+            {
+                label: 'Battery issue - replace battery and planar',
+                score: [[/battery/, 6], [/(planar|mainboard|motherboard|system board)/, 5], [/(replace|replacement|faulty|defective|failure|not charging)/, 2]]
+            },
+            {
+                label: 'Battery issue - replace battery',
+                score: [[/battery/, 7], [/(replace|replacement|faulty|defective|failure|not charging|not holding charge)/, 2]],
+                reject: [/(planar|mainboard|motherboard|system board)/]
+            },
+            {
+                label: 'Mainboard issue - replace mainboard',
+                score: [[/(mainboard|motherboard|planar|system board)/, 5], [/(replace|replacement)/, 2], [/(bios corruption|blue screen|bluescreen|bsod|turns off when lifted|no display|no video|intermittent power loss)/, 4]]
+            },
+            {
+                label: 'Boot drive issue - replace boot drive',
+                score: [[/(boot drive|slot 1|boot disk|ssd|nvme|storage drive|m\.2)/, 6], [/(replace|replacement|faulty|failed|failure)/, 2]]
+            },
+            {
+                label: 'NIC issue - replace network card',
+                score: [[/(network interface card|nic|ethernet card|network card)/, 8], [/(replace|replacement|proactive)/, 2]]
+            },
+            {
+                label: 'No power - diagnose and repair',
+                score: [[/(no power|dead unit|does not power on|won.?t power on|not powering on)/, 8], [/(diagnose|repair|replace)/, 1]]
+            },
+            {
+                label: 'Display issue - replace LCD',
+                score: [[/(display|screen|lcd|panel)/, 7], [/(replace|replacement|broken|flicker|lines|no image|cracked)/, 2]]
+            }
+        ];
+
+        let best = { label: '', score: 0 };
+        for (let i = 0; i < weightedRules.length; i++) {
+            const rule = weightedRules[i];
+            if (rule.reject && rule.reject.some(function(rx) { return rx.test(source); })) continue;
+            let total = 0;
+            for (let j = 0; j < rule.score.length; j++) {
+                if (rule.score[j][0].test(source)) total += rule.score[j][1];
+            }
+            if (total > best.score) best = { label: rule.label, score: total };
+        }
+        if (best.score >= 8) return best.label;
+
+        if (/usb-?c/.test(source)) return /port board|daughter board|i\/o board|io board|sub board|usb board|usb-?c port/.test(source) ? 'USB-C issue - replace port board' : 'USB-C issue - diagnose and repair';
+        if (/(keyboard|kybd|keys|tastatur|tasten)/.test(source)) return 'Keyboard issue - replace keyboard';
+        if (/(fan|heatsink|thermal|overheating|l[üu]fter)/.test(source)) return 'Fan issue - replace fan assembly';
+        if (/battery/.test(source)) return /planar|mainboard|motherboard|system board/.test(source) ? 'Battery issue - replace battery and planar' : 'Battery issue - replace battery';
+        if (/(mainboard|motherboard|planar|system board)/.test(source)) return 'Mainboard issue - replace mainboard';
+        if (/(boot drive|ssd|nvme|m\.2)/.test(source)) return 'Boot drive issue - replace boot drive';
+        if (/(network interface card|nic|ethernet card|network card)/.test(source)) return 'NIC issue - replace network card';
+        if (/(display|screen|lcd|panel)/.test(source)) return 'Display issue - replace LCD';
+
+        const sentence = t
+            .replace(/^[#\/\-:;,.\s]+/, '')
+            .replace(/\b(ct|sev|rpt|call type|def)\b.*$/i, '')
+            .split(/(?<=[.!?])\s+/)[0]
+            .trim();
+        if (!sentence) return 'Hardware issue - inspect unit';
+        return sentence.length > 60 ? sentence.slice(0, 57).trim() + '...' : sentence;
+    }
+
+    function extractProblem(text) {
+        const source = normalizeNarrativeText(text);
+        let raw = findValue(source, [
+            /DETAILED PROBLEM DESCRIPTION\s*([\s\S]{0,900}?)(?:ALREADY PERFORMED|PART NAME|WO INITIATOR|Programtype:|DELIVERY INSTRUCTIONS:|DETAILED INSTRUCTIONS FOR TECHNICIAN|TEST AFTER REPAIR|$)/i,
+            /Issue Summary\/Description of Problem\s*:\s*([\s\S]{0,700}?)(?:Any error code presented\?|Special Instructions:|ProjectNumber:|Service SKU:|ServiceTag:|Customer Number:|ScheduleStartDatetime:|ScheduleEndDatetime:|$)/i,
+            /SYMPTOM\s*:\s*([\s\S]{0,700}?)(?:ProjectNumber:|Service SKU:|ServiceTag:|Customer Number:|ScheduleStartDatetime:|ScheduleEndDatetime:|PROSUPPORT|$)/i,
+            /Instructions for Engineer\s*:\s*([\s\S]{0,300}?)(?:ProjectNumber:|Customer Number:|ScheduleStartDatetime:|$)/i
+        ]);
+        if (!raw) raw = source;
+        return summarizeProblem(raw);
+    }
+
+    function extractContact(text, emails) {
+        const direct = findValue(text, [
+            /CALLER1\s*:\s*([^\n:]{2,100})\s+TEL\.?1/i,
+            /Ansprechpartner\s*:\s*([^\n]{2,100})/i,
+            /Contact Person\s+Phone[\s\S]{0,100}\n([^\n+]+?)\s+\+?\d/i
+        ]).replace(/^Herr\s+/i, '').replace(/^\.+/, '').trim();
+        if (looksLikePerson(direct)) return direct;
+        for (let i = 0; i < emails.length; i++) {
+            const derived = deriveNameFromEmail(emails[i]);
+            if (derived) return derived;
+        }
+        return direct && !looksLikeCompany(direct) ? direct : '';
+    }
+
+    function buildRowFromBlock(wo, text, summary) {
+        const emails = extractEmails(text);
+        const callNumber = findValue(text, [
+            /CUST\.\s*CALL\s*:\s*([0-9]{8,15})/i,
+            new RegExp('^' + escapeRegExp(wo) + '\\s+\\d{2}\\s+.+?\\s+([0-9]{8,15})\\b', 'm')
+        ]) || (summary ? summary.callNumber : '');
+
+        const serial = findValue(text, [
+            /SER\.\s*NUM\s*:\s*([A-Z0-9]{6,20})/i,
+            /\b(?:SN|S\/N)\s*[:#-]?\s*([A-Z0-9]{6,20})\b/i
+        ]);
+
+        const device = normalizeDevice(findValue(text, [
+            /SYSTEM TYPE\s*:\s*([\s\S]{3,120}?)(?=\s+COMBO\s+CODE\s*:|\n|$)/i
+        ]) || (summary ? summary.product : ''));
+
+        const company = findValue(text, [
+            /COMPANY\s*:\s*([^\n]{3,160})/i
+        ]);
+
+        const addr1 = cleanAddressValue(findValue(text, [
+            /ADDR1\s*:\s*([\s\S]{3,160}?)(?=\s+ADDR2\s*:|\s+CITY\s*:|\n|$)/i,
+            /Visit Address\s+Visit Zip Code[\s\S]{0,100}\n[^\n]*?\s+\+?\d+\s+.*?\s+(.+?)\s+\d{5}\s+[^\n]+$/i
+        ]));
+
+        const zip = findValue(text, [
+            /ZIP CODE\s*:\s*(?:DE)?\s*([0-9]{5})/i,
+            /Visit Zip Code\s+Visit Place[\s\S]{0,100}\n[^\n]*?\s(\d{5})\s+[^\n]+$/i
+        ]) || (summary ? summary.zip : '');
+
+        const city = cleanCityValue(findValue(text, [
+            /CITY\s*:\s*([\s\S]{2,80}?)(?=\s+STATE\s*:|\n|$)/i,
+            /Visit Zip Code\s+Visit Place[\s\S]{0,100}\n[^\n]*?\s\d{5}\s+([^\n]+)$/i
+        ]) || (summary ? summary.city : ''));
+
+        const phone1 = normalizePhone(findValue(text, [
+            /TEL\.?1\s*:\s*([+\d][^\n]{5,40})/i,
+            /Phone\s+Contact Helpdesk[\s\S]{0,100}\n[^\n]*?(\+?\d[\d ]{6,})/i
+        ]));
+        const phone2 = normalizePhone(findValue(text, [
+            /ALT\.TEL\.?1\s*:\s*([+\d][^\n]{2,40})/i,
+            /TEL\.?2\s*:\s*([+\d][^\n]{2,40})/i,
+            /ALT\.TEL\.?2\s*:\s*([+\d][^\n]{2,40})/i
+        ]));
+        const phone = phone1 || phone2 || '';
+        const phoneAlt = phone1 && phone2 && phone1 !== phone2 ? phone2 : '';
+
+        return {
+            wo: wo,
+            callNumber: callNumber,
+            company: company,
+            contact: extractContact(text, emails) || (summary ? summary.contact : ''),
+            phone: phone,
+            phoneAlt: phoneAlt,
+            phoneLink: telHref(phone),
+            phoneAltLink: telHref(phoneAlt),
+            city: city,
+            addr1: addr1 || cleanAddressValue(summary ? summary.addr1 : ''),
+            zip: zip,
+            device: device,
+            problem: extractProblem(text),
+            serial: serial
+        };
+    }
+
+    function mergeRows(preferred, fallback) {
+        const out = Object.assign({}, fallback || {}, preferred || {});
+        ['company','contact','phone','phoneAlt','city','addr1','zip','device','problem','serial','callNumber'].forEach(function(key) {
+            if (!compact(out[key]) && fallback && compact(fallback[key])) out[key] = fallback[key];
+        });
+        out.addr1 = cleanAddressValue(out.addr1);
+        out.city = cleanCityValue(out.city);
+        out.device = normalizeDevice(out.device);
+        out.phoneLink = telHref(out.phone);
+        out.phoneAltLink = telHref(out.phoneAlt);
+        return out;
+    }
+
+    function parseWOs(fullText) {
+        const normalized = fullText
+            .replace(/\u00A0/g, ' ')
+            .replace(/[ \t]+/g, ' ')
+            .replace(/ ?\n ?/g, '\n')
+            .replace(/\n{3,}/g, '\n\n');
+        setDebugText(normalized);
+
+        const summaryMap = buildSummaryMap(normalized);
+        const blocks = splitDetailedBlocks(normalized);
+        const resultMap = new Map();
+
+        blocks.forEach(function(block) {
+            if (!block.wo) return;
+            const row = buildRowFromBlock(block.wo, block.text, summaryMap[block.wo] || null);
+            resultMap.set(block.wo, row);
+        });
+
+        detectWorkOrders(normalized).forEach(function(wo) {
+            if (!resultMap.has(wo)) {
+                const summary = summaryMap[wo] || null;
+                if (summary) {
+                    resultMap.set(wo, {
+                        wo: wo,
+                        callNumber: summary.callNumber || '',
+                        company: summary.siteName || '',
+                        contact: '',
+                        phone: '',
+                        phoneAlt: '',
+                        phoneLink: '',
+                        phoneAltLink: '',
+                        city: cleanCityValue(summary.city || ''),
+                        addr1: cleanAddressValue(summary.addr1 || ''),
+                        zip: summary.zip || '',
+                        device: normalizeDevice(summary.product || ''),
+                        problem: '',
+                        serial: ''
+                    });
+                }
+            } else if (summaryMap[wo]) {
+                resultMap.set(wo, mergeRows(resultMap.get(wo), {
+                    wo: wo,
+                    callNumber: summaryMap[wo].callNumber || '',
+                    company: '',
+                    contact: '',
+                    phone: '',
+                    phoneAlt: '',
+                    city: summaryMap[wo].city || '',
+                    addr1: '',
+                    zip: summaryMap[wo].zip || '',
+                    device: normalizeDevice(summaryMap[wo].product || ''),
+                    problem: '',
+                    serial: ''
+                }));
+            }
+        });
+
+        const seen = new Set(rowsData.map(function(r) { return r.wo; }));
+        return Array.from(resultMap.values()).filter(function(row) {
+            return row.wo && !seen.has(row.wo);
+        }).sort(function(a, b) { return String(a.wo).localeCompare(String(b.wo)); });
+    }
+
+
+    function getGithubSettings() {
+        return {
+            owner: compact(githubOwnerInput ? githubOwnerInput.value : ''),
+            repo: compact(githubRepoInput ? githubRepoInput.value : ''),
+            branch: compact(githubBranchInput ? githubBranchInput.value : '') || 'main',
+            path: compact(githubPathInput ? githubPathInput.value : '') || 'index.html',
+            token: compact(githubTokenInput ? githubTokenInput.value : ''),
+            message: compact(githubCommitMessageInput ? githubCommitMessageInput.value : '') || 'Update index.html from PDF upload',
+            autoPush: !!(autoPushCheckbox && autoPushCheckbox.checked)
+        };
+    }
+
+    function saveGithubSettings() {
+        const settings = getGithubSettings();
+        try {
+            localStorage.setItem(globalStorageKey('githubSettings'), JSON.stringify({
+                owner: settings.owner,
+                repo: settings.repo,
+                branch: settings.branch,
+                path: settings.path,
+                token: settings.token,
+                message: settings.message,
+                autoPush: settings.autoPush
+            }));
+        } catch (e) {}
+    }
+
+    function loadGithubSettings() {
+        let settings = null;
+        try {
+            settings = JSON.parse(localStorage.getItem(globalStorageKey('githubSettings')) || 'null');
+        } catch (e) {}
+        settings = settings || {};
+        if (githubOwnerInput) githubOwnerInput.value = settings.owner || '';
+        if (githubRepoInput) githubRepoInput.value = settings.repo || '';
+        if (githubBranchInput) githubBranchInput.value = settings.branch || 'main';
+        if (githubPathInput) githubPathInput.value = settings.path || 'index.html';
+        if (githubTokenInput) githubTokenInput.value = settings.token || '';
+        if (githubCommitMessageInput) githubCommitMessageInput.value = settings.message || 'Update index.html from PDF upload';
+        if (autoPushCheckbox) autoPushCheckbox.checked = !!settings.autoPush;
+    }
+
+    function buildExportHtml() {
+        const clone = document.documentElement.cloneNode(true);
+        const cloneTokenInput = clone.querySelector('#githubTokenInput');
+        if (cloneTokenInput) {
+            cloneTokenInput.value = '';
+            cloneTokenInput.setAttribute('value', '');
+        }
+        const cloneStatusBar = clone.querySelector('#statusBar');
+        if (cloneStatusBar) cloneStatusBar.textContent = 'Bereit.';
+        return '<!DOCTYPE html>\n' + clone.outerHTML;
+    }
+
+    function base64EncodeUnicode(str) {
+        return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    async function fetchExistingFileSha(settings) {
+        const url = 'https://api.github.com/repos/' + encodeURIComponent(settings.owner) + '/' + encodeURIComponent(settings.repo) + '/contents/' + settings.path.split('/').map(encodeURIComponent).join('/') + '?ref=' + encodeURIComponent(settings.branch);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + settings.token,
+                'Accept': 'application/vnd.github+json'
+            }
+        });
+        if (response.status === 404) return null;
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error('GitHub SHA konnte nicht gelesen werden: ' + response.status + ' ' + text);
+        }
+        const data = await response.json();
+        return data && data.sha ? data.sha : null;
+    }
+
+    async function commitHtmlToGithub() {
+        const settings = getGithubSettings();
+        if (!settings.owner || !settings.repo || !settings.branch || !settings.path || !settings.token) {
+            throw new Error('Bitte Owner, Repository, Branch, Datei-Pfad und Token ausfüllen.');
+        }
+        saveGithubSettings();
+
+        const html = buildExportHtml();
+        const sha = await fetchExistingFileSha(settings);
+        const url = 'https://api.github.com/repos/' + encodeURIComponent(settings.owner) + '/' + encodeURIComponent(settings.repo) + '/contents/' + settings.path.split('/').map(encodeURIComponent).join('/');
+        const payload = {
+            message: settings.message,
+            content: base64EncodeUnicode(html),
+            branch: settings.branch
+        };
+        if (sha) payload.sha = sha;
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + settings.token,
+                'Accept': 'application/vnd.github+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(function() { return null; });
+        if (!response.ok) {
+            const details = result && result.message ? result.message : response.statusText;
+            throw new Error('GitHub Commit fehlgeschlagen: ' + response.status + ' ' + details);
+        }
+        return result;
+    }
+
+    async function processFiles(fileList) {
+        const files = Array.from(fileList || []).filter(function(file) { return file && /\.pdf$/i.test(file.name); });
+        if (!files.length) {
+            statusBar.textContent = 'Keine PDF-Datei erkannt.';
+            return;
+        }
+        if (!pdfjsLib) {
+            statusBar.textContent = 'PDF.js konnte nicht geladen werden.';
+            return;
+        }
+        let added = 0;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            statusBar.textContent = 'Verarbeite: ' + file.name + ' (' + (i + 1) + '/' + files.length + ')';
+            try {
+                const text = await extractTextFromPdf(file);
+                updateHeaderMeta(text);
+                const found = parseWOs(text);
+                found.forEach(function(row) { rowsData.push(row); });
+                rowsData = applySavedOrder(rowsData);
+                saveRows();
+                render();
+                added += found.length;
+            } catch (err) {
+                console.error(err);
+                statusBar.textContent = 'Fehler beim Lesen: ' + file.name;
+                return;
+            }
+        }
+        statusBar.textContent = added ? ('Fertig. ' + added + ' neue Work Orders hinzugefügt.') : 'PDF gelesen, aber keine neuen Work Orders erkannt.';
+        if (added && autoPushCheckbox && autoPushCheckbox.checked) {
+            try {
+                statusBar.textContent = 'PDF fertig. Sende index.html zu GitHub ...';
+                await commitHtmlToGithub();
+                statusBar.textContent = 'Fertig. ' + added + ' neue Work Orders hinzugefügt und index.html nach GitHub übertragen.';
+            } catch (err) {
+                console.error(err);
+                statusBar.textContent = 'PDF verarbeitet, aber GitHub-Upload fehlgeschlagen: ' + (err && err.message ? err.message : err);
+            }
+        }
+    }
+
+    function exportHtmlFile() {
+        const html = buildExportHtml();
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'work-order-information-summary.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+    }
+
+    function clearAll() {
+        if (!confirm('Gesamte Liste, Sortierung, Notizen und Checkbox-Status löschen?')) return;
+        const keys = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.indexOf(STORAGE_PREFIX) === 0) keys.push(key);
+        }
+        keys.forEach(function(key) { localStorage.removeItem(key); });
+        rowsData = [];
+        subtitle.textContent = '';
+        subtitle.style.display = 'none';
+        render();
+        statusBar.textContent = 'Liste geleert.';
+    }
+
+    function bindDropzone() {
+        ['dragenter', 'dragover'].forEach(function(evt) {
+            dropzone.addEventListener(evt, function(e) {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+        ['dragleave', 'drop'].forEach(function(evt) {
+            dropzone.addEventListener(evt, function(e) {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+        dropzone.addEventListener('drop', function(e) {
+            processFiles(e.dataTransfer ? e.dataTransfer.files : []);
+        });
+    }
+
+    function init() {
+        rowsData = applySavedOrder(loadRows());
+        loadGithubSettings();
+        render();
+        setupClickToCopy();
+        bindDropzone();
+        choosePdfBtn.addEventListener('click', function() { pdfInput.click(); });
+        pdfInput.addEventListener('change', function(e) { processFiles(e.target.files); pdfInput.value = ''; });
+        exportHtmlBtn.addEventListener('click', exportHtmlFile);
+        clearBtn.addEventListener('click', clearAll);
+        if (toggleDebugBtn) toggleDebugBtn.addEventListener('click', function() { debugBox.classList.toggle('show'); });
+        if (saveGithubSettingsBtn) saveGithubSettingsBtn.addEventListener('click', function() {
+            saveGithubSettings();
+            statusBar.textContent = 'GitHub-Einstellungen lokal gespeichert.';
+        });
+        if (pushToGithubBtn) pushToGithubBtn.addEventListener('click', async function() {
+            try {
+                statusBar.textContent = 'Sende index.html zu GitHub ...';
+                await commitHtmlToGithub();
+                statusBar.textContent = 'index.html erfolgreich zu GitHub übertragen.';
+            } catch (err) {
+                console.error(err);
+                statusBar.textContent = err && err.message ? err.message : 'GitHub-Upload fehlgeschlagen.';
+            }
+        });
+        if (autoPushCheckbox) autoPushCheckbox.addEventListener('change', saveGithubSettings);
+        [githubOwnerInput, githubRepoInput, githubBranchInput, githubPathInput, githubTokenInput, githubCommitMessageInput].forEach(function(el) {
+            if (el) el.addEventListener('change', saveGithubSettings);
+        });
+        statusBar.textContent = 'Bereit.';
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
 })();
 </script>
-</body>
-</html>
+
+
+
+</body></html>
