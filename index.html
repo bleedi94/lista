@@ -481,7 +481,7 @@
                 <div class="github-actions">
                     <button type="button" class="btn secondary" id="saveGithubSettingsBtn">GitHub speichern</button>
                     <button type="button" class="btn" id="pushToGithubBtn">Index zu GitHub pushen</button>
-                    <label class="check-inline"><input type="checkbox" id="autoPushCheckbox"> Automatisch nach PDF-Upload committen</label>
+                    <label class="check-inline"><input type="checkbox" id="autoPushCheckbox"> Automatisch nach jedem PDF-Upload zu GitHub senden</label>
                 </div>
                 <div class="github-note">
                     Für Sicherheit den Token nie im Code hardcoden. Diese Variante ist für deinen eigenen Gebrauch gedacht:
@@ -1376,8 +1376,8 @@
         if (githubBranchInput) githubBranchInput.value = settings.branch || 'main';
         if (githubPathInput) githubPathInput.value = settings.path || 'index.html';
         if (githubTokenInput) githubTokenInput.value = settings.token || '';
-        if (githubCommitMessageInput) githubCommitMessageInput.value = settings.message || 'Update index.html from PDF upload';
-        if (autoPushCheckbox) autoPushCheckbox.checked = !!settings.autoPush;
+        if (githubCommitMessageInput) githubCommitMessageInput.value = settings.message || 'Update index.html after PDF upload';
+        if (autoPushCheckbox) autoPushCheckbox.checked = (typeof settings.autoPush === 'boolean') ? settings.autoPush : true;
     }
 
     function buildExportHtml() {
@@ -1480,9 +1480,9 @@
         statusBar.textContent = added ? ('Fertig. ' + added + ' neue Work Orders hinzugefügt.') : 'PDF gelesen, aber keine neuen Work Orders erkannt.';
         if (added && autoPushCheckbox && autoPushCheckbox.checked) {
             try {
-                statusBar.textContent = 'PDF fertig. Sende index.html zu GitHub ...';
+                statusBar.textContent = 'PDF fertig. Übertrage die neuen Daten direkt zu GitHub ...';
                 await commitHtmlToGithub();
-                statusBar.textContent = 'Fertig. ' + added + ' neue Work Orders hinzugefügt und index.html nach GitHub übertragen.';
+                statusBar.textContent = 'Fertig. ' + added + ' neue Work Orders hinzugefügt und direkt nach GitHub übertragen.';
             } catch (err) {
                 console.error(err);
                 statusBar.textContent = 'PDF verarbeitet, aber GitHub-Upload fehlgeschlagen: ' + (err && err.message ? err.message : err);
