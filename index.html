@@ -1228,20 +1228,31 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
         } catch (e) {}
         return null;
     }
+    function hasMeaningfulStoredRows() {
+        try {
+            const raw = localStorage.getItem(globalStorageKey('rowsData'));
+            if (!raw) return false;
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed) && parsed.length > 0;
+        } catch (e) {
+            return false;
+        }
+    }
     function hydrateStorageFromEmbeddedSnapshot(force) {
         const snapshot = getEmbeddedSnapshot();
         if (!snapshot) return false;
-        const hasRows = !!localStorage.getItem(globalStorageKey('rowsData'));
-        if (!force && hasRows) return false;
+        const snapshotRows = Array.isArray(snapshot.rowsData) ? snapshot.rowsData : [];
+        if (!force && hasMeaningfulStoredRows()) return false;
         try {
-            localStorage.setItem(globalStorageKey('rowsData'), JSON.stringify(snapshot.rowsData || []));
-            localStorage.setItem(globalStorageKey('order'), JSON.stringify(snapshot.order || []));
+            localStorage.setItem(globalStorageKey('rowsData'), JSON.stringify(snapshotRows));
+            localStorage.setItem(globalStorageKey('order'), JSON.stringify(Array.isArray(snapshot.order) ? snapshot.order : snapshotRows.map(function(row) { return row.wo; })));
             localStorage.setItem(globalStorageKey('subtitleText'), snapshot.subtitleText || '');
             localStorage.setItem(globalStorageKey('subtitleDisplay'), snapshot.subtitleDisplay || 'none');
             (snapshot.perRow || []).forEach(function(item) {
                 localStorage.setItem(storageKey('called', item.wo), item.called ? 'true' : 'false');
                 localStorage.setItem(storageKey('note', item.wo), item.note || '');
             });
+            localStorage.setItem(globalStorageKey('snapshotImportedAt'), String(Date.now()));
             return true;
         } catch (e) {
             return false;
@@ -2260,7 +2271,7 @@ und bei Verlangen Getronics jederzeit zur Verfügung zu stellen.</textarea>
     }
 
     function init() {
-        hydrateStorageFromEmbeddedSnapshot(false);
+        hydrateStorageFromEmbeddedSnapshot(!!getEmbeddedSnapshot());
         rowsData = applySavedOrder(loadRows());
         loadGithubSettings();
         render();
