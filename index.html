@@ -117,8 +117,8 @@
             background-color: #f0f0f0;
         }
 
-        td:nth-child(1),
-        th:nth-child(1) {
+        td:nth-child(2),
+        th:nth-child(2) {
             font-weight: 600;
             color: #2c3e50;
         }
@@ -205,6 +205,11 @@
             background: #fafafa;
         }
 
+
+        #dropzone {
+            display: none !important;
+        }
+
         .dropzone.dragover {
             border-color: #2c3e50;
             background: #f2f5f7;
@@ -279,6 +284,24 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+
+        .wo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            line-height: 1.25;
+        }
+
+        .wo-number {
+            font-weight: 600;
+        }
+
+        .wo-callnumber {
+            font-size: 12px;
+            font-weight: 400;
+            color: #555;
         }
 
         .done-btn {
@@ -500,9 +523,10 @@
                 </div>
             </div>
             <div class="dropzone" id="dropzone">
-                <p><strong>PDF-Dateien hierher ziehen</strong> oder auf „PDF auswählen“ klicken.</p>
-                <p>Die Work Orders werden automatisch ausgelesen und in die Tabelle übernommen.</p>
+                <p> oder auf „PDF auswählen“ klicken.</p>
+                <p></p>
             </div>
+
 
         </div>
 
@@ -514,7 +538,6 @@
                     <tr>
                         <th class="drag-header"></th>
                         <th>WO#</th>
-                        <th>Callnummer</th>
                         <th>Firma (Ansprechpartner)</th>
                         <th>Telefon</th>
                         <th>Ansprechpartner Stadt (Adresse)</th>
@@ -777,10 +800,12 @@
                             aria-label="WO ${escapeHtml(row.wo)} als abgeschlossen markieren"
                             title="Als abgeschlossen markieren"
                         >✓</button>
-                        <span class="copyable">${escapeHtml(row.wo)}</span>
+                        <div class="wo-text">
+                            <span class="copyable wo-number">${escapeHtml(row.wo)}</span>
+                            ${row.callNumber ? `<span class="copyable wo-callnumber">${escapeHtml(row.callNumber)}</span>` : ''}
+                        </div>
                     </div>
                 </td>
-                <td><span class="copyable">${escapeHtml(row.callNumber)}</span></td>
                 <td class="company-cell">
                     <div class="company-line">
                         <input type="checkbox" id="called-${escapeHtml(row.wo)}" aria-label="Kunde angerufen ${escapeHtml(row.wo)}">
