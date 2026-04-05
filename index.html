@@ -539,7 +539,6 @@
                         <th class="drag-header"></th>
                         <th>WO#</th>
                         <th>Firma (Ansprechpartner)</th>
-                        <th>Telefon</th>
                         <th>Ansprechpartner Stadt (Adresse)</th>
                         <th>Gerät</th>
                         <th>Problem/Arbeit</th>
@@ -809,11 +808,10 @@
                 <td class="company-cell">
                     <div class="company-line">
                         <input type="checkbox" id="called-${escapeHtml(row.wo)}" aria-label="Kunde angerufen ${escapeHtml(row.wo)}">
-                        <label for="called-${escapeHtml(row.wo)}"><span class="copyable">${escapeHtml(companyText(row))}</span></label>
+                        <label for="called-${escapeHtml(row.wo)}"><span class="copyable">${escapeHtml(companyText(row))}</span>${row.phone ? `<br><a class="address-link" href="${escapeHtml(row.phoneLink)}">${escapeHtml(row.phone)}</a>` : ''}${row.phoneAlt ? `<br><a class="address-link" href="${escapeHtml(row.phoneAltLink)}">${escapeHtml(row.phoneAlt)}</a>` : ''}</label>
                     </div>
                     <input type="text" id="note-${escapeHtml(row.wo)}" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;">
                 </td>
-                <td>${row.phoneLink ? `<a class="address-link" href="${escapeHtml(row.phoneLink)}">${escapeHtml(row.phone)}</a>` : `<span>${escapeHtml(row.phone)}</span>`}${row.phoneAltLink ? `<br><a class="address-link" href="${escapeHtml(row.phoneAltLink)}">${escapeHtml(row.phoneAlt)}</a>` : ''}</td>
                 <td><div>${maps !== '#' ? `<a class="address-link copyable" href="${escapeHtml(maps)}" target="_blank" rel="noopener noreferrer">${escapeHtml(address)}</a>` : `<span class="copyable">${escapeHtml(address)}</span>`}</div></td>
                 <td><span class="copyable">${escapeHtml(row.device)}</span></td>
                 <td><span class="problem-text">${escapeHtml(row.problem)}</span></td>
