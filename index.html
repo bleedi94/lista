@@ -660,6 +660,11 @@
         s = s.replace(/(TEL\.?1|TEL\.?2|ALT\.TEL\.?1|ALT\.TEL\.?2|Phone|Telefon)\s*:?\s*/gi, '');
         s = s.replace(/[^\d+]/g, '');
         s = s.replace(/(?!^)\+/g, '');
+        if (!s || s === '+49') return '';
+        if (s.startsWith('+49')) return s;
+        if (s.startsWith('49')) s = '+' + s;
+        else if (s.startsWith('208')) s = '0' + s;
+        else if (s.startsWith('1')) s = '0' + s;
         if (s === '+49' || s.length < 6) return '';
         return s;
     }
@@ -1380,18 +1385,38 @@
         return summarizeProblem(raw);
     }
 
-    function extractContact(text, emails) {
-        const direct = findValue(text, [
+    function extractContact(text, emails, company) {
+        const caller1 = findValue(text, [
             /CALLER1\s*:\s*([^\n:]{2,100})\s+TEL\.?1/i,
+            /CALLER1\s*:\s*([^\n]{2,100})/i
+        ]).replace(/^Herr\s+/i, '').replace(/^\.+/, '').trim();
+        const fallbackDirect = findValue(text, [
             /Ansprechpartner\s*:\s*([^\n]{2,100})/i,
             /Contact Person\s+Phone[\s\S]{0,100}\n([^\n+]+?)\s+\+?\d/i
         ]).replace(/^Herr\s+/i, '').replace(/^\.+/, '').trim();
-        if (looksLikePerson(direct)) return direct;
-        for (let i = 0; i < emails.length; i++) {
-            const derived = deriveNameFromEmail(emails[i]);
-            if (derived) return derived;
+        const normalizedCompany = compact(company).toLowerCase();
+        const normalizedCaller1 = compact(caller1).toLowerCase();
+        if (caller1) {
+            if (looksLikePerson(caller1)) return caller1;
+            if (normalizedCaller1 && normalizedCaller1 === normalizedCompany) {
+                for (let i = 0; i < emails.length; i++) {
+                    const derived = deriveNameFromEmail(emails[i]);
+                    if (derived) return derived;
+                }
+            }
+            if (caller1 && !looksLikeCompany(caller1)) return caller1;
         }
-        return direct && !looksLikeCompany(direct) ? direct : '';
+        if (fallbackDirect) {
+            if (looksLikePerson(fallbackDirect)) return fallbackDirect;
+            if (fallbackDirect && compact(fallbackDirect).toLowerCase() === normalizedCompany) {
+                for (let i = 0; i < emails.length; i++) {
+                    const derived = deriveNameFromEmail(emails[i]);
+                    if (derived) return derived;
+                }
+            }
+            if (!looksLikeCompany(fallbackDirect)) return fallbackDirect;
+        }
+        return '';
     }
 
     function buildRowFromBlock(wo, text, summary) {
@@ -1445,7 +1470,7 @@
             wo: wo,
             callNumber: callNumber,
             company: company,
-            contact: extractContact(text, emails) || (summary ? summary.contact : ''),
+            contact: extractContact(text, emails, company) || (summary ? summary.contact : ''),
             phone: phone,
             phoneAlt: phoneAlt,
             phoneLink: telHref(phone),
@@ -1872,6 +1897,65 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();
 })();
+
+function extractName(caller1, company, email) {
+
+  if (!caller1) return "";
+
+  const normalize = (s) =>
+    (s || "")
+      .toLowerCase()
+      .replace(/\b(gmbh|ag|kg|ltd|mbh|inc|co)\b/g, "")
+      .replace(/[^a-zäöüß ]/gi, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const c1 = normalize(caller1);
+  const comp = normalize(company);
+
+  // 🔥 1. Nëse Caller1 është realisht emër → përdore
+  if (c1 && c1 !== comp) {
+    if (caller1.split(" ").length >= 2) {
+      return caller1.trim();
+    }
+  }
+
+  // 🔥 2. Provo nga email (forma të ndryshme)
+  if (email && email.includes("@")) {
+    const local = email.split("@")[0].toLowerCase();
+
+    // filtro emaila të zakonshëm pa emër
+    if (!/^(info|support|service|kontakt|admin|office|mail|sales)$/.test(local)) {
+
+      // emer.mbiemer
+      if (local.includes(".")) {
+        return formatName(local.split("."));
+      }
+
+      // emer_mbiemer ose emer-mbiemer
+      if (local.includes("_") || local.includes("-")) {
+        return formatName(local.split(/[_-]/));
+      }
+    }
+  }
+
+  // 🔥 3. Nëse Caller1 duket si emër (edhe pa email)
+  if (caller1.split(" ").length >= 2) {
+    return caller1.trim();
+  }
+
+  // 🔚 fallback
+  return caller1.trim();
+}
+
+
+// helper për formatim emri
+function formatName(parts) {
+  return parts
+    .filter(p => p.length > 1)
+    .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+    .join(" ");
+}
 </script>
 
 
