@@ -706,15 +706,17 @@
         const yyyy = d.getFullYear();
         return dd + '.' + mm + '.' + yyyy;
     }
-    function addActionLogEntry(wo, action) {
+    function addActionLogEntry(wo, action, callNumber) {
         const normalizedAction = compact(action);
+        const normalizedCallNumber = compact(callNumber);
         if (!wo || !normalizedAction) return;
         const now = new Date();
         const entry = {
-            datum: normalizedAction === 'F1/F5' ? formatGermanDate(now) : '',
+            datum: formatGermanDate(now),
             workOrderNr: wo,
             status: normalizedAction === 'Pilot' ? 'Pilot' : (normalizedAction === 'Server' ? 'Server' : (normalizedAction === 'Same Site' ? 'Same Site' : '')),
             action: normalizedAction,
+            callNumber: normalizedCallNumber,
             createdAt: now.toISOString()
         };
         const entries = getActionLog();
@@ -732,7 +734,8 @@
             },
             body: JSON.stringify({
                 wo: entry.workOrderNr || '',
-                action: entry.action || ''
+                action: entry.action || '',
+                callNumber: entry.callNumber || ''
             })
         });
     }
@@ -751,7 +754,8 @@
             btn.disabled = true;
             const originalText = btn.textContent;
             btn.textContent = 'Sende...';
-            const entry = addActionLogEntry(wo, value);
+            const row = rowsData.find(function(item) { return item.wo === wo; }) || {};
+            const entry = addActionLogEntry(wo, value, row.callNumber || '');
             sendActionLogToGoogleSheets(entry).then(function() {
                 statusBar.textContent = 'An Google Sheets gesendet: ' + wo + ' – ' + value;
                 showToast('Gesendet');
