@@ -304,6 +304,39 @@
             color: #555;
         }
 
+        .wo-action-row {
+            margin-top: 8px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .wo-action-select {
+            min-width: 120px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 12px;
+            background: #fff;
+            color: #111;
+        }
+
+        .wo-action-btn {
+            appearance: none;
+            border: 1px solid #2c3e50;
+            background: #fff;
+            color: #2c3e50;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .wo-action-btn:hover {
+            background: #f5f7f9;
+        }
+
         .done-btn {
             appearance: none;
             border: 1px solid #22c55e;
@@ -515,7 +548,7 @@
                     <button type="button" class="btn" id="choosePdfBtn">PDF auswählen</button>
                     <input type="file" id="pdfInput" class="hidden-file-input" accept="application/pdf" multiple>
                     <button type="button" class="btn secondary" id="exportHtmlBtn">HTML exportieren</button>
-                    <button type="button" class="btn secondary" id="clearBtn">Liste leeren</button>
+                                        <button type="button" class="btn secondary" id="clearBtn">Liste leeren</button>
                     <button type="button" class="btn secondary" id="toggleDebugBtn">Debug anzeigen</button>
                 </div>
                 <div class="toolbar-right">
@@ -597,6 +630,8 @@
     const autoPushCheckbox = document.getElementById('autoPushCheckbox');
 
 
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9aApwzuTcUzzh1X6Rzsu6fYWyLarYNc-Y5oL5Jxz_4nmkUJNt1K9UKcWnM-IcjK5PsA/exec';
+
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
     if (pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.worker.min.js';
@@ -652,6 +687,86 @@
         if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(s)) return false;
         return /[A-Za-zÄÖÜäöüß]/.test(s) && s.split(/\s+/).length >= 2;
     }
+    function getActionLog() {
+        try {
+            const parsed = JSON.parse(localStorage.getItem(globalStorageKey('actionLog')) || '[]');
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+    function saveActionLog(entries) {
+        try { localStorage.setItem(globalStorageKey('actionLog'), JSON.stringify(entries || [])); } catch (e) {}
+    }
+    function formatGermanDate(date) {
+        const d = date instanceof Date ? date : new Date(date);
+        if (isNaN(d.getTime())) return '';
+        const dd = String(d.getDate()).padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const yyyy = d.getFullYear();
+        return dd + '.' + mm + '.' + yyyy;
+    }
+    function addActionLogEntry(wo, action) {
+        const normalizedAction = compact(action);
+        if (!wo || !normalizedAction) return;
+        const now = new Date();
+        const entry = {
+            datum: normalizedAction === 'F1/F5' ? formatGermanDate(now) : '',
+            workOrderNr: wo,
+            status: normalizedAction === 'Pilot' ? 'Pilot' : (normalizedAction === 'Server' ? 'Server' : (normalizedAction === 'Same Site' ? 'Same Site' : '')),
+            action: normalizedAction,
+            createdAt: now.toISOString()
+        };
+        const entries = getActionLog();
+        entries.push(entry);
+        saveActionLog(entries);
+        return entry;
+    }
+    async function sendActionLogToGoogleSheets(entry) {
+        if (!entry) throw new Error('Kein Eintrag zum Senden vorhanden.');
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify({
+                wo: entry.workOrderNr || '',
+                action: entry.action || ''
+            })
+        });
+    }
+    function setupWoActionButtons() {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-wo-action-btn]');
+            if (!btn) return;
+            const wo = btn.getAttribute('data-wo-action-btn');
+            const select = document.getElementById('wo-action-' + wo);
+            if (!select) return;
+            const value = compact(select.value);
+            if (!value) {
+                statusBar.textContent = 'Bitte zuerst eine Option für WO ' + wo + ' auswählen.';
+                return;
+            }
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = 'Sende...';
+            const entry = addActionLogEntry(wo, value);
+            sendActionLogToGoogleSheets(entry).then(function() {
+                statusBar.textContent = 'An Google Sheets gesendet: ' + wo + ' – ' + value;
+                showToast('Gesendet');
+                select.value = '';
+            }).catch(function(err) {
+                statusBar.textContent = 'Senden fehlgeschlagen für WO ' + wo + '.';
+                showToast('Fehler beim Senden');
+                console.error(err);
+            }).finally(function() {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            });
+        });
+    }
+
     function showToast(message) {
         toast.textContent = message;
         toast.classList.add('show');
@@ -802,6 +917,16 @@
                         <div class="wo-text">
                             <span class="copyable wo-number">${escapeHtml(row.wo)}</span>
                             ${row.callNumber ? `<span class="copyable wo-callnumber">${escapeHtml(row.callNumber)}</span>` : ''}
+                            <div class="wo-action-row">
+                                <select class="wo-action-select" id="wo-action-${escapeHtml(row.wo)}" aria-label="Aktion für WO ${escapeHtml(row.wo)}">
+                                    <option value="">Option wählen</option>
+                                    <option value="F1/F5">F1/F5</option>
+                                    <option value="Pilot">Pilot</option>
+                                    <option value="Server">Server</option>
+                                    <option value="Same Site">Same Site</option>
+                                </select>
+                                <button type="button" class="wo-action-btn" data-wo-action-btn="${escapeHtml(row.wo)}">Speichern</button>
+                            </div>
                         </div>
                     </div>
                 </td>
@@ -1519,7 +1644,8 @@
                     called: !!(calledEl && calledEl.checked),
                     note: noteEl ? (noteEl.value || '') : ''
                 };
-            })
+            }),
+            actionLog: getActionLog()
         };
 
         const bootstrapScript = clone.ownerDocument.createElement('script');
@@ -1678,6 +1804,7 @@
         }
         keys.forEach(function(key) { localStorage.removeItem(key); });
         rowsData = [];
+        saveActionLog([]);
         subtitle.textContent = '';
         subtitle.style.display = 'none';
         render();
@@ -1707,7 +1834,8 @@
         loadGithubSettings();
         render();
         setupClickToCopy();
-            setupCompleteToggle();
+        setupCompleteToggle();
+        setupWoActionButtons();
         bindDropzone();
         choosePdfBtn.addEventListener('click', function() { pdfInput.click(); });
         pdfInput.addEventListener('change', function(e) { processFiles(e.target.files); pdfInput.value = ''; });
