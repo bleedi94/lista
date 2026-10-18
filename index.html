@@ -744,35 +744,47 @@
             })
         });
     }
-    function setupWoActionButtons() {
+    function setupEmailActionButtons() {
         document.addEventListener('click', function(e) {
-            const btn = e.target.closest('[data-wo-action-btn]');
+            const btn = e.target.closest('[data-email-type]');
             if (!btn) return;
-            const wo = btn.getAttribute('data-wo-action-btn');
-            const select = document.getElementById('wo-action-' + wo);
-            if (!select) return;
-            const value = compact(select.value);
-            if (!value) {
-                statusBar.textContent = 'Bitte zuerst eine Option für WO ' + wo + ' auswählen.';
-                return;
+
+            const type = btn.getAttribute('data-email-type');
+            const wo = btn.getAttribute('data-wo');
+
+            // Richtige Zeile aus den Daten suchen
+            const row = rowsData.find(function(item) { return item.wo === wo; });
+            if (!row) return;
+
+            // Ansprechpartner (Caller1) und Telefonnummer (Tel.1) holen
+            const caller1 = row.contact || row.company || 'Kunde';
+            const phone = row.phone || 'N/A';
+
+            // Festgelegte Empfänger
+            const recipients = 'West.Ddisp@Getronics.com,Dispatch@Dk-Tech.Eu';
+
+            let subject = '';
+            let body = '';
+
+            // Betreff und E-Mail-Text je nach Button erstellen
+            if (type === 'CAD') {
+                subject = wo + ' - CAD';
+                body = 'BDR called ' + caller1 + ' on ' + phone + ' / CAD to \n\nParts at ';
+            } else if (type === 'CNA') {
+                subject = wo + ' - CNA';
+                body = 'BDR called ' + caller1 + ' on ' + phone + ' / CNA \n\nParts at ';
+            } else if (type === 'PNA') {
+                subject = wo + ' - PNA';
+                body = 'BDR called ' + caller1 + ' on ' + phone + ' / PNA (Custumer has been informed about PNA)\n\nParts at ';
             }
-            btn.disabled = true;
-            const originalText = btn.textContent;
-            btn.textContent = 'Sende...';
-            const row = rowsData.find(function(item) { return item.wo === wo; }) || {};
-            const entry = addActionLogEntry(wo, value, row.callNumber || '');
-            sendActionLogToGoogleSheets(entry).then(function() {
-                statusBar.textContent = 'An Google Sheets gesendet: ' + wo + ' – ' + value;
-                showToast('Gesendet');
-                select.value = '';
-            }).catch(function(err) {
-                statusBar.textContent = 'Senden fehlgeschlagen für WO ' + wo + '.';
-                showToast('Fehler beim Senden');
-                console.error(err);
-            }).finally(function() {
-                btn.disabled = false;
-                btn.textContent = originalText;
-            });
+
+            // Mailto-Link mit Empfängern generieren
+            const mailtoUrl = 'mailto:' + encodeURIComponent(recipients) + 
+                             '?subject=' + encodeURIComponent(subject) + 
+                             '&body=' + encodeURIComponent(body);
+
+            // Öffnet Outlook
+            window.location.href = mailtoUrl;
         });
     }
 
@@ -946,11 +958,16 @@
                     </div>
                     <input type="text" id="note-${escapeHtml(row.wo)}" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;">
                 </td>
-                <td><div>${maps !== '#' ? `<a class="address-link copyable" href="${escapeHtml(maps)}" target="_blank" rel="noopener noreferrer">${escapeHtml(address)}</a>` : `<span class="copyable">${escapeHtml(address)}</span>`}</div></td>
+                <td><div>${maps !== '#' ? `<a class="address-link copyable" href="${escapeHtml(maps)}" target="_blank" rel="noopener noreferrer">${escapeHtml(address)}</a>` : `<span class="copyable">${escapeHtml(address)}</span>`}</div> <div style="display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap;">
+                        <button type="button" class="wo-action-btn" data-email-type="CAD" data-wo="${escapeHtml(row.wo)}">CAD</button>
+                        <button type="button" class="wo-action-btn" data-email-type="CNA" data-wo="${escapeHtml(row.wo)}">CNA</button>
+                        <button type="button" class="wo-action-btn" data-email-type="PNA" data-wo="${escapeHtml(row.wo)}">PNA</button>
+                    </div> </td>
                 <td><span class="copyable">${escapeHtml(row.device)}</span></td>
                 <td><span class="problem-text">${escapeHtml(row.problem)}</span></td>
                 <td><span class="copyable">${escapeHtml(row.serial)}</span></td>
-            </tr>`;
+    
+        </tr>`;
     }
 
     function syncRowsFromDom() {
@@ -1091,6 +1108,35 @@
         });
         enrichSummaryMapWithContactRows(lines, map);
         return map;
+    }
+
+ function setupEmailButtons() {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-wo-email]');
+            if (!btn) return;
+            
+            const wo = btn.getAttribute('data-wo-email');
+            
+            // Suche die Daten der passenden Work Order aus rowsData
+            const row = rowsData.find(function(item) { return item.wo === wo; });
+            if (!row) return;
+
+            // Ansprechpartner / Caller1 (Fallback, falls leer)
+            const caller1 = row.contact || row.company || 'Kunde';
+            
+            // Telefonnummer / TEL.1 (Fallback, falls leer)
+            const phone = row.phone || 'N/A';
+
+            // Betreff und Body für die E-Mail erstellen
+            const subject = wo + ' - ';
+            const body = 'BDR called ' + caller1 + ' on ' + phone + ' / ';
+
+            // Generiere den mailto-Link (encodeURIComponent sorgt für korrekte Leerzeichen & Sonderzeichen)
+            const mailtoUrl = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+            // Öffnet Outlook mit ausgefülltem Betreff und Text
+            window.location.href = mailtoUrl;
+        });
     }
 
     function detectWorkOrders(text) {
@@ -1864,7 +1910,7 @@
         render();
         setupClickToCopy();
         setupCompleteToggle();
-        setupWoActionButtons();
+        setupEmailActionButtons();
         bindDropzone();
         choosePdfBtn.addEventListener('click', function() { pdfInput.click(); });
         pdfInput.addEventListener('change', function(e) { processFiles(e.target.files); pdfInput.value = ''; });
