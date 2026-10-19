@@ -205,7 +205,6 @@
             background: #fafafa;
         }
 
-
         #dropzone {
             display: none !important;
         }
@@ -285,7 +284,6 @@
             align-items: center;
             gap: 8px;
         }
-
 
         .wo-text {
             display: flex;
@@ -468,7 +466,6 @@
             resize: vertical;
         }
 
-
         .github-box {
             margin-top: 14px;
             padding: 14px;
@@ -531,7 +528,6 @@
             font-size: 13px;
             color: #2c3e50;
         }
-
     </style>
 </head>
 <body>
@@ -548,7 +544,7 @@
                     <button type="button" class="btn" id="choosePdfBtn">PDF auswählen</button>
                     <input type="file" id="pdfInput" class="hidden-file-input" accept="application/pdf" multiple>
                     <button type="button" class="btn secondary" id="exportHtmlBtn">HTML exportieren</button>
-                                        <button type="button" class="btn secondary" id="clearBtn">Liste leeren</button>
+                    <button type="button" class="btn secondary" id="clearBtn">Liste leeren</button>
                     <button type="button" class="btn secondary" id="toggleDebugBtn">Debug anzeigen</button>
                 </div>
                 <div class="toolbar-right">
@@ -559,8 +555,6 @@
                 <p> oder auf „PDF auswählen“ klicken.</p>
                 <p></p>
             </div>
-
-
         </div>
 
         <div class="status-bar" id="statusBar">Bereit.</div>
@@ -596,8 +590,6 @@
     <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.13.216/legacy/build/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
-    
-
 <script>
 (function() {
     const STORAGE_PREFIX = 'WOList:dynamic-v11:';
@@ -628,7 +620,6 @@
     const saveGithubSettingsBtn = document.getElementById('saveGithubSettingsBtn');
     const pushToGithubBtn = document.getElementById('pushToGithubBtn');
     const autoPushCheckbox = document.getElementById('autoPushCheckbox');
-
 
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz9aApwzuTcUzzh1X6Rzsu6fYWyLarYNc-Y5oL5Jxz_4nmkUJNt1K9UKcWnM-IcjK5PsA/exec';
 
@@ -744,6 +735,38 @@
             })
         });
     }
+    function setupWoActionButtons() {
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-wo-action-btn]');
+            if (!btn) return;
+            const wo = btn.getAttribute('data-wo-action-btn');
+            const select = document.getElementById('wo-action-' + wo);
+            if (!select) return;
+            const value = compact(select.value);
+            if (!value) {
+                statusBar.textContent = 'Bitte zuerst eine Option für WO ' + wo + ' auswählen.';
+                return;
+            }
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = 'Sende...';
+            const row = rowsData.find(function(item) { return item.wo === wo; }) || {};
+            const entry = addActionLogEntry(wo, value, row.callNumber || '');
+            sendActionLogToGoogleSheets(entry).then(function() {
+                statusBar.textContent = 'An Google Sheets gesendet: ' + wo + ' – ' + value;
+                showToast('Gesendet');
+                select.value = '';
+            }).catch(function(err) {
+                statusBar.textContent = 'Senden fehlgeschlagen für WO ' + wo + '.';
+                showToast('Fehler beim Senden');
+                console.error(err);
+            }).finally(function() {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            });
+        });
+    }
+
     function setupEmailActionButtons() {
         document.addEventListener('click', function(e) {
             const btn = e.target.closest('[data-email-type]');
@@ -752,21 +775,17 @@
             const type = btn.getAttribute('data-email-type');
             const wo = btn.getAttribute('data-wo');
 
-            // Richtige Zeile aus den Daten suchen
             const row = rowsData.find(function(item) { return item.wo === wo; });
             if (!row) return;
 
-            // Ansprechpartner (Caller1) und Telefonnummer (Tel.1) holen
             const caller1 = row.contact || row.company || 'Kunde';
             const phone = row.phone || 'N/A';
 
-            // Festgelegte Empfänger
             const recipients = 'West.Ddisp@Getronics.com,Dispatch@Dk-Tech.Eu';
 
             let subject = '';
             let body = '';
 
-            // Betreff und E-Mail-Text je nach Button erstellen
             if (type === 'CAD') {
                 subject = wo + ' - CAD';
                 body = 'BDR called ' + caller1 + ' on ' + phone + ' / CAD to \n\nParts at ';
@@ -778,12 +797,10 @@
                 body = 'BDR called ' + caller1 + ' on ' + phone + ' / PNA (Custumer has been informed about PNA)\n\nParts at ';
             }
 
-            // Mailto-Link mit Empfängern generieren
             const mailtoUrl = 'mailto:' + encodeURIComponent(recipients) + 
                              '?subject=' + encodeURIComponent(subject) + 
                              '&body=' + encodeURIComponent(body);
 
-            // Öffnet Outlook
             window.location.href = mailtoUrl;
         });
     }
@@ -919,55 +936,68 @@
         if (company) return company;
         return '';
     }
+
     function rowHtml(row) {
         const address = addressText(row);
-        const maps = address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : '#';
+        const maps = address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address) : '#';
         const completed = isCompleted(row.wo);
-        return `
-            <tr data-id="${escapeHtml(row.wo)}" class="${completed ? 'wo-complete' : ''}">
-                <td class="drag-cell" title="Ziehen zum Sortieren">☰</td>
-                <td>
-                    <div class="wo-cell">
-                        <button
-                            type="button"
-                            class="done-btn ${completed ? 'is-done' : ''}"
-                            data-complete-wo="${escapeHtml(row.wo)}"
-                            aria-label="WO ${escapeHtml(row.wo)} als abgeschlossen markieren"
-                            title="Als abgeschlossen markieren"
-                        >✓</button>
-                        <div class="wo-text">
-                            <span class="copyable wo-number">${escapeHtml(row.wo)}</span>
-                            ${row.callNumber ? `<span class="copyable wo-callnumber">${escapeHtml(row.callNumber)}</span>` : ''}
-                            <div class="wo-action-row">
-                                <select class="wo-action-select" id="wo-action-${escapeHtml(row.wo)}" aria-label="Aktion für WO ${escapeHtml(row.wo)}">
-                                    <option value="">Option wählen</option>
-                                    <option value="F1/F5">F1/F5</option>
-                                    <option value="Pilot">Pilot</option>
-                                    <option value="Server">Server</option>
-                                    <option value="Same Site">Same Site</option>
-                                </select>
-                                <button type="button" class="wo-action-btn" data-wo-action-btn="${escapeHtml(row.wo)}">Speichern</button>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td class="company-cell">
-                    <div class="company-line">
-                        <input type="checkbox" id="called-${escapeHtml(row.wo)}" aria-label="Kunde angerufen ${escapeHtml(row.wo)}">
-                        <label for="called-${escapeHtml(row.wo)}"><span class="copyable">${escapeHtml(companyText(row))}</span>${row.phone ? `<br><a class="address-link" href="${escapeHtml(row.phoneLink)}">${escapeHtml(row.phone)}</a>` : ''}${row.phoneAlt ? `<br><a class="address-link" href="${escapeHtml(row.phoneAltLink)}">${escapeHtml(row.phoneAlt)}</a>` : ''}</label>
-                    </div>
-                    <input type="text" id="note-${escapeHtml(row.wo)}" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;">
-                </td>
-                <td><div>${maps !== '#' ? `<a class="address-link copyable" href="${escapeHtml(maps)}" target="_blank" rel="noopener noreferrer">${escapeHtml(address)}</a>` : `<span class="copyable">${escapeHtml(address)}</span>`}</div> <div style="display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap;">
-                        <button type="button" class="wo-action-btn" data-email-type="CAD" data-wo="${escapeHtml(row.wo)}">CAD</button>
-                        <button type="button" class="wo-action-btn" data-email-type="CNA" data-wo="${escapeHtml(row.wo)}">CNA</button>
-                        <button type="button" class="wo-action-btn" data-email-type="PNA" data-wo="${escapeHtml(row.wo)}">PNA</button>
-                    </div> </td>
-                <td><span class="copyable">${escapeHtml(row.device)}</span></td>
-                <td><span class="problem-text">${escapeHtml(row.problem)}</span></td>
-                <td><span class="copyable">${escapeHtml(row.serial)}</span></td>
-    
-        </tr>`;
+
+        let html = '';
+        html += '<tr data-id="' + escapeHtml(row.wo) + '" class="' + (completed ? 'wo-complete' : '') + '">';
+        html += '<td class="drag-cell" title="Ziehen zum Sortieren">☰</td>';
+        html += '<td>';
+        html += '    <div class="wo-cell">';
+        html += '        <button type="button" class="done-btn ' + (completed ? 'is-done' : '') + '" data-complete-wo="' + escapeHtml(row.wo) + '" aria-label="WO ' + escapeHtml(row.wo) + ' als abgeschlossen markieren" title="Als abgeschlossen markieren">✓</button>';
+        html += '        <div class="wo-text">';
+        html += '            <span class="copyable wo-number">' + escapeHtml(row.wo) + '</span>';
+        if (row.callNumber) {
+            html += '        <span class="copyable wo-callnumber">' + escapeHtml(row.callNumber) + '</span>';
+        }
+        html += '            <div class="wo-action-row">';
+        html += '                <select class="wo-action-select" id="wo-action-' + escapeHtml(row.wo) + '" aria-label="Aktion für WO ' + escapeHtml(row.wo) + '">';
+        html += '                    <option value="">Option wählen</option>';
+        html += '                    <option value="F1/F5">F1/F5</option>';
+        html += '                    <option value="Pilot">Pilot</option>';
+        html += '                    <option value="Server">Server</option>';
+        html += '                    <option value="Same Site">Same Site</option>';
+        html += '                </select>';
+        html += '                <button type="button" class="wo-action-btn" data-wo-action-btn="' + escapeHtml(row.wo) + '">Speichern</button>';
+        html += '            </div>';
+        html += '        </div>';
+        html += '    </div>';
+        html += '</td>';
+        html += '<td class="company-cell">';
+        html += '    <div class="company-line">';
+        html += '        <input type="checkbox" id="called-' + escapeHtml(row.wo) + '" aria-label="Kunde angerufen ' + escapeHtml(row.wo) + '">';
+        html += '        <label for="called-' + escapeHtml(row.wo) + '"><span class="copyable">' + escapeHtml(companyText(row)) + '</span>';
+        if (row.phone) {
+            html += '<br><a class="address-link" href="' + escapeHtml(row.phoneLink) + '">' + escapeHtml(row.phone) + '</a>';
+        }
+        if (row.phoneAlt) {
+            html += '<br><a class="address-link" href="' + escapeHtml(row.phoneAltLink) + '">' + escapeHtml(row.phoneAlt) + '</a>';
+        }
+        html += '        </label>';
+        html += '    </div>';
+        html += '    <input type="text" id="note-' + escapeHtml(row.wo) + '" placeholder="Notiz" style="width:100%; padding:8px 10px; border:1px solid #d0d0d0; border-radius:6px; font-size:12px; color:#111; background:#fff;">';
+        html += '</td>';
+        html += '<td>';
+        if (maps !== '#') {
+            html += '    <div><a class="address-link copyable" href="' + escapeHtml(maps) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(address) + '</a></div>';
+        } else {
+            html += '    <div><span class="copyable">' + escapeHtml(address) + '</span></div>';
+        }
+        html += '    <div style="display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap;">';
+        html += '        <button type="button" class="wo-action-btn" data-email-type="CAD" data-wo="' + escapeHtml(row.wo) + '">CAD</button>';
+        html += '        <button type="button" class="wo-action-btn" data-email-type="CNA" data-wo="' + escapeHtml(row.wo) + '">CNA</button>';
+        html += '        <button type="button" class="wo-action-btn" data-email-type="PNA" data-wo="' + escapeHtml(row.wo) + '">PNA</button>';
+        html += '    </div>';
+        html += '</td>';
+        html += '<td><span class="copyable">' + escapeHtml(row.device) + '</span></td>';
+        html += '<td><span class="problem-text">' + escapeHtml(row.problem) + '</span></td>';
+        html += '<td><span class="copyable">' + escapeHtml(row.serial) + '</span></td>';
+        html += '</tr>';
+
+        return html;
     }
 
     function syncRowsFromDom() {
@@ -1110,35 +1140,6 @@
         return map;
     }
 
- function setupEmailButtons() {
-        document.addEventListener('click', function(e) {
-            const btn = e.target.closest('[data-wo-email]');
-            if (!btn) return;
-            
-            const wo = btn.getAttribute('data-wo-email');
-            
-            // Suche die Daten der passenden Work Order aus rowsData
-            const row = rowsData.find(function(item) { return item.wo === wo; });
-            if (!row) return;
-
-            // Ansprechpartner / Caller1 (Fallback, falls leer)
-            const caller1 = row.contact || row.company || 'Kunde';
-            
-            // Telefonnummer / TEL.1 (Fallback, falls leer)
-            const phone = row.phone || 'N/A';
-
-            // Betreff und Body für die E-Mail erstellen
-            const subject = wo + ' - ';
-            const body = 'BDR called ' + caller1 + ' on ' + phone + ' / ';
-
-            // Generiere den mailto-Link (encodeURIComponent sorgt für korrekte Leerzeichen & Sonderzeichen)
-            const mailtoUrl = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-
-            // Öffnet Outlook mit ausgefülltem Betreff und Text
-            window.location.href = mailtoUrl;
-        });
-    }
-
     function detectWorkOrders(text) {
         return Array.from(new Set((text.match(/\b17\d{6}\b/g) || [])));
     }
@@ -1174,7 +1175,6 @@
         const matches = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi);
         return matches ? Array.from(new Set(matches.map(compact))) : [];
     }
-
 
     function normalizeDevice(value) {
         let s = compact(value);
@@ -1237,7 +1237,6 @@
         t = t.replace(/\s{2,}/g, ' ').trim();
         return t;
     }
-
 
     function summarizeProblem(raw) {
         let t = normalizeNarrativeText(raw);
@@ -1606,7 +1605,6 @@
         }).sort(function(a, b) { return String(a.wo).localeCompare(String(b.wo)); });
     }
 
-
     function getGithubSettings() {
         return {
             owner: compact(githubOwnerInput ? githubOwnerInput.value : ''),
@@ -1910,6 +1908,7 @@
         render();
         setupClickToCopy();
         setupCompleteToggle();
+        setupWoActionButtons();
         setupEmailActionButtons();
         bindDropzone();
         choosePdfBtn.addEventListener('click', function() { pdfInput.click(); });
@@ -1945,7 +1944,6 @@
 })();
 
 function extractName(caller1, company, email) {
-
   if (!caller1) return "";
 
   const normalize = (s) =>
@@ -1959,43 +1957,32 @@ function extractName(caller1, company, email) {
   const c1 = normalize(caller1);
   const comp = normalize(company);
 
-  // 🔥 1. Nëse Caller1 është realisht emër → përdore
   if (c1 && c1 !== comp) {
     if (caller1.split(" ").length >= 2) {
       return caller1.trim();
     }
   }
 
-  // 🔥 2. Provo nga email (forma të ndryshme)
   if (email && email.includes("@")) {
     const local = email.split("@")[0].toLowerCase();
 
-    // filtro emaila të zakonshëm pa emër
     if (!/^(info|support|service|kontakt|admin|office|mail|sales)$/.test(local)) {
-
-      // emer.mbiemer
       if (local.includes(".")) {
         return formatName(local.split("."));
       }
-
-      // emer_mbiemer ose emer-mbiemer
       if (local.includes("_") || local.includes("-")) {
         return formatName(local.split(/[_-]/));
       }
     }
   }
 
-  // 🔥 3. Nëse Caller1 duket si emër (edhe pa email)
   if (caller1.split(" ").length >= 2) {
     return caller1.trim();
   }
 
-  // 🔚 fallback
   return caller1.trim();
 }
 
-
-// helper për formatim emri
 function formatName(parts) {
   return parts
     .filter(p => p.length > 1)
@@ -2003,7 +1990,5 @@ function formatName(parts) {
     .join(" ");
 }
 </script>
-
-
 </body>
 </html>
